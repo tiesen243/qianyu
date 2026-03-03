@@ -1,17 +1,17 @@
 import './globals.css'
 
-import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 import { StatusBar, useColorScheme } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider as ReduxProvider } from 'react-redux'
 
+import { DarkTheme, LightTheme } from './lib/theme'
 import { store } from './redux/store'
 import Navigation from './screens/__root'
 
 function App() {
   const colorScheme = useColorScheme()
-  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme
+  const theme = colorScheme === 'dark' ? DarkTheme : LightTheme
 
   return (
     <SafeAreaProvider>
