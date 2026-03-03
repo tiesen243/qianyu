@@ -4,7 +4,7 @@ import { lazy } from 'react'
 
 const Tabs = createBottomTabNavigator({
   screenOptions: {
-    tabBarLabelStyle: { display: 'none' },
+    tabBarShowLabel: false,
   },
 
   screens: {
