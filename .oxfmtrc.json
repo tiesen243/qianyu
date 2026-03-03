@@ -28,10 +28,12 @@
     "order": "asc"
   },
 
-  "sortPackageJson": true,
+  "sortPackageJson": {
+    "sortScripts": true
+  },
 
   "sortTailwindcss": {
     "functions": ["clsx", "cva", "cn"],
-    "stylesheet": "./kaze/app/globals.css"
+    "stylesheet": "./src/globals.css"
   }
 }

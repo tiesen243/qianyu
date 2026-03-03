@@ -11,8 +11,8 @@ import com.swmansion.rnscreens.fragment.restoration.RNScreensFragmentFactory
 
 class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
-    SplashScreen.show(this)
     supportFragmentManager.fragmentFactory = RNScreensFragmentFactory()
+    SplashScreen.show(this)
     super.onCreate(savedInstanceState)
   }
 

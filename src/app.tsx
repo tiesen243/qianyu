@@ -1,3 +1,5 @@
+import './globals.css'
+
 import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 import { StatusBar, useColorScheme } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
