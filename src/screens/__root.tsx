@@ -2,28 +2,15 @@ import type { StaticParamList } from '@react-navigation/native'
 
 import { createStaticNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { View, Text } from 'react-native'
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  )
-}
-
-function AboutScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>About Screen</Text>
-    </View>
-  )
-}
+import Tabs from './(tabs)/__root'
 
 const RootStack = createNativeStackNavigator({
   screens: {
-    home: HomeScreen,
-    about: AboutScreen,
+    tabs: {
+      screen: Tabs,
+      options: { headerShown: false },
+    },
   },
 })
 
