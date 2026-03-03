@@ -1,18 +1,25 @@
 package com.qianyu
 
+import android.os.Bundle
+import android.content.res.Configuration
+
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
-import android.os.Bundle
 import org.devio.rn.splashscreen.SplashScreen
 import com.swmansion.rnscreens.fragment.restoration.RNScreensFragmentFactory
 
 class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     supportFragmentManager.fragmentFactory = RNScreensFragmentFactory()
+
+    val nightFlag = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    val isDark = nightFlag == Configuration.UI_MODE_NIGHT_YES
+    setTheme(if (isDark) R.style.DarkTheme else R.style.LightTheme)
     SplashScreen.show(this)
+
     super.onCreate(savedInstanceState)
   }
 
