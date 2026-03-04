@@ -1,4 +1,4 @@
-package com.qianyu
+package com.qianyu.mobile
 
 import android.os.Bundle
 import android.content.res.Configuration
