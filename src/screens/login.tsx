@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { View } from 'react-native'
 
-import { Button } from '../components/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -9,13 +9,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../components/ui/card'
-import { Input } from '../components/ui/input'
-import { Label } from '../components/ui/label'
-import { Text } from '../components/ui/text'
-import { useForm } from '../hooks/use-form'
-import { useAppDispatch } from '../redux/hooks'
-import { login } from '../redux/slices/auth.slice'
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Text } from '@/components/ui/text'
+import { useForm } from '@/hooks/use-form'
+import { useAppDispatch } from '@/redux/hooks'
+import { login } from '@/redux/slices/auth.slice'
 
 export default function LoginScreen() {
   const navigation = useNavigation()
@@ -26,7 +26,7 @@ export default function LoginScreen() {
     onSubmit: ({ email }) => {
       dispatch(
         login({
-          id: Math.random().toString(36).substring(2, 15),
+          id: Math.random().toString(36).slice(2, 10),
           name: email.split('@')[0] ?? 'User',
         })
       )

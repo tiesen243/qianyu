@@ -9,7 +9,7 @@ const Tabs = createBottomTabNavigator({
 
   screens: {
     index: {
-      screen: lazy(() => import('./_index')),
+      screen: lazy(() => import('@/screens/(tabs)/_index')),
       options: {
         title: 'Home',
         tabBarIcon: ({ color, size }) => <HomeIcon color={color} size={size} />,
@@ -17,7 +17,7 @@ const Tabs = createBottomTabNavigator({
     },
 
     counter: {
-      screen: lazy(() => import('./counter')),
+      screen: lazy(() => import('@/screens/(tabs)/counter')),
       options: {
         title: 'Counter',
         tabBarIcon: ({ color, size }) => (

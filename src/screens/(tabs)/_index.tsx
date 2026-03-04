@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import { View } from 'react-native'
 
-import { Button } from '../../components/ui/button'
-import { Text } from '../../components/ui/text'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { logout } from '../../redux/slices/auth.slice'
+import { Button } from '@/components/ui/button'
+import { Text } from '@/components/ui/text'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { logout } from '@/redux/slices/auth.slice'
 
 export default function IndexScreen() {
   const auth = useAppSelector((state) => state.auth)

@@ -1,16 +1,16 @@
 import { View } from 'react-native'
 
-import { Button } from '../../components/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../../components/ui/card'
-import { Text } from '../../components/ui/text'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { increment, decrement } from '../../redux/slices/counter.slice'
+} from '@/components/ui/card'
+import { Text } from '@/components/ui/text'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { increment, decrement } from '@/redux/slices/counter.slice'
 
 export default function CounterScreen() {
   const counter = useAppSelector((state) => state.counter)

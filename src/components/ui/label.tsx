@@ -1,6 +1,6 @@
 import { Text } from 'react-native'
 
-import { cn } from '../../lib/utils'
+import { cn } from '@/lib/utils'
 
 function Label({ className, ...props }: React.ComponentProps<typeof Text>) {
   return (

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { View } from 'react-native'
 
-import { cn } from '../../lib/utils'
-import { Text } from './text'
+import { Text } from '@/components/ui/text'
+import { cn } from '@/lib/utils'
 
 function Card({
   className,

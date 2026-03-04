@@ -5,7 +5,7 @@ import { cva } from 'cva'
 import * as React from 'react'
 import { Text as RNText } from 'react-native'
 
-import { cn } from '../../lib/utils'
+import { cn } from '@/lib/utils'
 
 const textVariants = cva('text-base text-foreground web:select-text', {
   variants: {

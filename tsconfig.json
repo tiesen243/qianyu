@@ -30,8 +30,12 @@
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "noEmit": false,
-    "outDir": "${configDir}/dist"
+    "outDir": "${configDir}/dist",
+    /** Path aliases */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["**/node_modules", "**/Pods"]
 }
