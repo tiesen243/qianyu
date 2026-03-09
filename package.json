@@ -42,6 +42,6 @@
     "oxlint": "^1.51.0",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
-    "uniwind": "^1.4.1"
+    "uniwind": "^1.5.0"
   }
 }
