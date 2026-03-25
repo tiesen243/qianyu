@@ -1,6 +1,8 @@
 import '@/globals.css'
 
+import { HeroUINativeProvider, ToastProvider } from 'heroui-native'
 import { StatusBar, useColorScheme } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 
@@ -16,14 +18,26 @@ function App() {
         barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
       />
 
-      <Navigation
-        theme={colorScheme === 'dark' ? DarkTheme : LightTheme}
-        linking={{
-          enabled: 'auto',
-          prefixes: [],
-        }}
-        onReady={() => SplashScreen.hide()}
-      />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <HeroUINativeProvider
+          config={{
+            devInfo: {
+              stylingPrinciples: true,
+            },
+          }}
+        >
+          <ToastProvider>
+            <Navigation
+              theme={colorScheme === 'dark' ? DarkTheme : LightTheme}
+              linking={{
+                enabled: 'auto',
+                prefixes: [],
+              }}
+              onReady={() => SplashScreen.hide()}
+            />
+          </ToastProvider>
+        </HeroUINativeProvider>
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   )
 }
