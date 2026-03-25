@@ -2,7 +2,6 @@ import type { StaticParamList } from '@react-navigation/native'
 
 import { createStaticNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { lazy } from 'react'
 
 import Tabs from '@/screens/(tabs)/__root'
 
@@ -10,11 +9,6 @@ const RootStack = createNativeStackNavigator({
   screens: {
     tabs: {
       screen: Tabs,
-      options: { headerShown: false },
-    },
-
-    login: {
-      screen: lazy(() => import('@/screens/login')),
       options: { headerShown: false },
     },
   },
