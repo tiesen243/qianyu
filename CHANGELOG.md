@@ -1,5 +1,12 @@
 # qianyu
 
+## 0.0.8
+
+### Patch Changes
+
+- 6a2606e: added ci for check code style
+- 2b8c6e1: update ci workflow
+
 ## 0.0.7
 
 ### Patch Changes
