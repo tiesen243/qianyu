@@ -11,7 +11,7 @@ export const Posts: React.FC = () => {
     <FlatList
       data={posts}
       keyExtractor={(item) => item.id}
-      contentContainerClassName='gap-2 px-4 pb-20'
+      contentContainerClassName='gap-2 px-4 pb-24'
       renderItem={({ item }) => (
         <Card key={item.id}>
           <Card.Header className='flex-row items-center gap-2'>

@@ -31,7 +31,7 @@ export default function SearchScreen() {
 
       <FlatList
         className='w-full'
-        contentContainerClassName='gap-2 pb-30'
+        contentContainerClassName='gap-2 pb-24'
         data={filteredUsers}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (

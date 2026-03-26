@@ -14,15 +14,7 @@ export function Container({
       {...props}
       data-slot='container'
       className={cn('flex-1 bg-background', className)}
-      style={[
-        {
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-        style,
-      ]}
+      style={[{ paddingTop: insets.top }, style]}
     />
   )
 }
