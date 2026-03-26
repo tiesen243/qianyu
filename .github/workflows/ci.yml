@@ -28,7 +28,7 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Lint check
-        run: bun lint
+        run: bun lint --format=github
 
   typecheck:
     name: Typecheck
