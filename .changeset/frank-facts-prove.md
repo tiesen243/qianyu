@@ -1,5 +1,5 @@
 ---
-"qianyu": patch
+'qianyu': patch
 ---
 
 frist release
