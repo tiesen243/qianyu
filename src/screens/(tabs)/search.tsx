@@ -16,12 +16,8 @@ export default function SearchScreen() {
   }, [searchValue])
 
   return (
-    <Container className='items-center justify-center gap-4 px-4'>
-      <SearchField
-        value={searchValue}
-        onChange={setSearchValue}
-        className='w-full'
-      >
+    <Container className='px-4'>
+      <SearchField value={searchValue} onChange={setSearchValue}>
         <SearchField.Group>
           <SearchField.SearchIcon />
           <SearchField.Input />
@@ -30,8 +26,7 @@ export default function SearchScreen() {
       </SearchField>
 
       <FlatList
-        className='w-full'
-        contentContainerClassName='gap-2 pb-24'
+        contentContainerClassName='gap-4 pb-24'
         data={filteredUsers}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (

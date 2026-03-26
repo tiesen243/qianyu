@@ -13,7 +13,7 @@ export function Container({
     <View
       {...props}
       data-slot='container'
-      className={cn('flex-1 bg-background', className)}
+      className={cn('flex-1 gap-6 bg-background', className)}
       style={[{ paddingTop: insets.top }, style]}
     />
   )

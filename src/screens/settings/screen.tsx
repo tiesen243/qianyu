@@ -6,7 +6,7 @@ import { ThemeSelector } from '@/screens/settings/_components/theme-selector'
 
 export default function SettingsScreen() {
   return (
-    <Container className='gap-6 p-4'>
+    <Container className='px-4'>
       <Text className='text-2xl font-bold text-foreground'>Settings</Text>
 
       <ThemeSelector />

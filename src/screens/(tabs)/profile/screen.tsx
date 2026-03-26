@@ -18,7 +18,7 @@ export default function ProfileScreen() {
       <Container>
         <UserInfo />
 
-        <View className='my-4 flex-row items-center justify-center gap-2 px-4'>
+        <View className='flex-row items-center justify-center gap-2 px-4'>
           <Button size='sm' className='flex-1'>
             <Icon as={PlusIcon} className='text-accent-foreground' />
             <Button.Label>Add to Story</Button.Label>
