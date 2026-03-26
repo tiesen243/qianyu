@@ -9,7 +9,8 @@
     "ios": "react-native run-ios",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "start": "react-native start"
+    "start": "react-native start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.2.8",

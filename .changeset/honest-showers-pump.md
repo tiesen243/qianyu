@@ -1,0 +1,5 @@
+---
+"qianyu": patch
+---
+
+fix typecheck
