@@ -1,5 +1,12 @@
 # qianyu
 
+## 0.0.6
+
+### Patch Changes
+
+- 1df0d6e: fix keyboard focus bottom sheet
+- 1df0d6e: fix keyboard
+
 ## 0.0.5
 
 ### Patch Changes
