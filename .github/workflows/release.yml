@@ -7,6 +7,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      QIANYU_UPLOAD_STORE_FILE: qianyu.keystore
+
     steps:
       - uses: actions/checkout@v5
 
@@ -28,6 +31,15 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - name: Install dependencies
         run: bun ci
+
+      - name: Decode Keystore
+        run: echo "${{ secrets.QIANYU_UPLOAD_STORE_BASE64 }}" | base64 --decode > android/app/$QIANYU_UPLOAD_STORE_FILE
+      - name: Create gradle.properties
+        run: |
+          echo "QIANYU_UPLOAD_STORE_FILE=$QIANYU_UPLOAD_STORE_FILE" >> android/gradle.properties
+          echo "QIANYU_UPLOAD_KEY_ALIAS=${{ secrets.QIANYU_UPLOAD_KEY_ALIAS }}" >> android/gradle.properties
+          echo "QIANYU_UPLOAD_STORE_PASSWORD=${{ secrets.QIANYU_UPLOAD_STORE_PASSWORD }}" >> android/gradle.properties
+          echo "QIANYU_UPLOAD_KEY_PASSWORD=${{ secrets.QIANYU_UPLOAD_STORE_PASSWORD }}" >> android/gradle.properties
 
       - name: Build Android Application
         run: |
