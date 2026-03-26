@@ -1,63 +1,31 @@
-name: react-native-android-build-apk
+name: Release
+
 on:
   push:
-    tags:
-      - '*.*.*'
+    branches:
+      - main
 
-permissions:
-  contents: write
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
-    env:
-      QIANYU_UPLOAD_STORE_FILE: qianyu.keystore
-
     steps:
-      - uses: actions/checkout@v5
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'gradle'
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-        with:
-          min-wrapper-count: 1
-          allow-snapshots: false
-      - name: Fix Gradle wrapper permissions
-        run: |
-          chmod +x android/gradlew
+      - name: Checkout Repo
+        uses: actions/checkout@v5
 
       - uses: oven-sh/setup-bun@v2
-      - name: Install dependencies
+      - name: Install Dependencies
         run: bun ci
 
-      - name: Decode Keystore
-        run: echo "${{ secrets.QIANYU_UPLOAD_STORE_BASE64 }}" | base64 --decode > android/app/$QIANYU_UPLOAD_STORE_FILE
-      - name: Create gradle.properties
-        run: |
-          echo "QIANYU_UPLOAD_STORE_FILE=$QIANYU_UPLOAD_STORE_FILE" >> android/gradle.properties
-          echo "QIANYU_UPLOAD_KEY_ALIAS=${{ secrets.QIANYU_UPLOAD_KEY_ALIAS }}" >> android/gradle.properties
-          echo "QIANYU_UPLOAD_STORE_PASSWORD=${{ secrets.QIANYU_UPLOAD_STORE_PASSWORD }}" >> android/gradle.properties
-          echo "QIANYU_UPLOAD_KEY_PASSWORD=${{ secrets.QIANYU_UPLOAD_STORE_PASSWORD }}" >> android/gradle.properties
-
-      - name: Build Android Application
-        run: |
-          cd android
-          ./gradlew assembleRelease --no-daemon --warning-mode all
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
         with:
-          name: app-release-android
-          path: android/app/build/outputs/apk/release/*.apk
-          retention-days: 7
-
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: android/app/build/outputs/apk/release/*.apk
+          commit: 'chore(release): version packages'
+          title: 'chore(release): version packages'
+          version: bun .github/scripts/changeset-version.js
+          publish: bun run changeset tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
