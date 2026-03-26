@@ -26,6 +26,7 @@ jobs:
         with:
           cache-read-only: ${{ !startsWith(github.ref, 'refs/tags/v') }}
           cache-cleanup: never
+          cache-overwrite-existing: true
       - name: Fix Gradle wrapper permissions
         run: chmod +x android/gradlew
 
