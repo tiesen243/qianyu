@@ -1,7 +1,9 @@
 import { Card } from 'heroui-native'
 import { SearchField } from 'heroui-native/search-field'
 import { useMemo, useState } from 'react'
-import { FlatList, Image, View } from 'react-native'
+import { FlatList, Image } from 'react-native'
+
+import { Container } from '@/components/container'
 
 export default function SearchScreen() {
   const [searchValue, setSearchValue] = useState('')
@@ -14,7 +16,7 @@ export default function SearchScreen() {
   }, [searchValue])
 
   return (
-    <View className='items-center justify-center gap-4 px-4'>
+    <Container className='items-center justify-center gap-4 px-4'>
       <SearchField
         value={searchValue}
         onChange={setSearchValue}
@@ -45,7 +47,7 @@ export default function SearchScreen() {
           </Card>
         )}
       />
-    </View>
+    </Container>
   )
 }
 

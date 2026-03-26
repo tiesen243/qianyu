@@ -3,6 +3,7 @@ import { Button } from 'heroui-native/button'
 import { EllipsisIcon, PlusIcon } from 'lucide-react-native'
 import { View } from 'react-native'
 
+import { Container } from '@/components/container'
 import { Icon } from '@/components/ui/icon'
 import { EditProfileButton } from '@/screens/(tabs)/profile/_components/edit-profile-button'
 import { Posts } from '@/screens/(tabs)/profile/_components/posts'
@@ -14,7 +15,7 @@ export default function ProfileScreen() {
 
   return (
     <ProfileProvider>
-      <View className='flex-1 bg-background'>
+      <Container>
         <UserInfo />
 
         <View className='my-4 flex-row items-center justify-center gap-2 px-4'>
@@ -34,7 +35,7 @@ export default function ProfileScreen() {
         </View>
 
         <Posts />
-      </View>
+      </Container>
     </ProfileProvider>
   )
 }
