@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["src/uniwind-types.d.ts"],
+  "ignorePatterns": [".changeset/*.md", "src/uniwind-types.d.ts"],
 
   "printWidth": 80,
   "tabWidth": 2,

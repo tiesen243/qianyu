@@ -126,6 +126,39 @@ git push
 - The workflow will automatically build the APK
 - The APK will be available in the Releases section
 
+## CI / Workflows
+
+This project uses **GitHub Actions** to automate code quality checks, releases, and APK builds.
+
+### Overview
+
+1. **CI (`ci.yml`)**: Runs on every push and pull request to ensure code quality:
+   - Code formatting check (Oxfmt)
+   - Linting (Oxlint)
+   - Type checking (TypeScript)
+
+2. **Release (`release.yml`)**: Handles versioning and release management:
+   - Generates changelog using Changesets
+   - Creates a GitHub Release
+
+3. **Build APK (`build-apk.yml`)**: Triggered automatically after a release is created:
+   - Builds the Android APK
+   - Uploads the artifact to the GitHub Release
+
+### Pipelines
+
+```text
+Push / PR
+   ↓
+CI (lint + format + typecheck)
+   ↓
+Merge to main
+   ↓
+Release (generate changelog + create release)
+   ↓
+Build APK (attach APK to release)
+```
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
