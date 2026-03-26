@@ -1,7 +1,7 @@
 {
   "name": "qianyu",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "android": "react-native run-android",
     "format": "oxfmt --check",
