@@ -26,18 +26,18 @@ It leverages a curated set of tools to improve developer experience, maintainabi
 
 ## Tech Stack
 
-- **TypeScript**: Provides static typing for safer and more maintainable code.
-- **React Navigation**: Flexible navigation library with Stack and Bottom Tabs.
-- **HeroUI Native**: Modern UI components powered by Tailwind (via Uniwind).
-- **Tailwind CSS**: Utility-first styling approach for rapid UI development.
-- **Bun**: Fast JavaScript runtime for development and production.
-- **Oxlint & Oxfmt**: High-performance linting and formatting tools.
-- **GitHub Actions**: CI/CD for automated builds and releases.
+- **TypeScript**: Provides static typing for safer and more maintainable code
+- **React Navigation**: Flexible navigation library
+- **HeroUI Native**: Modern UI components powered by Tailwind (via Uniwind)
+- **Tailwind CSS**: Utility-first styling approach for rapid UI development
+- **Bun**: Fast JavaScript runtime for development and production
+- **Oxlint & Oxfmt**: High-performance linting and formatting tools
+- **GitHub Actions**: CI/CD for automated builds and releases
 
 ## Features
 
 - Clean and minimal project structure
-- Ready-to-use navigation setup
+- Pre-configured essentials: Stack & Bottom Tab navigation, splash screen, app icon, and more. You can easily change the app icon and splash screen by replacing the files in `android/app/src/main/res/**/*.png`.
 - Tailwind-based UI system
 - Optimized developer tooling (linting, formatting, runtime)
 - Automated APK build and release pipeline
