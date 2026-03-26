@@ -1,5 +1,11 @@
 # qianyu
 
+## 0.0.4
+
+### Patch Changes
+
+- 987c70a: fix safe area
+
 ## 0.0.3
 
 ### Patch Changes
