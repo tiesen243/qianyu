@@ -25,7 +25,7 @@
     "pedantic": "error",
     "style": "error"
   },
-  "ignorePatterns": ["*.config.js", "*.d.ts", "./src/uniwind-types.d.ts"],
+  "ignorePatterns": ["*.config.js", "src/uniwind-types.d.ts"],
   "rules": {
     "arrow-body-style": ["error", "as-needed"],
     "capitalized-comments": "off",
