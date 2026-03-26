@@ -1,97 +1,131 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Qianyu
 
-# Getting Started
+<p align="center">
+  <a href="https://github.com/tiesen243/qianyu/actions/workflows/release.yml">
+    <img src="https://github.com/tiesen243/qianyu/actions/workflows/release.yml/badge.svg" alt="Release">
+  </a>
+  <a href="https://github.com/tiesen243/qianyu/actions/workflows/build-apk.yml">
+    <img src="https://github.com/tiesen243/qianyu/actions/workflows/build-apk.yml/badge.svg" alt="Build APK">
+  </a>
+    <a href="https://github.com/tiesen243/qianyu/releases">
+    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu" alt="Version Web">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/github/license/tiesen243/qianyu" alt="License">
+  </a>
+</p>
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Overview
 
-## Step 1: Start Metro
+Qianyu is a minimal and modern React Native starter template designed to provide a clean, scalable foundation for mobile applications.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+It leverages a curated set of tools to improve developer experience, maintainability, and performance.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Tech Stack
 
-```sh
-# Using npm
-npm start
+- **TypeScript**: Provides static typing for safer and more maintainable code.
+- **React Navigation**: Flexible navigation library with Stack and Bottom Tabs.
+- **HeroUI Native**: Modern UI components powered by Tailwind (via Uniwind).
+- **Tailwind CSS**: Utility-first styling approach for rapid UI development.
+- **Bun**: Fast JavaScript runtime for development and production.
+- **Oxlint & Oxfmt**: High-performance linting and formatting tools.
+- **GitHub Actions**: CI/CD for automated builds and releases.
 
-# OR using Yarn
-yarn start
+## Features
+
+- Clean and minimal project structure
+- Ready-to-use navigation setup
+- Tailwind-based UI system
+- Optimized developer tooling (linting, formatting, runtime)
+- Automated APK build and release pipeline
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- [Bun](https://bun.com/)
+- [Android SDK](https://developer.android.com/studio)
+- [JDK 17 or higher](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+
+### Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/tiesen243/qianyu.git
+cd qianyu
+bun install
 ```
 
-## Step 2: Build and run your app
+### Development
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+To start the Metro bundler:
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+bun run start
 ```
 
-### iOS
+To run the app on an Android emulator or device:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+bun run android
 ```
 
-Then, and every time you update your native dependencies, run:
+## Deployment
 
-```sh
-bundle exec pod install
+Follow these steps to build the APK for production via GitHub Actions:
+
+### 1. Generate Keystore
+
+Generate a signing key for your application:
+
+```bash
+keytool -genkeypair -v -storetype PKCS12 \
+-keystore my-release-key.keystore \
+-alias my-key-alias \
+-keyalg RSA -keysize 2048 -validity 10000
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 2. Encode Keystore
 
-```sh
-# Using npm
-npm run ios
+Encode the keystore to base64 so it can be stored as a GitHub Secret:
 
-# OR using Yarn
-yarn ios
+```bash
+base64 my-release-key.keystore > my-release-key.keystore.base64
+# Alternatively, copy directly to clipboard:
+# base64 my-release-key.keystore | wl-copy # or pbcopy on macOS
+
+# on Windows, use:
+certutil -encode my-release-key.keystore my-release-key.keystore.base64
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### 3. Configure GitHub Secrets
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Set the following Actions secrets in your GitHub repository:
 
-## Step 3: Modify your app
+- **`PAT_TOKEN`**: A personal access token with `repo` and `workflow` permissions.
+- **`QIANYU_UPLOAD_KEY_ALIAS`**: The alias of the key used for signing the APK (e.g., `my-key-alias`).
+- **`QIANYU_UPLOAD_STORE_BASE64`**: The base64-encoded keystore file content.
+- **`QIANYU_UPLOAD_STORE_PASSWORD`**: The password for the keystore.
 
-Now that you have successfully run the app, let's make changes!
+### 4. Trigger the Release Workflow
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Generate a changelog and push changes:
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+```bash
+bun changeset
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+git add --all
+git commit -m "chore: update changelog"
+git push
+```
 
-## Congratulations! :tada:
+- Merge the Pull Request created by Changesets
+- The workflow will automatically build the APK
+- The APK will be available in the Releases section
 
-You've successfully run and modified your React Native App. :partying_face:
+## License
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
