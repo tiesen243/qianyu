@@ -1,5 +1,11 @@
 # qianyu
 
+## 0.0.3
+
+### Patch Changes
+
+- eb5c1b0: added rename step in ci
+
 ## 0.0.2
 
 ### Patch Changes
