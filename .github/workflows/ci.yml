@@ -14,7 +14,9 @@ jobs:
     name: Format check
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
+
       - name: Format check
         run: bun format
 
@@ -22,7 +24,9 @@ jobs:
     name: Lint check
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
+
       - name: Lint check
         run: bun lint
 
@@ -30,6 +34,8 @@ jobs:
     name: Typecheck
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
+
       - name: Typecheck
         run: bun typecheck

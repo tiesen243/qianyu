@@ -14,6 +14,7 @@ jobs:
       QIANYU_UPLOAD_STORE_FILE: qianyu.keystore
 
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup
 
       - name: Set up JDK 17
