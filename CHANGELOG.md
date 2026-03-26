@@ -1,5 +1,11 @@
 # qianyu
 
+## 0.0.5
+
+### Patch Changes
+
+- b3873df: fix keyboard focus on bottom sheet
+
 ## 0.0.4
 
 ### Patch Changes
