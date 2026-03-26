@@ -1,10 +1,10 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { HomeIcon } from 'lucide-react-native'
+import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/unstable'
 import { lazy } from 'react'
 
-const Tabs = createBottomTabNavigator({
+const Tabs = createNativeBottomTabNavigator({
+  initialRouteName: 'index',
   screenOptions: {
-    tabBarShowLabel: false,
+    tabBarLabelVisibilityMode: 'unlabeled',
   },
 
   screens: {
@@ -12,7 +12,32 @@ const Tabs = createBottomTabNavigator({
       screen: lazy(() => import('@/screens/(tabs)/_index')),
       options: {
         title: 'Home',
-        tabBarIcon: ({ color, size }) => <HomeIcon color={color} size={size} />,
+        tabBarIcon: {
+          type: 'image',
+          source: require('@/assets/icons/house.png'),
+        },
+      },
+    },
+
+    search: {
+      screen: lazy(() => import('@/screens/(tabs)/search')),
+      options: {
+        title: 'Search',
+        tabBarIcon: {
+          type: 'image',
+          source: require('@/assets/icons/search.png'),
+        },
+      },
+    },
+
+    profile: {
+      screen: lazy(() => import('@/screens/(tabs)/profile/screen')),
+      options: {
+        title: 'Profile',
+        tabBarIcon: {
+          type: 'image',
+          source: require('@/assets/icons/user.png'),
+        },
       },
     },
   },
