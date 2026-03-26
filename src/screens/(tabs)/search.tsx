@@ -16,7 +16,7 @@ export default function SearchScreen() {
   }, [searchValue])
 
   return (
-    <Container className='px-4'>
+    <Container className='px-4' inTab>
       <SearchField value={searchValue} onChange={setSearchValue}>
         <SearchField.Group>
           <SearchField.SearchIcon />
@@ -26,7 +26,7 @@ export default function SearchScreen() {
       </SearchField>
 
       <FlatList
-        contentContainerClassName='gap-4 pb-24'
+        contentContainerClassName='gap-4 '
         data={filteredUsers}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (

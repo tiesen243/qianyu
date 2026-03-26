@@ -15,7 +15,7 @@ export default function ProfileScreen() {
 
   return (
     <ProfileProvider>
-      <Container>
+      <Container inTab>
         <UserInfo />
 
         <View className='flex-row items-center justify-center gap-2 px-4'>
@@ -23,7 +23,9 @@ export default function ProfileScreen() {
             <Icon as={PlusIcon} className='text-accent-foreground' />
             <Button.Label>Add to Story</Button.Label>
           </Button>
+
           <EditProfileButton />
+
           <Button
             variant='outline'
             size='sm'

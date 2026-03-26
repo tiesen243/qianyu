@@ -1,10 +1,7 @@
-import {
-  BottomSheetScrollView,
-  BottomSheetTextInput,
-} from '@gorhom/bottom-sheet'
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { BottomSheet } from 'heroui-native/bottom-sheet'
 import { Button } from 'heroui-native/button'
-import { inputClassNames } from 'heroui-native/input'
+import { Input } from 'heroui-native/input'
 import { Label } from 'heroui-native/label'
 import { TextField } from 'heroui-native/text-field'
 import { useToast } from 'heroui-native/toast'
@@ -41,9 +38,10 @@ export const EditProfileButton: React.FC = () => {
         <BottomSheet.Overlay />
 
         <BottomSheet.Content
-          android_keyboardInputMode='adjustResize'
           onClose={() => Keyboard.dismiss()}
-          enableHandlePanningGesture
+          android_keyboardInputMode='adjustResize'
+          keyboardBlurBehavior='restore'
+          snapPoints={['30%', '90%']}
         >
           <BottomSheetScrollView>
             <BottomSheet.Title>Edit Profile</BottomSheet.Title>
@@ -56,12 +54,9 @@ export const EditProfileButton: React.FC = () => {
               <TextField key={name} className='mt-4'>
                 <Label>{label}</Label>
 
-                <BottomSheetTextInput
-                  className={inputClassNames.input()}
-                  placeholderTextColorClassName={inputClassNames.placeholderTextColor()}
-                  selectionColorClassName={inputClassNames.inputSelectionColor()}
+                <Input
                   placeholder={placeholder}
-                  defaultValue={profile[name]}
+                  value={data[name]}
                   onChangeText={(text) =>
                     setData((prev) => ({ ...prev, [name]: text }))
                   }
