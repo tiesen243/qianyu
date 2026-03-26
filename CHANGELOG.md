@@ -1,5 +1,12 @@
 # qianyu
 
+## 0.0.7
+
+### Patch Changes
+
+- 17ede22: update README and add LICENSE
+- a8cd489: setup gradle cache for tag
+
 ## 0.0.6
 
 ### Patch Changes
