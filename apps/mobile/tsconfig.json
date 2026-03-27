@@ -7,5 +7,5 @@
     }
   },
   "include": ["index.js", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/node_modules", "**/Pods"]
+  "exclude": ["node_modules", "**/Pods"]
 }
