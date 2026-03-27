@@ -25,7 +25,9 @@
       "tsdown": "^0.21.6",
       "typescript": "^6.0.2"
     },
-    "prod": {},
+    "prod": {
+      "@tanstack/react-query": "^5.95.2"
+    },
     "react": {
       "@types/react-dom": "^19.2.3",
       "@types/react": "^19.2.14",

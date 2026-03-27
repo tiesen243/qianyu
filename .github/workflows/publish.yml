@@ -6,7 +6,7 @@ on:
       - '@qianyu/mobile@*.*.*'
 
 concurrency:
-  group: publish
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:

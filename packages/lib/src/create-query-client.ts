@@ -1,0 +1,46 @@
+import type { InvalidateQueryFilters } from '@tanstack/react-query'
+
+import {
+  defaultShouldDehydrateQuery,
+  MutationCache,
+  QueryClient,
+} from '@tanstack/react-query'
+
+export const createQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        // With SSR, we usually want to set some default staleTime
+        // above 0 to avoid refetching immediately on the client
+        staleTime: 5 * 60 * 1000,
+        retry: false,
+      },
+      dehydrate: {
+        shouldDehydrateQuery: (query) =>
+          defaultShouldDehydrateQuery(query) ||
+          query.state.status === 'pending',
+      },
+      hydrate: {},
+    },
+    mutationCache: new MutationCache({
+      onSettled(
+        _data,
+        _error,
+        _variables,
+        _onMutateResult,
+        _mutation,
+        context
+      ) {
+        const filter = context.meta?.filter
+        if (filter) void context.client.invalidateQueries(filter)
+      },
+    }),
+  })
+
+declare module '@tanstack/react-query' {
+  interface Register {
+    mutationMeta: {
+      filter: InvalidateQueryFilters
+    }
+  }
+}
