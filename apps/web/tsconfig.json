@@ -10,7 +10,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "workers/app.ts",
+    "workers/*.ts",
     ".react-router/types/**/*"
   ],
   "exclude": ["build", "node_modules"]
