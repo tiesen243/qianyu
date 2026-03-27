@@ -31,7 +31,10 @@ function App() {
               theme={colorScheme === 'dark' ? DarkTheme : LightTheme}
               linking={{
                 enabled: 'auto',
-                prefixes: [],
+                prefixes: ['qianyu://'],
+                config: {
+                  initialRouteName: 'index',
+                },
               }}
               onReady={() => SplashScreen.hide()}
             />
