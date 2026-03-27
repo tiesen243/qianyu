@@ -21,6 +21,7 @@ const Tabs = createNativeBottomTabNavigator({
 
     search: {
       screen: lazy(() => import('@/screens/(tabs)/search')),
+      linking: { path: 'search' },
       options: {
         title: 'Search',
         tabBarIcon: {
@@ -32,6 +33,7 @@ const Tabs = createNativeBottomTabNavigator({
 
     profile: {
       screen: lazy(() => import('@/screens/(tabs)/profile/screen')),
+      linking: { path: 'profile' },
       options: {
         title: 'Profile',
         tabBarIcon: {

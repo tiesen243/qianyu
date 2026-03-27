@@ -10,14 +10,14 @@ const RootStack = createNativeStackNavigator({
   screens: {
     tabs: {
       screen: Tabs,
+      linking: { initialRouteName: 'index' },
       options: { headerShown: false },
     },
 
     settings: {
       screen: lazy(() => import('@/screens/settings/screen')),
-      options: {
-        title: 'Settings',
-      },
+      linking: { path: 'settings' },
+      options: { title: 'Settings' },
     },
   },
 })
