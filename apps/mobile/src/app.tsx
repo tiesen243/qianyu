@@ -31,10 +31,10 @@ function App() {
               theme={colorScheme === 'dark' ? DarkTheme : LightTheme}
               linking={{
                 enabled: 'auto',
-                prefixes: ['qianyu://'],
-                config: {
-                  initialRouteName: 'index',
-                },
+                prefixes: [
+                  'qianyu://',
+                  'https://qianyu-web-prod.tiesen.workers.dev',
+                ],
               }}
               onReady={() => SplashScreen.hide()}
             />
