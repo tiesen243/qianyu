@@ -1,17 +1,26 @@
 # Qianyu
 
 <p align="center">
+  <a href="https://github.com/tiesen243/qianyu/actions/workflows/ci.yml">
+    <img src="https://github.com/tiesen243/qianyu/actions/workflows/ci.yml/badge.svg" alt="Release">
+  </a>
   <a href="https://github.com/tiesen243/qianyu/actions/workflows/release.yml">
     <img src="https://github.com/tiesen243/qianyu/actions/workflows/release.yml/badge.svg" alt="Release">
   </a>
-  <a href="https://github.com/tiesen243/qianyu/actions/workflows/ci.yml">
-    <img src="https://github.com/tiesen243/qianyu/actions/workflows/ci.yml/badge.svg" alt="Release">
+  <a href="https://github.com/tiesen243/qianyu/actions/workflows/publish.yml">
+    <img src="https://github.com/tiesen243/qianyu/actions/workflows/publish.yml/badge.svg" alt="Publish">
   </a>
   <a href="https://github.com/tiesen243/qianyu/actions/workflows/build-apk.yml">
     <img src="https://github.com/tiesen243/qianyu/actions/workflows/build-apk.yml/badge.svg" alt="Build APK">
   </a>
-    <a href="https://github.com/tiesen243/qianyu/releases">
-    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu" alt="Version Web">
+</p>
+
+<p align="center">
+  <a href="https://github.com/tiesen243/qianyu/releases">
+    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/web/package.json&label=version@web" alt="Version Web">
+  </a>
+  <a href="https://github.com/tiesen243/qianyu/releases">
+    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/mobile/package.json&label=version@mobile" alt="Version Web">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/github/license/tiesen243/qianyu" alt="License">
