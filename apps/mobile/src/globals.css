@@ -3,7 +3,7 @@
 
 @import 'heroui-native/styles';
 @source '../node_modules/heroui-native/lib';
-@import '../../web/src/globals.css';
+@import '@qianyu/ui/tailwind.css';
 
 @theme inline {
   --color-background: var(--background);
@@ -26,8 +26,8 @@
   --color-default: var(--secondary);
   --color-default-foreground: var(--secondary-foreground);
 
-  --color-accent: var(--primary);
-  --color-accent-foreground: var(--primary-foreground);
+  /* --color-accent: var(--primary); */
+  /* --color-accent-foreground: var(--primary-foreground); */
 
   --color-field-background: var(--input);
   --color-field-foreground: var(--foreground);
@@ -59,5 +59,15 @@
 @layer theme {
   :root {
     --radius: 0.25rem;
+
+    @variant light {
+      --accent: var(--primary);
+      --accent-foreground: var(--primary-foreground);
+    }
+
+    @variant dark {
+      --accent: var(--primary);
+      --accent-foreground: var(--primary-foreground);
+    }
   }
 }

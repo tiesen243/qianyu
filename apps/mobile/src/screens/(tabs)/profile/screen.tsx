@@ -32,7 +32,7 @@ export default function ProfileScreen() {
             className='aspect-square'
             onPress={() => navigate('settings')}
           >
-            <Icon as={EllipsisIcon} className='text-foreground' />
+            <Icon as={EllipsisIcon} className='size-3 text-foreground' />
           </Button>
         </View>
 

@@ -29,7 +29,7 @@ export const EditProfileButton: React.FC = () => {
     <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>
       <BottomSheet.Trigger asChild>
         <Button variant='outline' size='sm'>
-          <Icon as={PencilIcon} className='text-foreground' />
+          <Icon as={PencilIcon} className='size-3 text-foreground' />
           <Button.Label>Edit Profile</Button.Label>
         </Button>
       </BottomSheet.Trigger>

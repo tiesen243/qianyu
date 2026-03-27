@@ -1,30 +1,31 @@
 {
   "workspaces": [
     "apps/*",
+    "packages/*",
     "tools/*"
   ],
   "scripts": {
     "changeset": "changeset",
+    "clean": "git clean -fdx node_modules",
     "format": "oxfmt --check",
     "format:fix": "oxfmt --write",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "typecheck": "bun --filter './apps/*' typecheck"
+    "typecheck": "bun --filter '*' typecheck"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "oxfmt": "^0.42.0",
     "oxlint": "^1.57.0"
   },
-  "packageManager": "bun@1.3.0",
+  "packageManager": "bun@1.3.10",
   "catalogs": {
     "dev": {
       "@types/node": "^25.5.0",
+      "tsdown": "^0.21.6",
       "typescript": "^6.0.2"
     },
-    "prod": {
-      "tailwind-merge": "^3.4.0"
-    },
+    "prod": {},
     "react": {
       "@types/react-dom": "^19.2.3",
       "@types/react": "^19.2.14",

@@ -1,9 +1,11 @@
-export default function IndexPage() {
+
+import type { Route } from './+types/_index'
+
+export default function IndexPage(_: Route.ComponentProps) {
   return (
-    <main>
-      <h1>
-        Welcome to Remix! This is the index page. You can start editing it in
-      </h1>
+    <main className='container py-4'>
+      <h1 className='text-center text-xl font-bold'>Welcome to Qianyu</h1>
+
     </main>
   )
 }
