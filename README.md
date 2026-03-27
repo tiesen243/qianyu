@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/web/package.json&label=version@web" alt="Version Web">
   </a>
   <a href="https://github.com/tiesen243/qianyu/releases">
-    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/mobile/package.json&label=version@mobile" alt="Version Web">
+    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/mobile/package.json&label=version@mobile" alt="Version Mobile">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/github/license/tiesen243/qianyu" alt="License">
@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/tiesen243/qianyu/actions/workflows/ci.yml">
-    <img src="https://github.com/tiesen243/qianyu/actions/workflows/ci.yml/badge.svg" alt="Release">
+    <img src="https://github.com/tiesen243/qianyu/actions/workflows/ci.yml/badge.svg" alt="CI">
   </a>
   <a href="https://github.com/tiesen243/qianyu/actions/workflows/release.yml">
     <img src="https://github.com/tiesen243/qianyu/actions/workflows/release.yml/badge.svg" alt="Release">
@@ -29,27 +29,21 @@
 
 ## Overview
 
-Qianyu is a minimal and modern React Native starter template designed to provide a clean, scalable foundation for mobile applications.
+Qianyu is a modern monorepo containing a web application and a mobile application, sharing optimized developer tooling and CI/CD pipelines.
 
-It leverages a curated set of tools to improve developer experience, maintainability, and performance.
+The monorepo contains 2 main applications:
+- **Web App** (`apps/web`): Built with React Router, with CI configured for automated deployment to Cloudflare Workers.
+- **Mobile App** (`apps/mobile`): A Bare React Native application with CI configured for automated APK builds.
 
 ## Tech Stack
 
-- **TypeScript**: Provides static typing for safer and more maintainable code
-- **React Navigation**: Flexible navigation library
-- **HeroUI Native**: Modern UI components powered by Tailwind (via Uniwind)
-- **Tailwind CSS**: Utility-first styling approach for rapid UI development
-- **Bun**: Fast JavaScript runtime for development and production
-- **Oxlint & Oxfmt**: High-performance linting and formatting tools
-- **GitHub Actions**: CI/CD for automated builds and releases
-
-## Features
-
-- Clean and minimal project structure
-- Pre-configured essentials: Stack & Bottom Tab navigation, splash screen, app icon, and more. You can easily change the app icon and splash screen by replacing the files in `android/app/src/main/res/**/*.png`.
-- Tailwind-based UI system
-- Optimized developer tooling (linting, formatting, runtime)
-- Automated APK build and release pipeline
+- **Web App**: React Router, Cloudflare Workers
+- **Mobile App**: Bare React Native, React Navigation, HeroUI Native
+- **Styling**: Tailwind CSS (Utility-first styling approach for rapid UI development)
+- **Language**: TypeScript for safer and more maintainable code
+- **Package Manager**: Bun (Fast JavaScript runtime for development and production)
+- **Tooling**: Oxlint & Oxfmt for high-performance linting and formatting
+- **CI/CD**: GitHub Actions for automated builds, deployments, and releases
 
 ## Getting Started
 
@@ -58,8 +52,8 @@ It leverages a curated set of tools to improve developer experience, maintainabi
 Make sure you have the following installed:
 
 - [Bun](https://bun.com/)
-- [Android SDK](https://developer.android.com/studio)
-- [JDK 17 or higher](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+- [Android SDK](https://developer.android.com/studio) (for Mobile App)
+- [JDK 17 or higher](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html) (for Mobile App)
 
 ### Installation
 
@@ -73,103 +67,67 @@ bun install
 
 ### Development
 
-To start the Metro bundler:
-
+#### Web App
+To start the web development server:
 ```bash
-bun run start
+cd apps/web
+bun run dev
 ```
 
-To run the app on an Android emulator or device:
-
+#### Mobile App
+To start the Metro bundler and run the app on an Android emulator or device:
 ```bash
+cd apps/mobile
+bun run start
+# In another terminal:
 bun run android
 ```
 
-## Deployment
+## Deployment & Workflows
 
-Follow these steps to build the APK for production via GitHub Actions:
+This project uses **GitHub Actions** to automate code quality checks, releases, web deployments, and APK builds.
 
-### 1. Generate Keystore
-
-Generate a signing key for your application:
-
-```bash
-keytool -genkeypair -v -storetype PKCS12 \
--keystore my-release-key.keystore \
--alias my-key-alias \
--keyalg RSA -keysize 2048 -validity 10000
-```
-
-### 2. Encode Keystore
-
-Encode the keystore to base64 so it can be stored as a GitHub Secret:
-
-```bash
-base64 my-release-key.keystore > my-release-key.keystore.base64
-# Alternatively, copy directly to clipboard:
-# base64 my-release-key.keystore | wl-copy # or pbcopy on macOS
-
-# on Windows, use:
-certutil -encode my-release-key.keystore my-release-key.keystore.base64
-```
-
-### 3. Configure GitHub Secrets
-
-Set the following Actions secrets in your GitHub repository:
-
-- **`PAT_TOKEN`**: A personal access token with `repo` and `workflow` permissions.
-- **`QIANYU_UPLOAD_KEY_ALIAS`**: The alias of the key used for signing the APK (e.g., `my-key-alias`).
-- **`QIANYU_UPLOAD_STORE_BASE64`**: The base64-encoded keystore file content.
-- **`QIANYU_UPLOAD_STORE_PASSWORD`**: The password for the keystore.
-
-### 4. Trigger the Release Workflow
-
-Generate a changelog and push changes:
-
-```bash
-bun changeset
-
-git add --all
-git commit -m "chore: update changelog"
-git push
-```
-
-- Merge the Pull Request created by Changesets
-- The workflow will automatically build the APK
-- The APK will be available in the Releases section
-
-## CI / Workflows
-
-This project uses **GitHub Actions** to automate code quality checks, releases, and APK builds.
-
-### Overview
+### CI/CD Pipelines
 
 1. **CI (`ci.yml`)**: Runs on every push and pull request to ensure code quality:
    - Code formatting check (Oxfmt)
    - Linting (Oxlint)
    - Type checking (TypeScript)
 
-2. **Release (`release.yml`)**: Handles versioning and release management:
-   - Generates changelog using Changesets
-   - Creates a GitHub Release
+2. **Web App Deployment**:
+   - Automated deployment to **Cloudflare Workers** on merge/push to the main branch.
+   - PR Preview deployments via `pr-preview.yml`.
 
-3. **Build APK (`build-apk.yml`)**: Triggered automatically after a release is created:
-   - Builds the Android APK
-   - Uploads the artifact to the GitHub Release
+3. **Mobile App Build (`build-apk.yml`)**:
+   - Triggered automatically after a release is created.
+   - Builds the Android APK and uploads the artifact to the GitHub Release.
 
-### Pipelines
+4. **Release (`release.yml`)**: Handles versioning and release management:
+   - Generates changelog using Changesets.
+   - Creates a GitHub Release.
 
-```text
-Push / PR
-   ↓
-CI (lint + format + typecheck)
-   ↓
-Merge to main
-   ↓
-Release (generate changelog + create release)
-   ↓
-Build APK (attach APK to release)
-```
+### Configuring Mobile Keystore for GitHub Actions
+
+If you are setting up the Android build for the first time, you need to configure GitHub Secrets for the APK build:
+
+1. Generate a keystore:
+   ```bash
+   keytool -genkeypair -v -storetype PKCS12 \
+   -keystore my-release-key.keystore \
+   -alias my-key-alias \
+   -keyalg RSA -keysize 2048 -validity 10000
+   ```
+
+2. Base64 encode the keystore:
+   ```bash
+   base64 my-release-key.keystore > my-release-key.keystore.base64
+   ```
+
+3. Set the following repository secrets:
+   - `PAT_TOKEN`: Personal access token with repo permissions
+   - `QIANYU_UPLOAD_KEY_ALIAS`: Keystore alias
+   - `QIANYU_UPLOAD_STORE_BASE64`: Base64 encoded keystore
+   - `QIANYU_UPLOAD_STORE_PASSWORD`: Keystore password
 
 ## License
 
