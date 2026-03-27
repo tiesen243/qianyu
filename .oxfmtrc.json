@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [".changeset/*.md", "src/uniwind-types.d.ts"],
+  "ignorePatterns": [".changeset/*.md", "uniwind-types.d.ts"],
 
   "printWidth": 80,
   "tabWidth": 2,
@@ -35,6 +35,6 @@
 
   "sortTailwindcss": {
     "functions": ["clsx", "cva", "cn"],
-    "stylesheet": "./src/globals.css"
+    "stylesheet": "./apps/mobile/src/globals.css"
   }
 }

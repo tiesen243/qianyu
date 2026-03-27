@@ -4,10 +4,12 @@
     "tools/*"
   ],
   "scripts": {
+    "changeset": "changeset",
     "format": "oxfmt --check",
     "format:fix": "oxfmt --write",
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix"
+    "lint:fix": "oxlint --fix",
+    "typecheck": "bun --filter './apps/*' typecheck"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",

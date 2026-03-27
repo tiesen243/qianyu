@@ -1,4 +1,15 @@
 {
   "$schema": "../../node_modules/oxlint/configuration_schema.json",
-  "extends": ["../../tools/oxc/core.json", "../../tools/oxc/react.json"]
+  "extends": ["../../tools/oxc/core.json", "../../tools/oxc/react.json"],
+  "ignorePatterns": ["uniwind-types.d.ts"],
+
+  "overrides": [
+    {
+      "files": ["*.config.js", "**/*.ts", "**/*.tsx"],
+      "rules": {
+        "unicorn/prefer-module": "off",
+        "node/global-require": "off"
+      }
+    }
+  ]
 }
