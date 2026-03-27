@@ -1,12 +1,17 @@
 {
   "extends": "@qianyu/tsconfig/react-package.json",
   "compilerOptions": {
-    "types": ["node", "vite/client"],
+    "types": ["node", "vite/client", "@cloudflare/workers-types"],
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", ".react-router/types/**/*"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "workers/app.ts",
+    ".react-router/types/**/*"
+  ],
   "exclude": ["build", "node_modules"]
 }

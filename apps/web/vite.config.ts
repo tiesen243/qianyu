@@ -1,8 +1,9 @@
 import { reactRouter } from '@react-router/dev/vite'
 import tailwindcss from '@tailwindcss/vite'
+import alchemy from 'alchemy/cloudflare/react-router'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [reactRouter(), tailwindcss()],
+  plugins: [alchemy(), reactRouter(), tailwindcss()],
   resolve: { tsconfigPaths: true },
 })
