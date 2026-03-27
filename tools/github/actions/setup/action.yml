@@ -7,7 +7,9 @@ runs:
       uses: oven-sh/setup-bun@v2
 
     - name: Install Dependencies
+      shell: bash
       run: bun ci
 
     - name: Build Packages
+      shell: bash
       run: bun --filter './packages/*' build
