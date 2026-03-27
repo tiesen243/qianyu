@@ -10,7 +10,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   format:
-    name: Format check
+    name: Format Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -20,7 +20,7 @@ jobs:
         run: bun format
 
   lint:
-    name: Lint check
+    name: Lint Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

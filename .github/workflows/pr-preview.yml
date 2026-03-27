@@ -25,9 +25,7 @@ jobs:
       - uses: ./tools/github/actions/setup
 
       - name: Deploy Preview
-        run: |
-          cd apps/web
-          bun run deploy --stage pr-${{ github.event.pull_request.number }}
+        run: bun --filter @qianyu/infra deploy --stage pr-${{ github.event.pull_request.number }}
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
@@ -51,9 +49,7 @@ jobs:
       - uses: ./tools/github/actions/setup
 
       - name: Cleanup Preview
-        run: |
-          cd apps/web
-          bun run destroy
+        run: bun --filter @qianyu/infra destroy
         env:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}

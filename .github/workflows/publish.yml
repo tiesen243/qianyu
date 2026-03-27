@@ -21,9 +21,7 @@ jobs:
       - uses: ./tools/github/actions/setup
 
       - name: Deploy to Production
-        run: |
-          cd apps/web
-          bun run deploy
+        run: bun --filter @qianyu/infra deploy
         env:
           STAGE: prod
           GITHUB_SHA: ${{ github.sha }}

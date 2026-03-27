@@ -23,7 +23,7 @@ jobs:
           commit: 'chore(release): version packages'
           title: 'chore(release): version packages'
           version: bun ./tools/github/scripts/changeset-version.js
-          publish: bun run changeset tag
+          publish: bun changeset tag
           commitMode: github-api
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
