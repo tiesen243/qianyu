@@ -11,6 +11,14 @@ import globalsCss from '@/globals.css?url'
 
 import type { Route } from './+types/root'
 
+export const meta: Route.MetaFunction = () => [
+  { title: 'Qianyu' },
+  {
+    name: 'description',
+    content: 'A modern Mastodon client built with React and Remix.',
+  },
+]
+
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
@@ -27,14 +35,14 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
+    <html lang='en' className='dark' suppressHydrationWarning>
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className='flex min-h-dvh flex-col bg-background font-sans text-foreground antialiased'>
         {children}
         <ScrollRestoration />
         <Scripts />

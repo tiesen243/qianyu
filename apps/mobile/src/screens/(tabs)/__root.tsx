@@ -4,7 +4,7 @@ import { lazy } from 'react'
 const Tabs = createNativeBottomTabNavigator({
   initialRouteName: 'index',
   screenOptions: {
-    tabBarLabelVisibilityMode: 'unlabeled',
+    tabBarLabelVisibilityMode: 'auto',
   },
 
   screens: {

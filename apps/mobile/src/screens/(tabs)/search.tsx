@@ -1,9 +1,11 @@
 import { Card } from 'heroui-native'
 import { SearchField } from 'heroui-native/search-field'
+import { SearchIcon, XIcon } from 'lucide-react-native'
 import { useMemo, useState } from 'react'
 import { FlatList, Image } from 'react-native'
 
 import { Container } from '@/components/container'
+import { Icon } from '@/components/ui/icon'
 
 export default function SearchScreen() {
   const [searchValue, setSearchValue] = useState('')
@@ -19,9 +21,13 @@ export default function SearchScreen() {
     <Container className='px-4' inTab>
       <SearchField value={searchValue} onChange={setSearchValue}>
         <SearchField.Group>
-          <SearchField.SearchIcon />
+          <SearchField.SearchIcon>
+            <Icon as={SearchIcon} className='size-4 text-muted' />
+          </SearchField.SearchIcon>
           <SearchField.Input />
-          <SearchField.ClearButton />
+          <SearchField.ClearButton>
+            <Icon as={XIcon} className='size-4 text-muted' />
+          </SearchField.ClearButton>
         </SearchField.Group>
       </SearchField>
 
