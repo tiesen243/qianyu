@@ -1,6 +1,9 @@
 # node.js
 node_modules/
 
+# React Router
+/.react-router/
+
 # React Native / Metro
 *.jsbundle
 *.bundle
@@ -51,6 +54,11 @@ dist/
 # env files
 .env*
 !.env.example
+
+# infrastructure
+.alchemy/
+.wrangler/
+.dev.vars*
 
 # misc
 .cache/
