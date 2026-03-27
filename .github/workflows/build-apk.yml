@@ -29,7 +29,7 @@ jobs:
           cache-cleanup: never
           cache-overwrite-existing: true
       - name: Fix Gradle wrapper permissions
-        run: chmod +x android/gradlew
+        run: chmod +x $APP_ROOT/android/gradlew
 
       - name: Decode Keystore
         run: echo "${{ secrets.QIANYU_UPLOAD_STORE_BASE64 }}" | base64 --decode > $APP_ROOT/android/app/$QIANYU_UPLOAD_STORE_FILE
