@@ -1,5 +1,11 @@
 # @qianyu/mobile
 
+## 0.0.5
+
+### Patch Changes
+
+- d919d98: fix gh permission
+
 ## 0.0.4
 
 ### Patch Changes
