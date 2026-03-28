@@ -1,5 +1,11 @@
 # @qianyu/ui
 
+## 0.0.2
+
+### Patch Changes
+
+- cd5b874: fix format and lint check
+
 ## 0.0.1
 
 ### Patch Changes

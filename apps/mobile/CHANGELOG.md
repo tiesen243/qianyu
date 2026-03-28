@@ -1,5 +1,14 @@
 # @qianyu/mobile
 
+## 0.0.4
+
+### Patch Changes
+
+- f537c5b: added post screens
+- Updated dependencies [cd5b874]
+  - @qianyu/lib@0.0.1
+  - @qianyu/ui@0.0.2
+
 ## 0.0.3
 
 ### Patch Changes
