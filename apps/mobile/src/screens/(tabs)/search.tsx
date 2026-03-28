@@ -32,9 +32,9 @@ export default function SearchScreen() {
       </SearchField>
 
       <FlatList
-        contentContainerClassName='gap-4 '
         data={filteredUsers}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerClassName='gap-4 '
         renderItem={({ item }) => (
           <Card className='flex-row gap-4'>
             <Image

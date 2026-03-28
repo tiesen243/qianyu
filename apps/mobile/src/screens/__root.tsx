@@ -14,6 +14,12 @@ const RootStack = createNativeStackNavigator({
       options: { headerShown: false },
     },
 
+    'post-details': {
+      screen: lazy(() => import('@/screens/post-details')),
+      linking: { path: 'posts/:id' },
+      options: { title: 'Post Details' },
+    },
+
     settings: {
       screen: lazy(() => import('@/screens/settings/screen')),
       linking: { path: 'settings' },
