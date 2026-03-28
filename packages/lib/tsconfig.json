@@ -1,6 +1,7 @@
 {
   "extends": "@qianyu/tsconfig/internal-package.json",
   "compilerOptions": {
+    "lib": ["es2024", "dom", "dom.iterable"],
     "paths": {
       "@/*": ["./src/*"]
     }
