@@ -22,9 +22,6 @@
   <a href="https://github.com/tiesen243/qianyu/actions/workflows/publish.yml">
     <img src="https://github.com/tiesen243/qianyu/actions/workflows/publish.yml/badge.svg" alt="Publish">
   </a>
-  <a href="https://github.com/tiesen243/qianyu/actions/workflows/build-apk.yml">
-    <img src="https://github.com/tiesen243/qianyu/actions/workflows/build-apk.yml/badge.svg" alt="Build APK">
-  </a>
 </p>
 
 ## Overview
