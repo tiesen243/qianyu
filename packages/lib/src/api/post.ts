@@ -1,4 +1,4 @@
-import { QueryFilters, queryOptions } from '@tanstack/react-query'
+import { queryOptions } from '@tanstack/react-query'
 
 const API_URL = 'https://dummyjson.com/posts'
 
