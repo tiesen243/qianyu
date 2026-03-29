@@ -9,7 +9,6 @@ const app = await alchemy('qianyu', {
 })
 
 export const db = await D1Database('db', {
-  name: 'qianyu-db',
   migrationsDir: path.resolve(__dirname, '../../apps/api/migrations'),
 })
 
