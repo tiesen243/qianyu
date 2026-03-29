@@ -1,5 +1,15 @@
 # @qianyu/mobile
 
+## 0.0.6
+
+### Patch Changes
+
+- 0a0f282: update frontend apps
+- Updated dependencies [0a0f282]
+- Updated dependencies [0fbbca4]
+  - @qianyu/lib@0.0.2
+  - @qianyu/ui@0.0.3
+
 ## 0.0.5
 
 ### Patch Changes
