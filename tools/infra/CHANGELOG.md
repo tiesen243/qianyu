@@ -1,5 +1,11 @@
 # @qianyu/infra
 
+## 0.0.2
+
+### Patch Changes
+
+- b8a595c: update github comment
+
 ## 0.0.1
 
 ### Patch Changes

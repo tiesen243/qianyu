@@ -1,5 +1,11 @@
 # @qianyu/ui
 
+## 0.0.3
+
+### Patch Changes
+
+- 0fbbca4: fix ci check
+
 ## 0.0.2
 
 ### Patch Changes
