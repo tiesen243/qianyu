@@ -11,6 +11,8 @@
     "typecheck": "react-router typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@elysiajs/eden": "^1.4.8",
+    "@qianyu/api": "workspace:*",
     "@qianyu/lib": "workspace:*",
     "@qianyu/ui": "workspace:*",
     "@tanstack/react-query": "catalog:prod",

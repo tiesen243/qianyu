@@ -10,6 +10,8 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
 
+import { api } from '@/lib/api'
+
 import type { Route } from './+types/_index'
 
 export default function IndexPage(_: Route.ComponentProps) {
@@ -31,6 +33,16 @@ const PostList: React.FC = () => {
       limit: 10,
     })
   )
+
+  useQuery({
+    queryKey: ['api'],
+    queryFn: async () => {
+      const res = await api.v1.posts.get()
+      console.log(res)
+
+      return res.data
+    },
+  })
 
   if (isLoading || !data)
     return Array.from({ length: 6 }, (_, i) => (

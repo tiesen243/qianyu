@@ -24,7 +24,8 @@
   "rules": {
     "arrow-body-style": ["error", "as-needed"],
     "capitalized-comments": "off",
-    "func-style": ["error", "expression", { "allowArrowFunctions": true }],
+    "curly": "off",
+    "func-style": "off",
     "id-length": "off",
     "init-declarations": "off",
     "max-depth": "off",
@@ -39,10 +40,12 @@
     "no-duplicate-imports": ["error", { "allowSeparateTypeImports": true }],
     "no-implicit-coercion": "off",
     "no-magic-numbers": "off",
+    "no-use-before-define": "off",
     "no-ternary": "off",
     "no-undefined": "off",
     // Avoid conflict with typescript/no-floating-promises
     "no-void": ["error", { "allowAsStatement": true }],
+    "sort-keys": "off",
     // Rely on oxfmt `sortImports` instead
     "sort-imports": "off",
 
