@@ -37,8 +37,6 @@ console.log(`API    -> ${api.url}`)
 console.log(`Web    -> ${web.url}`)
 
 if (process.env.PULL_REQUEST) {
-  const previewUrl = web.url
-
   await GitHubComment('pr-preview-comment', {
     owner: process.env.GITHUB_REPOSITORY_OWNER || 'your-username',
     repository: process.env.GITHUB_REPOSITORY_NAME || 'my-app',
@@ -48,7 +46,9 @@ if (process.env.PULL_REQUEST) {
 
 Your preview is ready!
 
-**Preview URL:** ${previewUrl}
+**Preview URL:** 
+  - API: ${api.url}
+  - Web: ${web.url}
 
 This preview was built from commit ${process.env.GITHUB_SHA}
 
