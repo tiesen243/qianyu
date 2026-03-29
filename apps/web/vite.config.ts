@@ -6,4 +6,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [alchemy(), reactRouter(), tailwindcss()],
   resolve: { tsconfigPaths: true },
+  define: {
+    // 'import.meta.env': 'asdadasd',
+  },
 })

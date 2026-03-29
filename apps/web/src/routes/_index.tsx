@@ -1,4 +1,3 @@
-import { post } from '@qianyu/lib/api/post'
 import { Badge } from '@qianyu/ui/badge'
 import {
   Card,
@@ -29,20 +28,8 @@ export default function IndexPage(_: Route.ComponentProps) {
 const PostList: React.FC = () => {
   const navigate = useNavigate()
   const { data, isLoading } = useQuery(
-    post.all.queryOptions({
-      limit: 10,
-    })
+    api.post.all.queryOptions({ page: 1, limit: 6 })
   )
-
-  useQuery({
-    queryKey: ['api'],
-    queryFn: async () => {
-      const res = await api.v1.posts.get()
-      console.log(res)
-
-      return res.data
-    },
-  })
 
   if (isLoading || !data)
     return Array.from({ length: 6 }, (_, i) => (
@@ -66,7 +53,7 @@ const PostList: React.FC = () => {
       </Card>
     ))
 
-  return data.map((_post) => (
+  return data.posts.map((_post) => (
     <Card
       key={_post.id}
       className='cursor-pointer hover:bg-secondary'
@@ -76,15 +63,7 @@ const PostList: React.FC = () => {
         <CardTitle>{_post.title}</CardTitle>
       </CardHeader>
 
-      <CardContent className='line-clamp-2 flex-1'>{_post.body}</CardContent>
-
-      <CardFooter className='flex-wrap gap-2'>
-        {_post.tags.map((tag) => (
-          <Badge key={tag} variant='outline'>
-            {tag}
-          </Badge>
-        ))}
-      </CardFooter>
+      <CardContent className='line-clamp-2 flex-1'>{_post.title}</CardContent>
     </Card>
   ))
 }

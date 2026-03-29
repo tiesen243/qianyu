@@ -1,9 +1,10 @@
-import { post } from '@qianyu/lib/api/post'
 import { Badge } from '@qianyu/ui/badge'
 import { Button } from '@qianyu/ui/button'
 import { ChevronLeftIcon } from '@qianyu/ui/icon'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
+
+import { api } from '@/lib/api'
 
 import type { Route } from './+types/[id]'
 
@@ -22,7 +23,9 @@ export default function PostDetailPage({ params }: Route.ComponentProps) {
 }
 
 const PostDetails: React.FC<{ id: number }> = ({ id }) => {
-  const { data, isLoading } = useQuery(post.one.queryOptions({ id }))
+  const { data, isLoading, isError } = useQuery(
+    api.post.one.queryOptions({ id })
+  )
 
   if (isLoading || !data)
     return (
@@ -47,23 +50,20 @@ const PostDetails: React.FC<{ id: number }> = ({ id }) => {
       </>
     )
 
+  if (isError)
+    return (
+      <p className='text-center text-red-500'>Failed to load post details.</p>
+    )
+
   return (
     <>
       <h1 className='scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance'>
         {data.title}
       </h1>
 
-      <div className='mt-2 flex flex-wrap items-center gap-2'>
-        {data.tags.map((tag) => (
-          <Badge key={tag} variant='outline'>
-            {tag}
-          </Badge>
-        ))}
-      </div>
-
       <hr className='my-4' />
 
-      <p>{data.body}</p>
+      <p>{data.content}</p>
     </>
   )
 }

@@ -6,7 +6,6 @@
   ],
   "scripts": {
     "changeset": "changeset",
-    "clean": "git clean -fdx node_modules",
     "format": "oxfmt --check",
     "format:fix": "oxfmt --write",
     "lint": "oxlint",
@@ -17,6 +16,9 @@
     "@changesets/cli": "^2.30.0",
     "oxfmt": "^0.42.0",
     "oxlint": "^1.57.0"
+  },
+  "overrides": {
+    "@sinclair/typebox": "0.34.0"
   },
   "packageManager": "bun@1.3.10",
   "catalogs": {

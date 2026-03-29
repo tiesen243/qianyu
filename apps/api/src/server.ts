@@ -1,5 +1,4 @@
 import { cors } from '@elysiajs/cors'
-import { treaty } from '@elysiajs/eden'
 import { env } from 'cloudflare:workers'
 import { CloudflareAdapter } from 'elysia/adapter/cloudflare-worker'
 
@@ -25,10 +24,4 @@ const server = createElysia({
   .compile()
 
 export type Server = typeof server
-export default {
-  fetch: server.fetch,
-}
-
-// const { data, } =await treaty<Server>('').v1.posts.get({
-//   query: { page: 1, limit: 10 },
-// })
+export default server

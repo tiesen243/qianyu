@@ -1,6 +1,6 @@
 [install]
-linker = "isolated"
 linkWorkspacePackages = true
+linker = "isolated"
 
 [run]
 bun = true

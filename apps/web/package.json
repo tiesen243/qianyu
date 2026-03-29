@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "clean": "git clean -fdX .cache .react-router dist node_modules",
+    "clean": "git clean -fdX .alchemy .cache .react-router build dist node_modules",
     "dev": "react-router dev",
     "preview": "vite preview",
     "typecheck": "react-router typegen && tsc --noEmit"
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.30.1",
-    "@cloudflare/workers-types": "^4.20260317.1",
+    "@cloudflare/workers-types": "catalog:dev",
     "@qianyu/infra": "workspace:*",
     "@qianyu/tsconfig": "workspace:*",
     "@react-router/dev": "^7.13.2",

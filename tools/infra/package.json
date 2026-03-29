@@ -8,6 +8,7 @@
     "./alchemy.run": "./alchemy.run.ts"
   },
   "scripts": {
+    "clean": "git clean -fdX .alchemy node_modules",
     "deploy": "alchemy deploy",
     "destroy": "alchemy destroy",
     "dev": "alchemy dev"

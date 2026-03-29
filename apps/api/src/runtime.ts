@@ -3,7 +3,7 @@
 import { env } from 'cloudflare:workers'
 import * as Effect from 'effect/Effect'
 import * as Layer from 'effect/Layer'
-import { Elysia, status } from 'elysia'
+import { Elysia } from 'elysia'
 
 import type HttpError from '@/lib/http-error'
 
@@ -20,10 +20,16 @@ export const runtime = new Elysia({ name: `${env.APP_NAME}.runtime` })
     <TResult>(effect: Effect.Effect<TResult, HttpError, PostService>) =>
       Effect.runPromise(
         Effect.provide(effect, mergedLayer).pipe(
-          Effect.catchTag('HttpError', (error) =>
-            Effect.fail(status(error.status, error.message))
+          Effect.catchTag('HttpError', ({ status, message }) =>
+            Effect.fail({ status, message })
           )
         )
       )
   )
+  .onError(({ error, status }) => {
+    if (error instanceof Error && error.name === '(FiberFailure) Error') {
+      const failure = JSON.parse(error.message)
+      return status(failure.status, failure)
+    }
+  })
   .as('global')
