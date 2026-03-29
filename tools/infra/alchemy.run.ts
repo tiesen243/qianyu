@@ -60,7 +60,7 @@ Your preview environment has been successfully built and deployed!
 <summary><b>Deployment Details</b></summary>
 
 - **Branch:** \`${process.env.GITHUB_REF}\`
-- **Build Commit:** \`${process.env.GITHUB_SHA}\`
+- **Build Commit:** ${process.env.GITHUB_SHA}
 - **Build Time:** \`${((performance.now() - startTime) / 1000).toFixed(2)}s\`
 - **Deployed At:** ${new Date().toUTCString()}
 </details>
