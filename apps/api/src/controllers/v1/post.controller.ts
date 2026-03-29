@@ -1,51 +1,70 @@
 import * as Effect from 'effect/Effect'
 
 import { createElysia } from '@/lib/create-elysia'
+import { PostModel } from '@/models/post.model'
 import PostService from '@/services/post.service'
 
 export const postController = createElysia({
   name: 'controller.v1.post',
   prefix: '/v1/posts',
 })
-  .get('/', () =>
-    Effect.gen(function* all() {
-      const postService = yield* PostService
-      const posts = yield* postService.all()
-      return { posts }
-    })
+  .get(
+    '/',
+    ({ runtime, query }) =>
+      runtime(
+        Effect.gen(function* all() {
+          const postService = yield* PostService
+          const posts = yield* postService.all(query)
+          return { posts, pagination: query }
+        })
+      ),
+    { query: PostModel.all }
   )
 
-  .get('/:id', ({ params }) =>
-    Effect.gen(function* one() {
-      const postService = yield* PostService
-      const post = yield* postService.one(Number.parseInt(params.id, 10))
-
-      return { post }
-    })
+  .get(
+    '/:id',
+    ({ runtime, params }) =>
+      runtime(
+        Effect.gen(function* one() {
+          const postService = yield* PostService
+          return yield* postService.one(params)
+        })
+      ),
+    { params: PostModel.one }
   )
 
-  .post('/', ({ body }) =>
-    Effect.gen(function* create() {
-      const postService = yield* PostService
-      return yield* postService.create(body as never)
-    })
+  .post(
+    '/',
+    ({ runtime, body }) =>
+      runtime(
+        Effect.gen(function* create() {
+          const postService = yield* PostService
+          return yield* postService.create(body)
+        })
+      ),
+    { body: PostModel.create }
   )
 
-  .put('/:id', ({ params, body }) =>
-    Effect.gen(function* update() {
-      const postService = yield* PostService
-      yield* postService.one(Number.parseInt(params.id, 10))
-      return yield* postService.update(
-        Number.parseInt(params.id, 10),
-        body as never
-      )
-    })
+  .put(
+    '/:id',
+    ({ runtime, params, body }) =>
+      runtime(
+        Effect.gen(function* update() {
+          const postService = yield* PostService
+          return yield* postService.update({ ...params, ...body })
+        })
+      ),
+    { params: PostModel.one, body: PostModel.update }
   )
 
-  .delete('/:id', ({ params }) =>
-    Effect.gen(function* update() {
-      const postService = yield* PostService
-      yield* postService.one(Number.parseInt(params.id, 10))
-      return yield* postService.delete(Number.parseInt(params.id, 10))
-    })
+  .delete(
+    '/:id',
+    ({ runtime, params }) =>
+      runtime(
+        Effect.gen(function* update() {
+          const postService = yield* PostService
+          return yield* postService.delete(params)
+        })
+      ),
+    { params: PostModel.one }
   )

@@ -1,51 +1,82 @@
-import { queryOptions } from '@tanstack/react-query'
+import type { Server } from '@qianyu/api'
 
-const API_URL = 'https://dummyjson.com/posts'
-
-interface Post {
-  id: number
-  title: string
-  body: string
-  tags: string[]
-}
+import { treaty } from '@elysiajs/eden/treaty2'
+import { PostModel } from '@qianyu/api/models/post'
+import { mutationOptions, queryOptions } from '@tanstack/react-query'
 
 const keys = {
-  all: (opts: { limit?: number; skip?: number }) => [
-    'posts',
-    { limit: opts.limit ?? 1, skip: opts.skip ?? 0 },
-  ],
-  one: (opts: { id: number }) => ['posts', opts.id],
+  all: (opts: PostModel.All) => ['posts', opts],
+  one: (opts: PostModel.One) => ['posts', opts],
+  create: () => ['posts', 'create'],
+  update: (opts: PostModel.One) => ['posts', 'update', opts.id],
+  delete: (opts: PostModel.One) => ['posts', 'delete', opts.id],
 }
 
-const all = {
-  key: keys.all,
-  queryOptions: (opts: Parameters<typeof keys.all>[0]) =>
-    queryOptions({
-      queryKey: keys.all(opts),
-      queryFn: async () => {
-        const res = await fetch(
-          `${API_URL}?limit=${opts.limit ?? 1}&skip=${opts.skip ?? 0}`
-        )
-        const data = (await res.json()) as { posts: Post[] }
-        return data.posts
-      },
-    }),
-}
+export const post = (api: ReturnType<typeof treaty<Server>>) => ({
+  all: {
+    key: keys.all,
+    queryOptions: (opts: PostModel.All) =>
+      queryOptions({
+        queryKey: keys.all(opts),
+        queryFn: async () => {
+          const { data, error } = await api.v1.posts.get({ query: opts })
+          if (error) throw error.value
+          return data
+        },
+      }),
+  },
 
-const one = {
-  key: keys.one,
-  queryOptions: (opts: Parameters<typeof keys.one>[0]) =>
-    queryOptions({
-      queryKey: keys.one(opts),
-      queryFn: async () => {
-        const res = await fetch(`${API_URL}/${opts.id}`)
-        const data = (await res.json()) as Post
-        return data
-      },
-    }),
-}
+  one: {
+    key: keys.one,
+    queryOptions: (opts: PostModel.One) =>
+      queryOptions({
+        queryKey: keys.one(opts),
+        queryFn: async () => {
+          const { data, error } = await api.v1.posts({ id: opts.id }).get()
+          if (error) throw error.value
+          return data
+        },
+      }),
+  },
 
-export const post = {
-  all,
-  one,
-}
+  create: {
+    key: keys.create,
+    mutationFn: () =>
+      mutationOptions({
+        mutationKey: keys.create(),
+        mutationFn: async (input: PostModel.Create) => {
+          const { data, error } = await api.v1.posts.post(input)
+          if (error) throw error.value
+          return data
+        },
+      }),
+  },
+
+  update: {
+    key: keys.update,
+    mutationFn: (opts: PostModel.One) =>
+      mutationOptions({
+        mutationKey: keys.update(opts),
+        mutationFn: async (input: PostModel.Update) => {
+          const { data: res, error } = await api.v1
+            .posts({ id: opts.id })
+            .put(input)
+          if (error) throw error.value
+          return res
+        },
+      }),
+  },
+
+  delete: {
+    key: keys.delete,
+    mutationFn: (input: PostModel.One) =>
+      mutationOptions({
+        mutationKey: keys.delete(input),
+        mutationFn: async () => {
+          const { data, error } = await api.v1.posts(input).delete()
+          if (error) throw error.value
+          return data
+        },
+      }),
+  },
+})

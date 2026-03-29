@@ -1,5 +1,5 @@
 import alchemy from 'alchemy'
-import { ReactRouter } from 'alchemy/cloudflare'
+import { D1Database, ReactRouter, Worker } from 'alchemy/cloudflare'
 import { GitHubComment } from 'alchemy/github'
 import { CloudflareStateStore } from 'alchemy/state'
 import path from 'node:path'
@@ -8,10 +8,32 @@ const app = await alchemy('qianyu', {
   stateStore: (scope) => new CloudflareStateStore(scope),
 })
 
-export const web = await ReactRouter('web', {
-  cwd: path.resolve(__dirname, '../../apps/web'),
+export const db = await D1Database('db', {
+  name: 'qianyu-db',
+  migrationsDir: path.resolve(__dirname, '../../apps/api/migrations'),
 })
 
+export const api = await Worker('api', {
+  cwd: path.resolve(__dirname, '../../apps/api'),
+  entrypoint: 'src/server.ts',
+  compatibilityFlags: ['nodejs_compat'],
+  bindings: {
+    APP_NAME: 'qianyu',
+    CORS_ORIGIN: '*',
+    DB: db,
+  },
+})
+
+export const web = await ReactRouter('web', {
+  cwd: path.resolve(__dirname, '../../apps/web'),
+  bindings: {
+    VITE_APP_NAME: 'qianyu',
+    VITE_API_URL: api.url ?? 'http://localhost:3000',
+  },
+})
+
+console.log(`DB     -> D1 Database "${db.name}"`)
+console.log(`API    -> ${api.url}`)
 console.log(`Web    -> ${web.url}`)
 
 if (process.env.PULL_REQUEST) {

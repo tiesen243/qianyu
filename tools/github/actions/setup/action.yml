@@ -12,4 +12,4 @@ runs:
 
     - name: Build Packages
       shell: bash
-      run: bun --filter './packages/*' build
+      run: bun --filter '!@qianyu/web' build

@@ -3,7 +3,7 @@
   "extends": ["../../tools/oxc/core.json"],
   "overrides": [
     {
-      "files": ["**/services/*.ts", "**/shared/*.ts"],
+      "files": ["**/*.ts"],
       "rules": {
         "require-yield": "off"
       }

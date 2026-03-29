@@ -1,62 +1,57 @@
+import { env } from 'cloudflare:workers'
+import { eq } from 'drizzle-orm'
 import * as Context from 'effect/Context'
 import * as Effect from 'effect/Effect'
 import * as Layer from 'effect/Layer'
 
-import { name } from '@/../package.json' with { type: 'json' }
+import type { PostModel } from '@/models/post.model'
+
 import HttpError from '@/lib/http-error'
 import Database from '@/shared/database'
 
-export interface Post {
-  id: number
-  title: string
-  content: string
-}
-
-export default class PostService extends Context.Tag(`${name}.service.post`)<
+export default class PostService extends Context.Tag(
+  `${env.APP_NAME}.service.post`
+)<
   PostService,
   {
-    readonly all: () => Effect.Effect<Post[]>
-    readonly one: (id: Post['id']) => Effect.Effect<Post, HttpError>
-    readonly create: (data: Omit<Post, 'id'>) => Effect.Effect<Post['id']>
+    readonly all: (
+      input: PostModel.All
+    ) => Effect.Effect<PostModel.Post[], HttpError>
+    readonly one: (
+      input: PostModel.One
+    ) => Effect.Effect<PostModel.Post, HttpError>
+    readonly create: (
+      input: PostModel.Create
+    ) => Effect.Effect<PostModel.One, HttpError>
     readonly update: (
-      id: Post['id'],
-      data: Omit<Post, 'id'>
-    ) => Effect.Effect<Post['id'], HttpError>
-    readonly delete: (id: Post['id']) => Effect.Effect<Post['id'], HttpError>
+      input: PostModel.One & PostModel.Update
+    ) => Effect.Effect<PostModel.One, HttpError>
+    readonly delete: (
+      input: PostModel.One
+    ) => Effect.Effect<PostModel.One, HttpError>
   }
 >() {
-  static posts: Post[] = [
-    {
-      id: 1,
-      title: 'Hello World',
-      content: 'This is the first post.',
-    },
-  ]
-
   static Live = Layer.effect(
     this,
     Effect.gen(function* live() {
       const db = yield* Database
+      const { posts } = yield* db.schema
 
       return {
-        all: () =>
+        all: ({ page, limit }) =>
           Effect.gen(function* all() {
-            yield* db.query(`SELECT *
-              FROM posts
-            `)
-
-            return PostService.posts
+            const offset = (page - 1) * limit
+            return yield* db.query((client) =>
+              client.select().from(posts).limit(limit).offset(offset)
+            )
           }),
 
-        one: (id) =>
+        one: ({ id }) =>
           Effect.gen(function* one() {
-            yield* db.query(`SELECT *
-              FROM posts
-              WHERE id = ${id}
-            `)
-
-            const post = PostService.posts.find((p) => p.id === id)
-            if (!post)
+            const result = yield* db.query((client) =>
+              client.select().from(posts).where(eq(posts.id, id)).limit(1)
+            )
+            if (!result[0])
               return yield* Effect.fail(
                 new HttpError({
                   status: 'Not Found',
@@ -64,29 +59,35 @@ export default class PostService extends Context.Tag(`${name}.service.post`)<
                 })
               )
 
-            return post
+            return result[0]
           }),
 
-        create: (data) =>
+        create: (input) =>
           Effect.gen(function* create() {
-            yield* db.query(`INSERT INTO posts (title, content)
-                VALUES ('${data.title}', '${data.content}')
-              `)
+            const result = yield* db.query((client) =>
+              client.insert(posts).values(input).returning({ id: posts.id })
+            )
+            if (!result[0])
+              return yield* Effect.fail(
+                new HttpError({
+                  status: 'Internal Server Error',
+                  message: 'Failed to create post',
+                })
+              )
 
-            const id = Math.max(0, ...PostService.posts.map((p) => p.id)) + 1
-            PostService.posts.push({ id, ...data })
-            return id
+            return { id: result[0].id }
           }),
 
-        update: (id, data) =>
+        update: ({ id, ...data }) =>
           Effect.gen(function* update() {
-            yield* db.query(`UPDATE posts
-                SET title = '${data.title}', content = '${data.content}'
-                WHERE id = ${id}
-              `)
-
-            const index = PostService.posts.findIndex((p) => p.id === id)
-            if (index === -1)
+            const result = yield* db.query((client) =>
+              client
+                .update(posts)
+                .set(data)
+                .where(eq(posts.id, id))
+                .returning({ id: posts.id })
+            )
+            if (!result[0])
               return yield* Effect.fail(
                 new HttpError({
                   status: 'Not Found',
@@ -94,21 +95,18 @@ export default class PostService extends Context.Tag(`${name}.service.post`)<
                 })
               )
 
-            PostService.posts[index] = {
-              ...(PostService.posts.at(index) ?? { id }),
-              ...data,
-            }
-            return id
+            return { id: result[0].id }
           }),
 
-        delete: (id) =>
+        delete: ({ id }) =>
           Effect.gen(function* del() {
-            yield* db.query(`DELETE FROM posts
-                WHERE id = ${id}
-              `)
-
-            const index = PostService.posts.findIndex((p) => p.id === id)
-            if (index === -1)
+            const result = yield* db.query((client) =>
+              client
+                .delete(posts)
+                .where(eq(posts.id, id))
+                .returning({ id: posts.id })
+            )
+            if (!result[0])
               return yield* Effect.fail(
                 new HttpError({
                   status: 'Not Found',
@@ -116,8 +114,7 @@ export default class PostService extends Context.Tag(`${name}.service.post`)<
                 })
               )
 
-            PostService.posts = PostService.posts.filter((p) => p.id !== id)
-            return id
+            return { id: result[0].id }
           }),
       }
     })
