@@ -23,11 +23,9 @@ export default function PostDetailPage({ params }: Route.ComponentProps) {
 }
 
 const PostDetails: React.FC<{ id: number }> = ({ id }) => {
-  const { data, isLoading, isError } = useQuery(
-    api.post.one.queryOptions({ id })
-  )
+  const { data, isLoading, error } = useQuery(api.post.one.queryOptions({ id }))
 
-  if (isLoading || !data)
+  if (isLoading)
     return (
       <>
         <h1 className='mx-auto w-1/2 animate-pulse rounded bg-current/80 text-4xl font-extrabold tracking-tight'>
@@ -50,9 +48,11 @@ const PostDetails: React.FC<{ id: number }> = ({ id }) => {
       </>
     )
 
-  if (isError)
+  if (error || !data)
     return (
-      <p className='text-center text-red-500'>Failed to load post details.</p>
+      <h1 className='scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance text-destructive'>
+        {error?.message ?? 'Failed to load post details.'}
+      </h1>
     )
 
   return (

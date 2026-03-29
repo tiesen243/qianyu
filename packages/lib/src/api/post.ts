@@ -1,20 +1,20 @@
 import type { Server } from '@qianyu/api'
+import type * as PostModel from '@qianyu/api/models/post'
 
-import { treaty } from '@elysiajs/eden/treaty2'
-import { PostModel } from '@qianyu/api/models/post'
+import { treaty } from '@elysiajs/eden'
 import { mutationOptions, queryOptions } from '@tanstack/react-query'
 
 const keys = {
   all: (opts: PostModel.All) => ['posts', opts],
   one: (opts: PostModel.One) => ['posts', opts],
   create: () => ['posts', 'create'],
-  update: (opts: PostModel.One) => ['posts', 'update', opts.id],
-  delete: (opts: PostModel.One) => ['posts', 'delete', opts.id],
+  update: () => ['posts', 'update'],
+  delete: () => ['posts', 'delete'],
 }
 
 export const post = (api: ReturnType<typeof treaty<Server>>) => ({
   all: {
-    key: keys.all,
+    queryKey: keys.all,
     queryOptions: (opts: PostModel.All) =>
       queryOptions({
         queryKey: keys.all(opts),
@@ -27,7 +27,7 @@ export const post = (api: ReturnType<typeof treaty<Server>>) => ({
   },
 
   one: {
-    key: keys.one,
+    queryKey: keys.one,
     queryOptions: (opts: PostModel.One) =>
       queryOptions({
         queryKey: keys.one(opts),
@@ -40,8 +40,8 @@ export const post = (api: ReturnType<typeof treaty<Server>>) => ({
   },
 
   create: {
-    key: keys.create,
-    mutationFn: () =>
+    mutationKey: keys.create,
+    mutationOptions: () =>
       mutationOptions({
         mutationKey: keys.create(),
         mutationFn: async (input: PostModel.Create) => {
@@ -53,14 +53,12 @@ export const post = (api: ReturnType<typeof treaty<Server>>) => ({
   },
 
   update: {
-    key: keys.update,
-    mutationFn: (opts: PostModel.One) =>
+    mutationKey: keys.update,
+    mutationOptions: () =>
       mutationOptions({
-        mutationKey: keys.update(opts),
+        mutationKey: keys.update(),
         mutationFn: async (input: PostModel.Update) => {
-          const { data: res, error } = await api.v1
-            .posts({ id: opts.id })
-            .put(input)
+          const { data: res, error } = await api.v1.posts.put(input)
           if (error) throw error.value
           return res
         },
@@ -68,12 +66,12 @@ export const post = (api: ReturnType<typeof treaty<Server>>) => ({
   },
 
   delete: {
-    key: keys.delete,
-    mutationFn: (input: PostModel.One) =>
+    mutationKey: keys.delete,
+    mutationOptions: (input: PostModel.One) =>
       mutationOptions({
-        mutationKey: keys.delete(input),
+        mutationKey: keys.delete(),
         mutationFn: async () => {
-          const { data, error } = await api.v1.posts(input).delete()
+          const { data, error } = await api.v1.posts.delete(input)
           if (error) throw error.value
           return data
         },

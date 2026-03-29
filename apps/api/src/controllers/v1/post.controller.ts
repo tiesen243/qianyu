@@ -1,7 +1,7 @@
 import * as Effect from 'effect/Effect'
 
 import { createElysia } from '@/lib/create-elysia'
-import { PostModel } from '@/models/post.model'
+import * as PostModel from '@/models/post.model'
 import PostService from '@/services/post.service'
 
 export const postController = createElysia({
@@ -46,25 +46,25 @@ export const postController = createElysia({
   )
 
   .put(
-    '/:id',
-    ({ runtime, params, body }) =>
+    '/',
+    ({ runtime, body }) =>
       runtime(
         Effect.gen(function* update() {
           const postService = yield* PostService
-          return yield* postService.update({ ...params, ...body })
+          return yield* postService.update(body)
         })
       ),
     { params: PostModel.one, body: PostModel.update }
   )
 
   .delete(
-    '/:id',
-    ({ runtime, params }) =>
+    '/',
+    ({ runtime, body }) =>
       runtime(
         Effect.gen(function* update() {
           const postService = yield* PostService
-          return yield* postService.delete(params)
+          return yield* postService.delete(body)
         })
       ),
-    { params: PostModel.one }
+    { body: PostModel.one }
   )

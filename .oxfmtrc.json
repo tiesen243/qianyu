@@ -35,6 +35,6 @@
 
   "sortTailwindcss": {
     "functions": ["clsx", "cva", "cn"],
-    "stylesheet": "./apps/mobile/src/globals.css"
+    "stylesheet": "./packages/ui/src/tailwind.css"
   }
 }

@@ -2,6 +2,7 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import { createQueryClient } from '@qianyu/lib/create-query-client'
 import { ThemeProvider } from '@qianyu/ui'
+import { ToastProvider } from '@qianyu/ui/toast'
 import { QueryClientProvider } from '@tanstack/react-query'
 
 let clientQueryClientSingleton: QueryClient | undefined
@@ -22,7 +23,9 @@ export function Providers({
       disableTransitionOnChange
       enableSystem
     >
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ToastProvider>{children}</ToastProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   )
 }

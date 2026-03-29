@@ -4,5 +4,6 @@ import { index, route } from '@react-router/dev/routes'
 
 export default [
   index('./routes/_index.tsx'),
-  route('/posts/:id', './routes/[id].tsx'),
+  route('/posts/:id', './routes/posts/[id].tsx'),
+  route('/posts/create', './routes/posts/create.tsx'),
 ] satisfies RouteConfig

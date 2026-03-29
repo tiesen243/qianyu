@@ -1,10 +1,10 @@
-import { post } from '@qianyu/lib/api/post'
 import { useNavigation } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
 import { Card } from 'heroui-native/card'
 import { ActivityIndicator, FlatList } from 'react-native'
 
 import { Container } from '@/components/container'
+import { api } from '@/lib/api'
 
 export default function IndexScreen() {
   return (
@@ -17,18 +17,16 @@ export default function IndexScreen() {
 const PostList: React.FC = () => {
   const navigation = useNavigation()
   const { data, isLoading, refetch, isRefetching } = useQuery(
-    post.all.queryOptions({
-      limit: 10,
-    })
+    api.post.all.queryOptions({})
   )
 
   if (isLoading || !data) return <ActivityIndicator />
 
   return (
     <FlatList
-      data={data}
+      data={data.posts}
       keyExtractor={(item) => item.id.toString()}
-      contentContainerClassName='gap-2  px-4'
+      contentContainerClassName='gap-2  mt-4 px-4'
       refreshing={isRefetching}
       onRefresh={refetch}
       renderItem={({ item }) => (
@@ -41,9 +39,9 @@ const PostList: React.FC = () => {
             <Card.Title>{item.title}</Card.Title>
 
             <Card.Description>
-              {item.body.length > 80
-                ? `${item.body.slice(0, 80)}...`
-                : item.body}
+              {item.content.length > 80
+                ? `${item.content.slice(0, 80)}...`
+                : item.content}
             </Card.Description>
           </Card.Header>
         </Card>

@@ -1,29 +1,24 @@
-import type { Static } from 'elysia'
+import * as z from 'zod'
 
-import { t } from 'elysia'
+export const post = z.object({
+  id: z.coerce.number(),
+  title: z.string().min(1),
+  content: z.string().min(1),
+  createdAt: z.date(),
+})
+export type Post = z.infer<typeof post>
 
-// oxlint-disable-next-line typescript/no-namespace
-export namespace PostModel {
-  export const post = t.Object({
-    id: t.Number(),
-    title: t.String(),
-    content: t.String(),
-    createdAt: t.Date(),
-  })
-  export type Post = Static<typeof post>
+export const all = z.object({
+  page: z.coerce.number().optional(),
+  limit: z.coerce.number().optional(),
+})
+export type All = z.infer<typeof all>
 
-  export const all = t.Object({
-    page: t.Number({ default: 1 }),
-    limit: t.Number({ default: 10 }),
-  })
-  export type All = Static<typeof all>
+export const one = post.pick({ id: true })
+export type One = z.infer<typeof one>
 
-  export const one = t.Pick(post, ['id'])
-  export type One = Static<typeof one>
+export const create = post.omit({ id: true, createdAt: true })
+export type Create = z.infer<typeof create>
 
-  export const create = t.Omit(post, ['id', 'createdAt'])
-  export type Create = Static<typeof create>
-
-  export const update = t.Partial(create)
-  export type Update = Static<typeof update>
-}
+export const update = create.partial().extend({ id: one.shape.id })
+export type Update = z.infer<typeof update>

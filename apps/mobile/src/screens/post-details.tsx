@@ -1,19 +1,18 @@
 import type { StaticScreenProps } from '@react-navigation/native'
 
-import { post } from '@qianyu/lib/api/post'
 import { useNavigation } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
-import { Chip } from 'heroui-native/chip'
 import { Separator } from 'heroui-native/separator'
 import { useEffect } from 'react'
-import { ActivityIndicator, Text, View } from 'react-native'
+import { ActivityIndicator, Text } from 'react-native'
 
 import { Container } from '@/components/container'
+import { api } from '@/lib/api'
 
 export default function PostDetailsScreen({
   route: { params },
 }: StaticScreenProps<{ id: number }>) {
-  const { data, isLoading } = useQuery(post.one.queryOptions(params))
+  const { data, isLoading } = useQuery(api.post.one.queryOptions(params))
   const navation = useNavigation()
 
   useEffect(() => {
@@ -33,17 +32,9 @@ export default function PostDetailsScreen({
     <Container className='px-4'>
       <Text className='text-2xl font-bold text-foreground'>{data.title}</Text>
 
-      <View className='flex-row flex-wrap items-center gap-2'>
-        {data.tags.map((tag) => (
-          <Chip key={tag} variant='soft'>
-            {tag}
-          </Chip>
-        ))}
-      </View>
-
       <Separator />
 
-      <Text className='text-lg text-foreground'>{data.body}</Text>
+      <Text className='text-lg text-foreground'>{data.content}</Text>
     </Container>
   )
 }

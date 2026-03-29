@@ -4,7 +4,7 @@ import * as Context from 'effect/Context'
 import * as Effect from 'effect/Effect'
 import * as Layer from 'effect/Layer'
 
-import type { PostModel } from '@/models/post.model'
+import type * as PostModel from '@/models/post.model'
 
 import HttpError from '@/lib/http-error'
 import Database from '@/shared/database'
@@ -38,7 +38,7 @@ export default class PostService extends Context.Tag(
       const { posts } = yield* db.schema
 
       return {
-        all: ({ page, limit }) =>
+        all: ({ page = 1, limit = 10 }) =>
           Effect.gen(function* all() {
             const offset = (page - 1) * limit
             return yield* db.query((client) =>
