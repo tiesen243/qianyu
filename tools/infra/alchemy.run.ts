@@ -4,6 +4,8 @@ import { GitHubComment } from 'alchemy/github'
 import { CloudflareStateStore } from 'alchemy/state'
 import path from 'node:path'
 
+const startTime = performance.now()
+
 const app = await alchemy('qianyu', {
   stateStore: (scope) => new CloudflareStateStore(scope),
 })
@@ -31,7 +33,8 @@ export const web = await ReactRouter('web', {
   },
 })
 
-console.log(`DB     -> D1 Database "${db.name}"`)
+console.log('Preview environment deployed successfully!')
+console.log(`DB     -> ${db.name}`)
 console.log(`API    -> ${api.url}`)
 console.log(`Web    -> ${web.url}`)
 
@@ -41,18 +44,29 @@ if (process.env.PULL_REQUEST) {
     repository: process.env.GITHUB_REPOSITORY_NAME || 'my-app',
     issueNumber: Number(process.env.PULL_REQUEST),
     body: `
-## 🚀 Preview Deployed
+## Preview Environment Deployed
 
-Your preview is ready!
+Your preview environment has been successfully built and deployed!
 
-**Preview URL:** 
-  - API: ${api.url}
-  - Web: ${web.url}
+### Service Endpoints
 
-This preview was built from commit ${process.env.GITHUB_SHA}
+| Service | Endpoint / Reference |
+|---------|----------------------|
+| **DB**  | ${db.name} |
+| **API** | ${api.url} |
+| **Web** | ${web.url} |
+
+<details>
+<summary><b>Deployment Details</b></summary>
+
+- **Branch:** \`${process.env.GITHUB_REF}\`
+- **Build Commit:** \`${process.env.GITHUB_SHA}\`
+- **Build Time:** \`${((performance.now() - startTime) / 1000).toFixed(2)}s\`
+- **Deployed At:** ${new Date().toUTCString()}
+</details>
 
 ---
-<sub>🤖 This comment will be updated automatically when you push new commits to this PR.</sub>`,
+<sub>🤖 *Automatically generated. This comment will be updated when you push new commits to this PR.*</sub>`,
   })
 }
 
