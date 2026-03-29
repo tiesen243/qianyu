@@ -2,6 +2,9 @@
 
 <p align="center">
   <a href="https://github.com/tiesen243/qianyu/releases">
+    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/api/package.json&label=version@api" alt="Version API">
+  </a>
+  <a href="https://github.com/tiesen243/qianyu/releases">
     <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/web/package.json&label=version@web" alt="Version Web">
   </a>
   <a href="https://github.com/tiesen243/qianyu/releases">
