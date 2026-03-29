@@ -1,5 +1,14 @@
 # @qianyu/web
 
+## 0.0.5
+
+### Patch Changes
+
+- 4faefc0: disable hardcode db name
+- Updated dependencies [4faefc0]
+  - @qianyu/api@0.0.2
+  - @qianyu/lib@0.0.3
+
 ## 0.0.4
 
 ### Patch Changes

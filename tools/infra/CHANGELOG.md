@@ -1,5 +1,11 @@
 # @qianyu/infra
 
+## 0.0.3
+
+### Patch Changes
+
+- 4faefc0: disable hardcode db name
+
 ## 0.0.2
 
 ### Patch Changes
