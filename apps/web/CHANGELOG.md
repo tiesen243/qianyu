@@ -1,5 +1,13 @@
 # @qianyu/web
 
+## 0.0.6
+
+### Patch Changes
+
+- 4dd588c: update client ui
+- Updated dependencies [edbd2f6]
+  - @qianyu/lib@0.0.4
+
 ## 0.0.5
 
 ### Patch Changes
