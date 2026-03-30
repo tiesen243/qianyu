@@ -1,5 +1,3 @@
-/// <reference types="uniwind/types" />
-
 declare module 'react-native-config' {
   export interface NativeConfig {
     API_URL?: string
@@ -7,4 +5,9 @@ declare module 'react-native-config' {
 
   export const Config: NativeConfig
   export default Config
+}
+
+declare module '*.css' {
+  const content: Record<string, string>
+  export default content
 }
