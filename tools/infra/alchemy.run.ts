@@ -29,7 +29,7 @@ export const web = await ReactRouter('web', {
   cwd: path.resolve(__dirname, '../../apps/web'),
   bindings: {
     VITE_APP_NAME: 'qianyu',
-    VITE_API_URL: api.url ?? 'http://localhost:3000',
+    VITE_API_URL: api.url ?? 'http://localhost:1337',
   },
 })
 
