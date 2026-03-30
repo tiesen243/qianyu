@@ -1,5 +1,14 @@
 # @qianyu/mobile
 
+## 0.0.8
+
+### Patch Changes
+
+- 4dd588c: update client ui
+- 3c4df41: config env
+- Updated dependencies [edbd2f6]
+  - @qianyu/lib@0.0.4
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @qianyu/lib
 
+## 0.0.4
+
+### Patch Changes
+
+- edbd2f6: fix params of delete post
+
 ## 0.0.3
 
 ### Patch Changes
