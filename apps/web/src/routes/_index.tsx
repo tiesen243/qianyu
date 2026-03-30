@@ -67,7 +67,7 @@ const PostList: React.FC = () => {
 const PostCard: React.FC<{ post: Post }> = ({ post }) => {
   const navigate = useNavigate()
   const { mutate, isPending } = useMutation({
-    ...api.post.delete.mutationOptions(post),
+    ...api.post.delete.mutationOptions(),
     onSuccess: () =>
       toast.add({ type: 'success', description: 'Post deleted successfully!' }),
     onError: ({ message }) =>
@@ -83,7 +83,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
           <Button
             variant='ghost'
             size='icon-sm'
-            onClick={() => mutate()}
+            onClick={() => mutate({ id: post.id })}
             disabled={isPending}
           >
             <XIcon />

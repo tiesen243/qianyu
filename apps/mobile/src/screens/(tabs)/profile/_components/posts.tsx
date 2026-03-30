@@ -2,10 +2,10 @@ import { Card } from 'heroui-native'
 import { Avatar } from 'heroui-native/avatar'
 import { FlatList, Image, Text, View } from 'react-native'
 
-import { useProfile } from '@/screens/(tabs)/profile/screen.provider'
+import { useAuth } from '@/components/auth-provider'
 
 export const Posts: React.FC = () => {
-  const { profile } = useProfile()
+  const { user } = useAuth()
 
   return (
     <FlatList
@@ -15,13 +15,13 @@ export const Posts: React.FC = () => {
       renderItem={({ item }) => (
         <Card key={item.id}>
           <Card.Header className='flex-row items-center gap-2'>
-            <Avatar alt={`${profile.name}'s Avatar`} className='mr-3 size-10'>
-              <Avatar.Image source={{ uri: profile.avatarUrl }} />
-              <Avatar.Fallback>{profile.name.slice(0, 2)}</Avatar.Fallback>
+            <Avatar alt={`${user.name}'s Avatar`} className='mr-3 size-10'>
+              <Avatar.Image source={{ uri: user.avatarUrl }} />
+              <Avatar.Fallback>{user.name.slice(0, 2)}</Avatar.Fallback>
             </Avatar>
 
             <View>
-              <Card.Title>{profile.name}</Card.Title>
+              <Card.Title>{user.name}</Card.Title>
               <Card.Description className='text-sm'>
                 {item.createdAt.toLocaleDateString()}
               </Card.Description>

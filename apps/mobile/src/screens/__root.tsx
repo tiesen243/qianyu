@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { lazy } from 'react'
 
 import Tabs from '@/screens/(tabs)/__root'
+import { PostDetailsHeaderRight } from '@/screens/post-details'
 
 const RootStack = createNativeStackNavigator({
   screens: {
@@ -14,10 +15,21 @@ const RootStack = createNativeStackNavigator({
       options: { headerShown: false },
     },
 
+    'post-create': {
+      screen: lazy(() => import('@/screens/post-create')),
+      linking: { path: 'posts/create' },
+      options: { title: 'Create Post' },
+    },
+
     'post-details': {
       screen: lazy(() => import('@/screens/post-details')),
       linking: { path: 'posts/:id' },
-      options: { title: 'Post Details' },
+      options: ({ route }) => ({
+        title: 'Post Details',
+        headerRight: () => (
+          <PostDetailsHeaderRight id={(route.params as { id: number }).id} />
+        ),
+      }),
     },
 
     settings: {

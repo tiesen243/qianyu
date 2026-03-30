@@ -67,10 +67,10 @@ export const post = (api: ReturnType<typeof treaty<Server>>) => ({
 
   delete: {
     mutationKey: keys.delete,
-    mutationOptions: (input: PostModel.One) =>
+    mutationOptions: () =>
       mutationOptions({
         mutationKey: keys.delete(),
-        mutationFn: async () => {
+        mutationFn: async (input: PostModel.One) => {
           const { data, error } = await api.v1.posts.delete(input)
           if (error) throw error.value
           return data

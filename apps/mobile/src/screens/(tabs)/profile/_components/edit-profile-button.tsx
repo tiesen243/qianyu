@@ -9,18 +9,18 @@ import { PencilIcon } from 'lucide-react-native'
 import { useState } from 'react'
 import { Keyboard } from 'react-native'
 
+import { useAuth } from '@/components/auth-provider'
 import { Icon } from '@/components/ui/icon'
-import { useProfile } from '@/screens/(tabs)/profile/screen.provider'
 
 export const EditProfileButton: React.FC = () => {
-  const { profile, setProfile } = useProfile()
+  const { user, setUser } = useAuth()
   const { toast } = useToast()
 
-  const [data, setData] = useState(profile)
+  const [data, setData] = useState(user)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleSubmit = () => {
-    setProfile(data)
+    setUser(data)
     setIsOpen(false)
     toast.show('Profile updated successfully!')
   }

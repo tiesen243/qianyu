@@ -6,6 +6,8 @@ import { HeroUINativeProvider } from 'heroui-native/provider'
 import { ToastProvider } from 'heroui-native/toast'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
+import { AuthProvider } from '@/components/auth-provider'
+
 let clientQueryClientSingleton: QueryClient | undefined
 const getQueryClient = () => {
   if (typeof window === 'undefined') return createQueryClient()
@@ -28,7 +30,7 @@ export function Providers({
       >
         <ToastProvider>
           <QueryClientProvider client={queryClient}>
-            {children}
+            <AuthProvider>{children}</AuthProvider>
           </QueryClientProvider>
         </ToastProvider>
       </HeroUINativeProvider>

@@ -8,36 +8,33 @@ import { Icon } from '@/components/ui/icon'
 import { EditProfileButton } from '@/screens/(tabs)/profile/_components/edit-profile-button'
 import { Posts } from '@/screens/(tabs)/profile/_components/posts'
 import { UserInfo } from '@/screens/(tabs)/profile/_components/user-info'
-import { ProfileProvider } from '@/screens/(tabs)/profile/screen.provider'
 
 export default function ProfileScreen() {
   const { navigate } = useNavigation()
 
   return (
-    <ProfileProvider>
-      <Container inTab>
-        <UserInfo />
+    <Container inTab>
+      <UserInfo />
 
-        <View className='flex-row items-center justify-center gap-2 px-4'>
-          <Button size='sm' className='flex-1'>
-            <Icon as={PlusIcon} className='text-accent-foreground' />
-            <Button.Label>Add to Story</Button.Label>
-          </Button>
+      <View className='flex-row items-center justify-center gap-2 px-4'>
+        <Button size='sm' className='flex-1'>
+          <Icon as={PlusIcon} className='text-accent-foreground' />
+          <Button.Label>Add to Story</Button.Label>
+        </Button>
 
-          <EditProfileButton />
+        <EditProfileButton />
 
-          <Button
-            variant='outline'
-            size='sm'
-            className='aspect-square'
-            onPress={() => navigate('settings')}
-          >
-            <Icon as={EllipsisIcon} className='size-3 text-foreground' />
-          </Button>
-        </View>
+        <Button
+          variant='outline'
+          size='sm'
+          className='aspect-square'
+          onPress={() => navigate('settings')}
+        >
+          <Icon as={EllipsisIcon} className='size-3 text-foreground' />
+        </Button>
+      </View>
 
-        <Posts />
-      </Container>
-    </ProfileProvider>
+      <Posts />
+    </Container>
   )
 }
