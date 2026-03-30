@@ -39,6 +39,7 @@
     "no-continue": "off",
     "no-duplicate-imports": ["error", { "allowSeparateTypeImports": true }],
     "no-implicit-coercion": "off",
+    "no-inline-comments": "off",
     "no-magic-numbers": "off",
     "no-use-before-define": "off",
     "no-ternary": "off",
