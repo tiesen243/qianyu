@@ -1,8 +1,4 @@
 import { createApi } from '@qianyu/lib/api'
+import { Config } from 'react-native-config'
 
-function getApiUrl() {
-  if (__DEV__) return 'http://localhost:1337'
-  return 'https://qianyu-api-prod.tiesen.workers.dev'
-}
-
-export const api = createApi(getApiUrl())
+export const api = createApi(Config.API_URL ?? 'http://localhost:1337')

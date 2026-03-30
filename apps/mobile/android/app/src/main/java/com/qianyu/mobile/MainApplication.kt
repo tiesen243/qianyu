@@ -8,6 +8,7 @@ import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.lugg.RNCConfig.RNCConfigPackage;
 
 class MainApplication : Application(), ReactApplication {
 
@@ -17,6 +18,7 @@ class MainApplication : Application(), ReactApplication {
       packageList =
         PackageList(this).packages.apply {
           add(SplashScreenReactPackage())
+          add(RNCConfigPackage())
         },
     )
   }
