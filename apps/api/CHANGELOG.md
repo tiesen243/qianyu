@@ -1,5 +1,13 @@
 # @qianyu/api
 
+## 0.0.3
+
+### Patch Changes
+
+- 78f1d6c: fix typecheck error
+- f01b207: update api
+- a3d6747: updated
+
 ## 0.0.2
 
 ### Patch Changes

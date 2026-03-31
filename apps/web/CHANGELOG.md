@@ -1,5 +1,17 @@
 # @qianyu/web
 
+## 0.0.8
+
+### Patch Changes
+
+- 87e72ca: fix ci check
+- a3d6747: updated
+- Updated dependencies [78f1d6c]
+- Updated dependencies [f01b207]
+- Updated dependencies [a3d6747]
+  - @qianyu/api@0.0.3
+  - @qianyu/lib@0.0.5
+
 ## 0.0.7
 
 ### Patch Changes

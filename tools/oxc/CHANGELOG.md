@@ -1,5 +1,11 @@
 # @qianyu/oxc
 
+## 0.0.3
+
+### Patch Changes
+
+- 87e72ca: fix ci check
+
 ## 0.0.2
 
 ### Patch Changes
