@@ -14,6 +14,7 @@
       "version": "0.0.2",
       "dependencies": {
         "@elysiajs/cors": "^1.4.1",
+        "@elysiajs/openapi": "^1.4.14",
         "drizzle-orm": "^0.45.2",
         "effect": "^3.21.0",
         "elysia": "^1.4.28",
@@ -30,7 +31,7 @@
     },
     "apps/mobile": {
       "name": "@qianyu/mobile",
-      "version": "0.0.7",
+      "version": "0.0.8",
       "dependencies": {
         "@gorhom/bottom-sheet": "^5.2.8",
         "@qianyu/lib": "workspace:*",
@@ -71,7 +72,7 @@
     },
     "apps/web": {
       "name": "@qianyu/web",
-      "version": "0.0.5",
+      "version": "0.0.7",
       "dependencies": {
         "@elysiajs/eden": "^1.4.8",
         "@qianyu/api": "workspace:*",
@@ -100,7 +101,7 @@
     },
     "packages/lib": {
       "name": "@qianyu/lib",
-      "version": "0.0.3",
+      "version": "0.0.4",
       "dependencies": {
         "@elysiajs/eden": "^1.4.8",
         "@qianyu/api": "workspace:*",
@@ -544,6 +545,8 @@
     "@elysiajs/cors": ["@elysiajs/cors@1.4.1", "", { "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-lQfad+F3r4mNwsxRKbXyJB8Jg43oAOXjRwn7sKUL6bcOW3KjUqUimTS+woNpO97efpzjtDE0tEjGk9DTw8lqTQ=="],
 
     "@elysiajs/eden": ["@elysiajs/eden@1.4.8", "", { "peerDependencies": { "elysia": ">=1.4.19" } }, "sha512-a7oct2kFa49tH+GawZtSUCZR2rQgucNYgGLz8alXUqb4IrU3PASA0T4zXJw4MhdV1Xb6vyiR7p7kkqJcVjgbkA=="],
+
+    "@elysiajs/openapi": ["@elysiajs/openapi@1.4.14", "", { "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-kWmJWdvP8/LwHwAJXSpz6xFfYUoyUyEPRimEYABuDU1rOnS27Da1u9T2jyU7frOopxKWV/wDfDxMP8z2xdCPJw=="],
 
     "@emnapi/core": ["@emnapi/core@1.9.1", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.0", "tslib": "^2.4.0" } }, "sha512-mukuNALVsoix/w1BJwFzwXBN/dHeejQtuVzcDsfOEsdpCumXb/E9j8w11h5S54tT1xhifGfbbSm/ICrObRb3KA=="],
 

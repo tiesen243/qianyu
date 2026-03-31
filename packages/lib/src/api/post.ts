@@ -12,7 +12,7 @@ const keys = {
   delete: () => ['posts', 'delete'],
 }
 
-export const post = (api: ReturnType<typeof treaty<Server>>) => ({
+export const post = ({ api }: ReturnType<typeof treaty<Server>>) => ({
   all: {
     queryKey: keys.all,
     queryOptions: (opts: PostModel.All) =>

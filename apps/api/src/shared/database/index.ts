@@ -9,6 +9,10 @@ import * as Layer from 'effect/Layer'
 import HttpError from '@/lib/http-error'
 import * as schema from '@/shared/database/schema'
 
+const globalForDrizzle = globalThis as unknown as {
+  drizzle: ReturnType<typeof drizzle>
+}
+
 export default class Database extends Context.Tag(`${env.APP_NAME}.database`)<
   Database,
   {
@@ -20,24 +24,20 @@ export default class Database extends Context.Tag(`${env.APP_NAME}.database`)<
 >() {
   static Live = Layer.effect(
     this,
-    Effect.gen(function* live() {
-      const db = drizzle(env.DB)
-
-      return {
-        schema: Effect.succeed(schema),
-        query: (cb) =>
-          Effect.tryPromise({
-            try: () => cb(db),
-            catch: (error) =>
-              new HttpError({
-                status: 'Internal Server Error',
-                message:
-                  error instanceof Error
-                    ? error.message
-                    : 'Database query failed',
-              }),
-          }),
-      }
+    Effect.succeed({
+      schema: Effect.succeed(schema),
+      query: (cb) =>
+        Effect.tryPromise({
+          try: () => cb((globalForDrizzle.drizzle ??= drizzle(env.DB))),
+          catch: (error) =>
+            new HttpError({
+              status: 'Internal Server Error',
+              message:
+                error instanceof Error
+                  ? error.message
+                  : 'Database query failed',
+            }),
+        }),
     })
   )
 }

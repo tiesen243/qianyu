@@ -1,6 +1,7 @@
 import '@/globals.css'
 
 import { StatusBar, useColorScheme } from 'react-native'
+import { Config } from 'react-native-config'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 
@@ -23,8 +24,8 @@ function App() {
           linking={{
             enabled: 'auto',
             prefixes: [
-              'qianyu://',
-              'https://qianyu-web-prod.tiesen.workers.dev',
+              Config.SCHEME ? `${Config.SCHEME}://` : '',
+              Config.PREFIX ? `https://${Config.PREFIX}` : '',
             ],
           }}
           onReady={() => SplashScreen.hide()}

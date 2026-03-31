@@ -92,6 +92,11 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName getVersionFromNpm()
+
+        manifestPlaceholders = [
+            SCHEME: project.env.get("SCHEME"),
+            PREFIX: project.env.get("PREFIX")
+        ]
     }
     signingConfigs {
         debug {

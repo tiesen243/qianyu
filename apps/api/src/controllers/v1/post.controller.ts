@@ -6,7 +6,8 @@ import PostService from '@/services/post.service'
 
 export const postController = createElysia({
   name: 'controller.v1.post',
-  prefix: '/v1/posts',
+  prefix: '/api/v1/posts',
+  tags: ['posts'],
 })
   .get(
     '/',
@@ -15,7 +16,7 @@ export const postController = createElysia({
         Effect.gen(function* all() {
           const postService = yield* PostService
           const posts = yield* postService.all(query)
-          return { posts, pagination: query }
+          return { posts }
         })
       ),
     { query: PostModel.all }

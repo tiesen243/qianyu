@@ -21,9 +21,8 @@ jobs:
       - uses: ./tools/github/actions/setup
 
       - name: Deploy to Production
-        run: bun --filter @qianyu/infra deploy
+        run: bun --filter @qianyu/infra deploy --stage prod
         env:
-          STAGE: prod
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
@@ -31,6 +30,8 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           ALCHEMY_PASSWORD: ${{ secrets.ALCHEMY_PASSWORD }}
           ALCHEMY_STATE_TOKEN: ${{ secrets.ALCHEMY_STATE_TOKEN }}
+
+          CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
 
   publish-apk:
     runs-on: ubuntu-latest

@@ -1,8 +1,9 @@
 import { cors } from '@elysiajs/cors'
+import { openapi } from '@elysiajs/openapi'
 import { env } from 'cloudflare:workers'
 import { CloudflareAdapter } from 'elysia/adapter/cloudflare-worker'
 
-import { appController } from '@/controllers/app.controller'
+import packageJson from '@/../package.json'
 import { postController } from '@/controllers/v1/post.controller'
 import { createElysia } from '@/lib/create-elysia'
 
@@ -14,11 +15,29 @@ const server = createElysia({
 })
   .use(
     cors({
-      origin: env.CORS_ORIGIN.split(',').map((origin) => origin.trim()),
+      origin: env.CORS_ORIGIN.split(',').map((o) => o.trim()),
+      credentials: true,
     })
   )
 
-  .use(appController)
+  .use(
+    openapi({
+      path: '/docs',
+      documentation: {
+        info: {
+          title: packageJson.name,
+          version: packageJson.version,
+          description: packageJson.description,
+        },
+      },
+    })
+  )
+
+  .get('/', () => ({
+    message: 'Welcome to the API',
+    docs: '/docs',
+  }))
+
   .use(postController)
 
   .compile()

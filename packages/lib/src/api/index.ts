@@ -5,9 +5,9 @@ import { treaty } from '@elysiajs/eden'
 import { post } from '@/api/post'
 
 export const createApi = (baseURL: string) => {
-  const api = treaty<Server>(baseURL)
+  const treated = treaty<Server>(baseURL)
 
   return {
-    post: post(api),
+    post: post(treated),
   }
 }

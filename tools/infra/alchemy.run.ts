@@ -20,7 +20,9 @@ export const api = await Worker('api', {
   compatibilityFlags: ['nodejs_compat'],
   bindings: {
     APP_NAME: 'qianyu',
-    CORS_ORIGIN: '*',
+    CORS_ORIGIN: alchemy.secret(
+      process.env.CORS_ORIGIN ?? 'http://localhost:5173'
+    ),
     DB: db,
   },
 })
@@ -33,10 +35,11 @@ export const web = await ReactRouter('web', {
   },
 })
 
-console.log('Preview environment deployed successfully!')
+console.log('>>>------------------------>>>')
 console.log(`DB     -> ${db.name}`)
 console.log(`API    -> ${api.url}`)
 console.log(`Web    -> ${web.url}`)
+console.log('<<<------------------------<<<')
 
 if (process.env.PULL_REQUEST) {
   await GitHubComment('pr-preview-comment', {
