@@ -65,7 +65,10 @@ jobs:
           echo "RN_UPLOAD_KEY_ALIAS=${{ secrets.RN_UPLOAD_KEY_ALIAS }}" >> $APP_ROOT/android/gradle.properties
           echo "RN_UPLOAD_STORE_PASSWORD=${{ secrets.RN_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
           echo "RN_UPLOAD_KEY_PASSWORD=${{ secrets.RN_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
-          echo "API_URL=${{ secrets.API_URL }}" >> $APP_ROOT/.env
+
+          echo "RN_API_URL=${{ secrets.RN_API_URL }}" >> $APP_ROOT/.env
+          echo "RN_SCHEME=${{ secrets.RN_SCHEME }}" >> $APP_ROOT/.env
+          echo "RN_PREFIX=${{ secrets.RN_PREFIX }}" >> $APP_ROOT/.env
 
       - name: Build Android Application
         run: |
