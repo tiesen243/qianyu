@@ -17,27 +17,21 @@ const mergedLayer = Layer.mergeAll(PostService.Live).pipe(
 type Services = Layer.Layer.Success<typeof mergedLayer>
 
 export const runtime = new Elysia({ name: `${env.APP_NAME}.runtime` })
-  .decorate('runtime', <T>(effect: Effect.Effect<T, HttpError, Services>) =>
-    Effect.runPromise(
-      Effect.provide(effect, mergedLayer).pipe(
-        Effect.catchTag('HttpError', ({ status, message }) =>
-          Effect.fail({ status, message })
+  .decorate(
+    'runtime',
+    <T>(effect: Effect.Effect<T, HttpError, Services>): Promise<T> =>
+      Effect.runPromise(
+        Effect.provide(effect, mergedLayer).pipe(
+          Effect.catchTag('HttpError', ({ status, message }) =>
+            Effect.fail({ status, message })
+          )
         )
       )
-    )
   )
   .onError(({ error, status }) => {
     if (error instanceof Error && error.name.includes('FiberFailure')) {
-      try {
-        const failure = JSON.parse(error.message)
-        return status(failure.status, failure)
-      } catch {
-        return status(500, {
-          status: 'Internal Server Error',
-          message: 'An unexpected error occurred',
-          details: error.message,
-        })
-      }
+      const failure = JSON.parse(error.message)
+      throw status(failure.status, failure)
     }
   })
   .as('global')
