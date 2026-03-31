@@ -15,7 +15,7 @@ const server = createElysia({
 })
   .use(
     cors({
-      origin: env.CORS_ORIGIN.split(',').map((o) => o.trim()),
+      origin: env.CORS_ORIGINS.split(',').map((o) => o.trim()),
       credentials: true,
     })
   )
@@ -24,18 +24,13 @@ const server = createElysia({
     openapi({
       path: '/docs',
       documentation: {
-        info: {
-          title: packageJson.name,
-          version: packageJson.version,
-          description: packageJson.description,
-        },
+        info: { title: packageJson.name, version: packageJson.version },
       },
     })
   )
 
   .get('/', () => ({
-    message: 'Welcome to the API',
-    docs: '/docs',
+    message: `Welcome to ${packageJson.name}! Visit /docs for API documentation.`,
   }))
 
   .use(postController)

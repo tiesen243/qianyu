@@ -92,11 +92,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName getVersionFromNpm()
-
-        manifestPlaceholders = [
-            SCHEME: project.env.get("SCHEME"),
-            PREFIX: project.env.get("PREFIX")
-        ]
     }
     signingConfigs {
         debug {
@@ -106,11 +101,11 @@ android {
             keyPassword 'android'
         }
         release {
-            if (project.hasProperty('QIANYU_UPLOAD_STORE_FILE')) {
-                storeFile file(QIANYU_UPLOAD_STORE_FILE)
-                storePassword QIANYU_UPLOAD_STORE_PASSWORD
-                keyAlias QIANYU_UPLOAD_KEY_ALIAS
-                keyPassword QIANYU_UPLOAD_KEY_PASSWORD
+            if (project.hasProperty('RN_UPLOAD_STORE_FILE')) {
+                storeFile file(RN_UPLOAD_STORE_FILE)
+                storePassword RN_UPLOAD_STORE_PASSWORD
+                keyAlias RN_UPLOAD_KEY_ALIAS
+                keyPassword RN_UPLOAD_KEY_PASSWORD
             }
         }
     }

@@ -137,11 +137,13 @@ If you are setting up the Android build for the first time, you need to configur
 - `CLOUDFLARE_ACCOUNT_ID`: Your Cloudflare Account ID
 - `CLOUDFLARE_API_TOKEN`: Your Cloudflare API Token with permissions: `Workers Agents Configuration:Edit`, `Containers:Edit`, `Workers Observability:Edit`, `Workers Builds Configuration:Edit`, `Cloudflare Pages:Edit`, `Workers R2 Storage:Edit`, `Workers Tail:Read`, `Workers KV Storage:Edit`, `Workers Scripts:Edit`, `Account Settings:Read`
 - `CLOUDFLARE_EMAIL`: Your Cloudflare Account Email
+- `CORS_ORIGINS`: Comma-separated list of allowed CORS origins for the API
 - `PAT_TOKEN`: Your GitHub Personal Access Token with `repo` and `workflow` permissions
-- `QIANYU_UPLOAD_KEY_ALIAS`: The alias of the key in your keystore
-- `QIANYU_UPLOAD_STORE_BASE64`: The base64-encoded content of your keystore file
-- `QIANYU_UPLOAD_STORE_PASSWORD`: The password for your keystore
-- `QIANYU_UPLOAD_KEY_PASSWORD`: The password for the key alias
+- `RN_API_URL`: The API URL of your deployed backend for the mobile app
+- `RN_PREFIX` and `RN_SCHEME`: The URL scheme and prefix for deep linking in the mobile app
+- `RN_UPLOAD_KEY_ALIAS`: The alias of the key in your keystore
+- `RN_UPLOAD_STORE_BASE64`: The base64-encoded content of your keystore file
+- `RN_UPLOAD_STORE_PASSWORD`: The password for your keystore
 
 4. Generate SHA256 fingerprint of your keystore (optional, for deep linking):
 

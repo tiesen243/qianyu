@@ -1,7 +1,6 @@
 {
   "name": "@qianyu/api",
   "version": "0.0.2",
-  "description": "API server for Qianyu",
   "private": false,
   "type": "module",
   "exports": {

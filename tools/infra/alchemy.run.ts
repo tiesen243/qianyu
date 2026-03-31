@@ -19,9 +19,9 @@ export const api = await Worker('api', {
   entrypoint: 'src/server.ts',
   compatibilityFlags: ['nodejs_compat'],
   bindings: {
-    APP_NAME: 'qianyu',
-    CORS_ORIGIN: alchemy.secret(
-      process.env.CORS_ORIGIN ?? 'http://localhost:5173'
+    APP_NAME: 'Qianyu',
+    CORS_ORIGINS: alchemy.secret(
+      process.env.CORS_ORIGINS ?? 'http://localhost:5173'
     ),
     DB: db,
   },
@@ -30,8 +30,8 @@ export const api = await Worker('api', {
 export const web = await ReactRouter('web', {
   cwd: path.resolve(__dirname, '../../apps/web'),
   bindings: {
-    VITE_APP_NAME: 'qianyu',
-    VITE_API_URL: api.url ?? 'http://localhost:1337',
+    VITE_APP_NAME: 'Qianyu',
+    VITE_API_URL: alchemy.secret(api.url ?? 'http://localhost:1337'),
   },
 })
 

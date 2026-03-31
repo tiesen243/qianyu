@@ -24,8 +24,8 @@ function App() {
           linking={{
             enabled: 'auto',
             prefixes: [
-              Config.SCHEME ? `${Config.SCHEME}://` : '',
-              Config.PREFIX ? `https://${Config.PREFIX}` : '',
+              Config.RN_SCHEME ? `${Config.RN_SCHEME}://` : '',
+              Config.RN_PREFIX ? `https://${Config.RN_PREFIX}` : '',
             ],
           }}
           onReady={() => SplashScreen.hide()}

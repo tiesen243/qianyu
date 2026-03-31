@@ -31,14 +31,14 @@ jobs:
           ALCHEMY_PASSWORD: ${{ secrets.ALCHEMY_PASSWORD }}
           ALCHEMY_STATE_TOKEN: ${{ secrets.ALCHEMY_STATE_TOKEN }}
 
-          CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
+          CORS_ORIGINS: ${{ secrets.CORS_ORIGINS }}
 
   publish-apk:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/@qianyu/mobile@')
     env:
       APP_ROOT: apps/mobile
-      QIANYU_UPLOAD_STORE_FILE: qianyu.keystore
+      RN_UPLOAD_STORE_FILE: qianyu.keystore
 
     steps:
       - uses: actions/checkout@v6
@@ -58,13 +58,13 @@ jobs:
         run: chmod +x $APP_ROOT/android/gradlew
 
       - name: Decode Keystore
-        run: echo "${{ secrets.QIANYU_UPLOAD_STORE_BASE64 }}" | base64 --decode > $APP_ROOT/android/app/$QIANYU_UPLOAD_STORE_FILE
+        run: echo "${{ secrets.RN_UPLOAD_STORE_BASE64 }}" | base64 --decode > $APP_ROOT/android/app/$RN_UPLOAD_STORE_FILE
       - name: Config Enviroment Variables
         run: |
-          echo "QIANYU_UPLOAD_STORE_FILE=$QIANYU_UPLOAD_STORE_FILE" >> $APP_ROOT/android/gradle.properties
-          echo "QIANYU_UPLOAD_KEY_ALIAS=${{ secrets.QIANYU_UPLOAD_KEY_ALIAS }}" >> $APP_ROOT/android/gradle.properties
-          echo "QIANYU_UPLOAD_STORE_PASSWORD=${{ secrets.QIANYU_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
-          echo "QIANYU_UPLOAD_KEY_PASSWORD=${{ secrets.QIANYU_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
+          echo "RN_UPLOAD_STORE_FILE=$RN_UPLOAD_STORE_FILE" >> $APP_ROOT/android/gradle.properties
+          echo "RN_UPLOAD_KEY_ALIAS=${{ secrets.RN_UPLOAD_KEY_ALIAS }}" >> $APP_ROOT/android/gradle.properties
+          echo "RN_UPLOAD_STORE_PASSWORD=${{ secrets.RN_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
+          echo "RN_UPLOAD_KEY_PASSWORD=${{ secrets.RN_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
           echo "API_URL=${{ secrets.API_URL }}" >> $APP_ROOT/.env
 
       - name: Build Android Application
