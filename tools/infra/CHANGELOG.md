@@ -1,5 +1,11 @@
 # @qianyu/infra
 
+## 0.0.4
+
+### Patch Changes
+
+- a3d6747: updated
+
 ## 0.0.3
 
 ### Patch Changes
