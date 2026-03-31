@@ -1,5 +1,11 @@
 # @qianyu/mobile
 
+## 0.0.10
+
+### Patch Changes
+
+- 4b1eb30: add missing env
+
 ## 0.0.9
 
 ### Patch Changes
