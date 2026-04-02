@@ -58,6 +58,7 @@ dist/
 # infrastructure
 .alchemy/
 .wrangler/
+.turbo/
 .dev.vars*
 
 # misc

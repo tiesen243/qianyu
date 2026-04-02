@@ -8,6 +8,7 @@ export const createApi = (baseURL: string) => {
   const treated = treaty<Server>(baseURL)
 
   return {
+    client: treated.api as ReturnType<typeof treaty<Server>>['api'],
     post: post(treated),
   }
 }

@@ -11,7 +11,7 @@
     },
     "apps/api": {
       "name": "@qianyu/api",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "dependencies": {
         "@elysiajs/cors": "^1.4.1",
         "@elysiajs/openapi": "^1.4.14",
@@ -31,7 +31,7 @@
     },
     "apps/mobile": {
       "name": "@qianyu/mobile",
-      "version": "0.0.8",
+      "version": "0.0.10",
       "dependencies": {
         "@gorhom/bottom-sheet": "^5.2.8",
         "@qianyu/lib": "workspace:*",
@@ -72,7 +72,7 @@
     },
     "apps/web": {
       "name": "@qianyu/web",
-      "version": "0.0.7",
+      "version": "0.0.8",
       "dependencies": {
         "@elysiajs/eden": "^1.4.8",
         "@qianyu/api": "workspace:*",
@@ -101,7 +101,7 @@
     },
     "packages/lib": {
       "name": "@qianyu/lib",
-      "version": "0.0.4",
+      "version": "0.0.5",
       "dependencies": {
         "@elysiajs/eden": "^1.4.8",
         "@qianyu/api": "workspace:*",
@@ -141,14 +141,14 @@
     },
     "tools/infra": {
       "name": "@qianyu/infra",
-      "version": "0.0.3",
+      "version": "0.0.4",
       "devDependencies": {
         "alchemy": "^0.90.1",
       },
     },
     "tools/oxc": {
       "name": "@qianyu/oxc",
-      "version": "0.0.2",
+      "version": "0.0.3",
     },
     "tools/typescript": {
       "name": "@qianyu/tsconfig",

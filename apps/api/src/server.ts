@@ -11,7 +11,6 @@ const server = createElysia({
   name: 'server',
 
   adapter: CloudflareAdapter,
-  aot: true,
 })
   .use(
     cors({

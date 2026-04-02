@@ -14,14 +14,11 @@ clean:
 	@git clean -fdx .alchemy node_modules
 
 dev:
-	@echo "Starting development server..."
 	@$(pkm) --filter @qianyu/infra dev
 
 build-packages:
-	@echo "Building packages..."
 	@$(pkm) --filter '!@qianyu/web' build
 
 build:
-	@echo "Building application and packages..."
 	@$(pkm) --filter '*' build
 
