@@ -1,5 +1,11 @@
 # @qianyu/web
 
+## 0.0.10
+
+### Patch Changes
+
+- d608e30: fix url
+
 ## 0.0.9
 
 ### Patch Changes
