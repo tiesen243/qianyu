@@ -54,6 +54,7 @@ dist/
 # env files
 .env*
 !.env.example
+packages/firmware/config.h
 
 # infrastructure
 .alchemy/

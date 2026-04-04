@@ -1,0 +1,10 @@
+{
+  "name": "@qianyu/firmware",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "*.ino",
+    "*.cpp",
+    "*.h"
+  ]
+}

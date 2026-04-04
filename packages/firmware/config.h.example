@@ -1,0 +1,8 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+const String WIFI_SSID = "your_wifi_ssid";
+const String WIFI_PASSWORD = "your_wifi_password";
+const String API_URL = "http://x.x.x.x:1337";
+
+#endif // !CONFIG_H
