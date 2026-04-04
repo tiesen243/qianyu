@@ -7,5 +7,5 @@ export default [
   route('/posts/:id', './routes/posts/[id].tsx'),
   route('/posts/create', './routes/posts/create.tsx'),
 
-  route('/a', './routes/a.tsx'),
+  route('/chat', './routes/chat.tsx'),
 ] satisfies RouteConfig

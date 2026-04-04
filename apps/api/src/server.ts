@@ -5,6 +5,7 @@ import { CloudflareAdapter } from 'elysia/adapter/cloudflare-worker'
 
 import packageJson from '@/../package.json'
 import { postController } from '@/controllers/v1/post.controller'
+import { sseController } from '@/controllers/v1/sse.controller'
 import { createElysia } from '@/lib/create-elysia'
 
 const server = createElysia({
@@ -33,6 +34,7 @@ const server = createElysia({
   }))
 
   .use(postController)
+  .use(sseController)
 
   .compile()
 

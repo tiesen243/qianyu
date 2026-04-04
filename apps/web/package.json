@@ -8,7 +8,7 @@
     "clean": "git clean -fdX .alchemy .cache .react-router build dist node_modules",
     "dev": "react-router dev",
     "preview": "vite preview",
-    "typecheck": "react-router typegen && tsc --noEmit"
+    "~typecheck": "react-router typegen && tsc --noEmit"
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.8",

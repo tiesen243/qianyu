@@ -28,6 +28,18 @@ const Tabs = createNativeBottomTabNavigator({
       },
     },
 
+    chat: {
+      screen: lazy(() => import('@/screens/(tabs)/chat')),
+      linking: { path: 'chat' },
+      options: {
+        title: 'Chat',
+        tabBarIcon: {
+          type: 'image',
+          source: require('@/assets/icons/chat.png'),
+        },
+      },
+    },
+
     profile: {
       screen: lazy(() => import('@/screens/(tabs)/profile/screen')),
       linking: { path: 'profile' },
