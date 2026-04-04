@@ -1,5 +1,13 @@
 # @qianyu/mobile
 
+## 0.0.11
+
+### Patch Changes
+
+- 0187153: implement sse with chat example
+- Updated dependencies [d244de1]
+  - @qianyu/lib@0.0.6
+
 ## 0.0.10
 
 ### Patch Changes
