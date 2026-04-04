@@ -1,5 +1,13 @@
 # @qianyu/lib
 
+## 0.0.6
+
+### Patch Changes
+
+- d244de1: export eden client in create api helper
+- Updated dependencies [0187153]
+  - @qianyu/api@0.0.4
+
 ## 0.0.5
 
 ### Patch Changes

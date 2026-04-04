@@ -1,5 +1,11 @@
 # @qianyu/api
 
+## 0.0.4
+
+### Patch Changes
+
+- 0187153: implement sse with chat example
+
 ## 0.0.3
 
 ### Patch Changes

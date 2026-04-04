@@ -1,5 +1,15 @@
 # @qianyu/web
 
+## 0.0.9
+
+### Patch Changes
+
+- 0187153: implement sse with chat example
+- Updated dependencies [0187153]
+- Updated dependencies [d244de1]
+  - @qianyu/api@0.0.4
+  - @qianyu/lib@0.0.6
+
 ## 0.0.8
 
 ### Patch Changes
