@@ -13,7 +13,9 @@ export default function SSEPage() {
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
-    const es = new EventSource(`${import.meta.env.VITE_API_URL}api/v1/sse`)
+    const es = new EventSource(
+      `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/sse`
+    )
 
     es.addEventListener('message', (event) => {
       if (event.data === 'keep-alive') return
