@@ -16,7 +16,9 @@ export default function CharScreen() {
   const { toast } = useToast()
 
   React.useEffect(() => {
-    const es = new EventSource(`${Config.RN_API_URL}/api/v1/sse`)
+    const es = new EventSource(
+      `${new URL(Config.RN_API_URL ?? '').origin}/api/v1/sse`
+    )
 
     es.addEventListener('message', (event) => {
       if (event.data === 'keep-alive') return
