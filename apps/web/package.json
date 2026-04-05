@@ -11,7 +11,7 @@
     "~typecheck": "react-router typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@elysiajs/eden": "^1.4.8",
+    "@elysiajs/eden": "^1.4.9",
     "@qianyu/api": "workspace:*",
     "@qianyu/lib": "workspace:*",
     "@qianyu/ui": "workspace:*",
@@ -19,14 +19,14 @@
     "isbot": "^5.1.37",
     "react": "catalog:react",
     "react-dom": "catalog:react",
-    "react-router": "^7.13.2"
+    "react-router": "^7.14.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.30.1",
+    "@cloudflare/vite-plugin": "^1.31.0",
     "@cloudflare/workers-types": "catalog:dev",
     "@qianyu/infra": "workspace:*",
     "@qianyu/tsconfig": "workspace:*",
-    "@react-router/dev": "^7.13.2",
+    "@react-router/dev": "^7.14.0",
     "@tailwindcss/vite": "catalog:tailwind",
     "@types/node": "catalog:dev",
     "@types/react": "catalog:react",
