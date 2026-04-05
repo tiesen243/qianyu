@@ -1,5 +1,11 @@
 # @qianyu/mobile
 
+## 0.0.13
+
+### Patch Changes
+
+- 037047d: fix react version
+
 ## 0.0.12
 
 ### Patch Changes
