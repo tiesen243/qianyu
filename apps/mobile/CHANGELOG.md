@@ -1,5 +1,11 @@
 # @qianyu/mobile
 
+## 0.0.16
+
+### Patch Changes
+
+- c2044ca: minor changes
+
 ## 0.0.15
 
 ### Patch Changes
