@@ -1,5 +1,11 @@
 # @qianyu/mobile
 
+## 0.0.12
+
+### Patch Changes
+
+- 32fbb6c: fix api url
+
 ## 0.0.11
 
 ### Patch Changes
