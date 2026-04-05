@@ -4,8 +4,7 @@
 
 #include "config.h"
 
-WiFiClientSecure client;
-WiFiClient *stream;
+WiFiClient *stream, *client = nullptr;
 HTTPClient http;
 int httpCode, attempts;
 
@@ -25,8 +24,13 @@ void setup() {
   }
 
   Serial.println("\nWiFi connected!");
-  
-  client.setInsecure();
+
+  if (API_URL.startsWith("https://")) {
+    WiFiClientSecure *secureClient = new WiFiClientSecure();
+    secureClient->setInsecure();
+    client = secureClient;
+  } else client = new WiFiClient();
+
   connectSSE();
 }
 
@@ -45,12 +49,12 @@ void loop() {
     }
   } else {
     Serial.println("SSE connection lost. Reconnecting...");
-    
+
     while (attempts < 3 && !connectSSE()) {
       attempts++;
-      delay(5000); // wait 5 seconds between attempts
+      delay(5000);  // wait 5 seconds between attempts
     }
-    
+
     if (attempts >= 3) {
       Serial.println("Failed to reconnect 3 times. Restarting ESP...");
       ESP.restart();
@@ -69,7 +73,8 @@ bool connectSSE() {
   http.end();
 
   Serial.println("Connecting to SSE...");
-  http.begin(client, API_URL + "/api/v1/sse");
+  http.begin(*client, API_URL + "/api/v1/sse");
+
   http.addHeader("Accept", "text/event-stream");
   http.addHeader("Cache-Control", "no-cache");
   http.addHeader("Connection", "keep-alive");
@@ -81,7 +86,7 @@ bool connectSSE() {
     Serial.println("SSE connected!");
     return true;
   }
-  
+
   Serial.printf("SSE HTTP error: %d\n", httpCode);
   return false;
 }
