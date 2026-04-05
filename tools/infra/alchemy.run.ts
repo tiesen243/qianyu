@@ -1,5 +1,10 @@
 import alchemy from 'alchemy'
-import { D1Database, ReactRouter, Worker } from 'alchemy/cloudflare'
+import {
+  D1Database,
+  DurableObjectNamespace,
+  ReactRouter,
+  Worker,
+} from 'alchemy/cloudflare'
 import { GitHubComment } from 'alchemy/github'
 import { CloudflareStateStore } from 'alchemy/state'
 import path from 'node:path'
@@ -14,6 +19,11 @@ export const db = await D1Database('db', {
   migrationsDir: path.resolve(__dirname, '../../apps/api/migrations'),
 })
 
+const SSE = DurableObjectNamespace('sse', {
+  className: 'SSE',
+  sqlite: true,
+})
+
 export const api = await Worker('api', {
   cwd: path.resolve(__dirname, '../../apps/api'),
   entrypoint: 'src/server.ts',
@@ -24,6 +34,7 @@ export const api = await Worker('api', {
       process.env.CORS_ORIGINS ?? 'http://localhost:5173'
     ),
     DB: db,
+    SSE,
   },
 })
 

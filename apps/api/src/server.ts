@@ -40,3 +40,5 @@ const server = createElysia({
 
 export type Server = typeof server
 export default server
+
+export { SSE } from '@/sse'
