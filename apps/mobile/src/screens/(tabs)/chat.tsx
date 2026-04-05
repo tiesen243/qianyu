@@ -5,7 +5,6 @@ import { Input } from 'heroui-native/input'
 import * as React from 'react'
 import { FlatList, View } from 'react-native'
 import { Config } from 'react-native-config'
-import EventSource from 'react-native-sse'
 
 import { Container } from '@/components/container'
 import { api } from '@/lib/api'
@@ -16,21 +15,33 @@ export default function CharScreen() {
   const { toast } = useToast()
 
   React.useEffect(() => {
-    const es = new EventSource(
-      `${new URL(Config.RN_API_URL ?? '').origin}/api/v1/sse`
-    )
+    const xhr = new XMLHttpRequest()
+    let processedIndex = 0
 
-    es.addEventListener('message', (event) => {
-      if (event.data === 'keep-alive') return
-      setMessages((prev) => [...prev, event.data ?? ''])
+    xhr.open('GET', `${new URL(Config.RN_API_URL ?? '').origin}/api/v1/sse`)
+    xhr.setRequestHeader('Accept', 'text/event-stream')
+
+    xhr.addEventListener('readystatechange', () => {
+      if (xhr.readyState !== 3) return
+
+      const { responseText } = xhr
+      const newChunk = responseText.slice(processedIndex)
+      processedIndex = responseText.length
+
+      const lines = newChunk.split('\n')
+      for (const line of lines) {
+        if (line.startsWith('data:')) {
+          const data = line.replace('data:', '').trim()
+          if (data === 'keep-alive') continue
+          if (data) setMessages((prev) => [...prev, data])
+        }
+      }
     })
 
-    es.addEventListener('error', (event) => {
-      console.error('SSE error:', event)
-      es.close()
-    })
+    xhr.addEventListener('error', (err) => console.error('SSE XHR error:', err))
+    xhr.send()
 
-    return () => es.close()
+    return () => xhr.abort()
   }, [])
 
   const sendMessage = React.useCallback(async () => {
