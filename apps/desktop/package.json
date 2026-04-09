@@ -1,28 +1,36 @@
 {
-  "name": "desktop",
-  "version": "0.0.1",
+  "name": "@qianyu/desktop",
+  "version": "0.0.0",
   "private": false,
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource-variable/geist": "catalog:prod",
+    "@qianyu/api": "workspace:*",
+    "@qianyu/lib": "workspace:*",
     "@qianyu/ui": "workspace:*",
-    "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2",
+    "@tanstack/react-query": "catalog:prod",
+    "@tauri-apps/api": "^2.10.1",
+    "@tauri-apps/plugin-opener": "^2.5.3",
     "react": "catalog:react",
-    "react-dom": "catalog:react"
+    "react-dom": "catalog:react",
+    "react-router": "^7.14.0"
   },
   "devDependencies": {
     "@qianyu/tsconfig": "workspace:*",
-    "@tauri-apps/cli": "^2",
+    "@tailwindcss/vite": "catalog:tailwind",
+    "@tauri-apps/cli": "^2.10.1",
     "@types/react": "catalog:react",
     "@types/react-dom": "catalog:react",
     "@vitejs/plugin-react": "^6.0.1",
+    "tailwindcss": "catalog:tailwind",
     "typescript": "catalog:dev",
-    "vite": "^8.0.8"
+    "vite": "catalog:dev"
   }
 }

@@ -1,9 +1,10 @@
+@import '@fontsource-variable/geist/wght.css';
 @import '@qianyu/ui/tailwind.css';
 
 @source '../../../packages/ui/dist/components/*.mjs';
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Geist', sans-serif;
+  --font-sans: 'Geist Variable', sans-serif;
   --font-mono: 'Geist Mono', monospace;
 }

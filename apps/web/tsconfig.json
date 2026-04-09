@@ -11,7 +11,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "workers/*.ts",
-    ".react-router/types/**/*"
+    ".react-router/types/**/*",
+    "vite.config.ts"
   ],
   "exclude": ["build", "node_modules"]
 }

@@ -12,41 +12,32 @@ export class SSE extends DurableObject {
     }, 30_000)
   }
 
-  async fetch(request: Request) {
-    if (request.method === 'POST') {
-      const body = (await request.json()) as { message: string }
-      this.broadcast(body.message)
-      return Response.json(
-        { status: 'Message sent to SSE clients' },
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-    }
+  public send(message: string) {
+    this.broadcast(message)
+  }
 
-    if (request.method === 'GET') {
-      let sessionController: ReadableStreamDefaultController
+  public listen(_request: Request) {
+    let sessionController: ReadableStreamDefaultController
 
-      const stream = new ReadableStream({
-        start: (controller) => {
-          sessionController = controller
-          this.sessions.add(controller)
-        },
-        cancel: () => {
-          this.sessions.delete(sessionController)
-          clearInterval(this.keepAlive)
-        },
-      })
+    const stream = new ReadableStream({
+      start: (controller) => {
+        sessionController = controller
+        this.sessions.add(controller)
+      },
+      cancel: () => {
+        this.sessions.delete(sessionController)
+        clearInterval(this.keepAlive)
+      },
+    })
 
-      return new Response(stream, {
-        headers: {
-          'Content-Type': 'text/event-stream',
-          'Cache-Control': 'no-cache',
-          Connection: 'keep-alive',
-          'X-Accel-Buffering': 'no',
-        },
-      })
-    }
-
-    return new Response('Method not allowed', { status: 405 })
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+        'X-Accel-Buffering': 'no',
+      },
+    })
   }
 
   private broadcast(message: string) {

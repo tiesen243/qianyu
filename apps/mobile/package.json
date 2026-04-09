@@ -7,7 +7,7 @@
     "clean": "git clean -fdX .cache node_modules",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "~typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.2.9",

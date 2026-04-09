@@ -17,7 +17,7 @@ dev:
 	@$(pkm) --filter @qianyu/infra dev
 
 build-packages:
-	@$(pkm) --filter '!@qianyu/web' build
+	@$(pkm) --filter '@qianyu/api' --filter './packages/*' build
 
 build:
 	@$(pkm) --filter '*' build

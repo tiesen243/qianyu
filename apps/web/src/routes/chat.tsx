@@ -3,6 +3,7 @@ import { Input } from '@qianyu/ui/input'
 import { Item, ItemContent, ItemGroup, ItemTitle } from '@qianyu/ui/item'
 import { ScrollArea } from '@qianyu/ui/scroll-area'
 import { toast } from '@qianyu/ui/toast'
+import { useMutation } from '@tanstack/react-query'
 import * as React from 'react'
 
 import { api } from '@/lib/api'
@@ -34,21 +35,21 @@ export default function SSEPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const sendMessage = React.useCallback(
-    async (e: React.SubmitEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      e.stopPropagation()
-
-      const { error } = await api.client.v1.sse.post({ message })
-      if (error)
-        toast.add({
-          type: 'error',
-          title: error.value.message,
-        })
-      else setMessage('')
-    },
-    [message]
-  )
+  const { mutate, isPending } = useMutation({
+    ...api.sse.send.mutationOptions(),
+    onSettled: () => setMessage(''),
+    onSuccess: () =>
+      toast.add({
+        type: 'success',
+        title: 'Message sent successfully',
+      }),
+    onError: (error) =>
+      toast.add({
+        type: 'error',
+        title: 'Failed to send message',
+        description: error.message,
+      }),
+  })
 
   return (
     <main className='container flex h-screen flex-col py-4'>
@@ -69,13 +70,22 @@ export default function SSEPage() {
         </ItemGroup>
       </ScrollArea>
 
-      <form onSubmit={sendMessage} className='mt-4 flex items-center gap-2'>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          mutate({ message })
+        }}
+        className='mt-4 flex items-center gap-2'
+      >
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder='Type a message to send to SSE clients'
+          disabled={isPending}
         />
-        <Button type='submit'>Send</Button>
+        <Button type='submit' disabled={isPending || !message.trim()}>
+          Send
+        </Button>
       </form>
     </main>
   )

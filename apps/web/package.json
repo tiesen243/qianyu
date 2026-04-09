@@ -8,10 +8,10 @@
     "clean": "git clean -fdX .alchemy .cache .react-router build dist node_modules",
     "dev": "react-router dev",
     "preview": "vite preview",
-    "~typecheck": "react-router typegen && tsc --noEmit"
+    "typecheck": "react-router typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@elysiajs/eden": "^1.4.9",
+    "@fontsource-variable/geist": "catalog:prod",
     "@qianyu/api": "workspace:*",
     "@qianyu/lib": "workspace:*",
     "@qianyu/ui": "workspace:*",
@@ -33,6 +33,6 @@
     "@types/react-dom": "catalog:react",
     "tailwindcss": "catalog:tailwind",
     "typescript": "catalog:dev",
-    "vite": "^8.0.8"
+    "vite": "catalog:dev"
   }
 }

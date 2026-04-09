@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from 'heroui-native'
 import { Button } from 'heroui-native/button'
 import { Card } from 'heroui-native/card'
@@ -44,11 +45,12 @@ export default function CharScreen() {
     return () => xhr.abort()
   }, [])
 
-  const sendMessage = React.useCallback(async () => {
-    const { error } = await api.client.v1.sse.post({ message })
-    if (error) toast.show(error.value.message ?? 'Failed to send message')
-    else setMessage('')
-  }, [message, toast])
+  const { mutate, isPending } = useMutation({
+    ...api.sse.send.mutationOptions(),
+    onSettled: () => setMessage(''),
+    onSuccess: () => toast.show('Message sent successfully'),
+    onError: (error) => toast.show(`Failed to send message: ${error.message}`),
+  })
 
   return (
     <Container inTab>
@@ -73,7 +75,12 @@ export default function CharScreen() {
           onChangeText={setMessage}
         />
 
-        <Button onPress={sendMessage}>Send</Button>
+        <Button
+          onPress={() => mutate({ message })}
+          isDisabled={isPending || !message.trim()}
+        >
+          Send
+        </Button>
       </View>
     </Container>
   )
