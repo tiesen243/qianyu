@@ -22,7 +22,7 @@
     "react-router": "^7.14.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.31.0",
+    "@cloudflare/vite-plugin": "^1.31.2",
     "@cloudflare/workers-types": "catalog:dev",
     "@qianyu/infra": "workspace:*",
     "@qianyu/tsconfig": "workspace:*",
@@ -33,6 +33,6 @@
     "@types/react-dom": "catalog:react",
     "tailwindcss": "catalog:tailwind",
     "typescript": "catalog:dev",
-    "vite": "^8.0.3"
+    "vite": "^8.0.8"
   }
 }

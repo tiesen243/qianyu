@@ -1,0 +1,10 @@
+{
+  "extends": "@qianyu/tsconfig/react-package.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}
