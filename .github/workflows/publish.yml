@@ -68,7 +68,7 @@ jobs:
           echo "RN_UPLOAD_STORE_PASSWORD=${{ secrets.RN_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
           echo "RN_UPLOAD_KEY_PASSWORD=${{ secrets.RN_UPLOAD_STORE_PASSWORD }}" >> $APP_ROOT/android/gradle.properties
 
-          echo "RN_API_URL=${{ secrets.RN_API_URL }}" >> $APP_ROOT/.env
+          echo "PUBLIC_API_URL=${{ secrets.PUBLIC_API_URL }}" >> $APP_ROOT/.env
           echo "RN_SCHEME=${{ secrets.RN_SCHEME }}" >> $APP_ROOT/.env
           echo "RN_PREFIX=${{ secrets.RN_PREFIX }}" >> $APP_ROOT/.env
 
@@ -127,7 +127,7 @@ jobs:
       - name: Build Tauri
         run: bun --filter '@qianyu/desktop' tauri build
         env:
-          VITE_API_URL: ${{ secrets.RN_API_URL }}
+          VITE_API_URL: ${{ secrets.PUBLIC_API_URL }}
 
       - name: Upload artifacts,
         uses: actions/upload-artifact@v4

@@ -19,7 +19,7 @@ export default function CharScreen() {
     const xhr = new XMLHttpRequest()
     let processedIndex = 0
 
-    xhr.open('GET', `${Config.RN_API_URL}/api/v1/sse`)
+    xhr.open('GET', `${Config.PUBLIC_API_URL}/api/v1/sse`)
     xhr.setRequestHeader('Accept', 'text/event-stream')
 
     xhr.addEventListener('readystatechange', () => {

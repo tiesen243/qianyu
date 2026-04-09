@@ -1,6 +1,6 @@
 declare module 'react-native-config' {
   export interface NativeConfig {
-    RN_API_URL?: string
+    PUBLIC_API_URL?: string
 
     RN_SCHEME?: string
     RN_PREFIX?: string
