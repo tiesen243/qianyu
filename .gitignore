@@ -65,7 +65,8 @@ packages/firmware/config.h
 # misc
 .cache/
 .eslintcache
-*.log
 .DS_Store
+*.bak
+*.log
 *.swp
 *~
