@@ -1,5 +1,14 @@
 # @qianyu/web
 
+## 0.0.12
+
+### Patch Changes
+
+- 59d9711: bump deps
+- Updated dependencies [59d9711]
+  - @qianyu/api@0.0.6
+  - @qianyu/lib@0.0.8
+
 ## 0.0.11
 
 ### Patch Changes

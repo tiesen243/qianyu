@@ -1,5 +1,12 @@
 # @qianyu/mobile
 
+## 0.0.17
+
+### Patch Changes
+
+- 59d9711: bump deps
+  - @qianyu/lib@0.0.8
+
 ## 0.0.16
 
 ### Patch Changes
