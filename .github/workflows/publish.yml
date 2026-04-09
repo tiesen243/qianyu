@@ -2,7 +2,6 @@ name: Publish
 on:
   push:
     tags:
-      - '@qianyu/api@*.*.*'
       - '@qianyu/desktop@*.*.*'
       - '@qianyu/mobile@*.*.*'
       - '@qianyu/web@*.*.*'
@@ -17,7 +16,7 @@ permissions:
 jobs:
   publish-web:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/@qianyu/api@') || startsWith(github.ref, 'refs/tags/@qianyu/web@')
+    if: startsWith(github.ref, 'refs/tags/@qianyu/web@')
     steps:
       - uses: actions/checkout@v6
       - uses: ./tools/github/actions/setup
@@ -111,7 +110,7 @@ jobs:
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.platform == 'macos-latest' }}
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: Cache Rust
         uses: actions/cache@v5
@@ -129,8 +128,24 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.PUBLIC_API_URL }}
 
-      - name: Upload artifacts,
-        uses: actions/upload-artifact@v4
+      - name: Rename artifact
+        shell: bash
+        run: |
+          VERSION=${GITHUB_REF_NAME#@qianyu/desktop@}
+          cd apps/desktop/src-tauri/target/release/bundle
+          # Find and rename installer files to include the version and platform
+          for file in $(find . -type f \( -name "*.dmg" -o -name "*.msi" -o -name "*.exe" -o -name "*.deb" -o -name "*.AppImage" \)); do
+            ext="${file##*.}"
+            mv "$file" "$(dirname "$file")/qianyu-$VERSION-${{ matrix.platform }}.$ext"
+          done
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/@qianyu/')
         with:
-          name: tauri-app-${{ matrix.platform }}
-          path: apps/desktop/src-tauri/target/release/bundle/
+          files: |
+            apps/desktop/src-tauri/target/release/bundle/**/*.dmg
+            apps/desktop/src-tauri/target/release/bundle/**/*.msi
+            apps/desktop/src-tauri/target/release/bundle/**/*.exe
+            apps/desktop/src-tauri/target/release/bundle/**/*.deb
+            apps/desktop/src-tauri/target/release/bundle/**/*.AppImage
