@@ -93,11 +93,10 @@ bun install
 
 #### API
 
-To start the API development server:
+The API requires Cloudflare D1 and Durable Object bindings to be injected at dev time. Run the dev server from the `infra` package so that these bindings are available:
 
 ```bash
-cd apps/api
-bun run dev
+bun --filter @qianyu/infra dev
 ```
 
 #### Desktop App
@@ -111,11 +110,10 @@ bun run tauri dev
 
 #### Web App
 
-To start the web development server:
+The web app also depends on the Cloudflare D1 and Durable Object bindings provided by the infra package. Start both the web app and API together with:
 
 ```bash
-cd apps/web
-bun run dev
+bun --filter @qianyu/infra dev
 ```
 
 #### Mobile App
