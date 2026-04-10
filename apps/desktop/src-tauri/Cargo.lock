@@ -3010,7 +3010,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "qianyu_desktop"
+name = "qianyu"
 version = "0.0.0"
 dependencies = [
  "serde",
