@@ -20,10 +20,18 @@ export default function RootLayout() {
           </h1>
 
           <nav>
-            <Button variant='link' render={<Link to='/' />}>
+            <Button
+              variant='link'
+              render={<Link to='/' />}
+              nativeButton={false}
+            >
               Home
             </Button>
-            <Button variant='link' render={<Link to='/chat' />}>
+            <Button
+              variant='link'
+              render={<Link to='/chat' />}
+              nativeButton={false}
+            >
               Chat
             </Button>
           </nav>

@@ -10,6 +10,7 @@
     "frontendDist": "../dist"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "Qianyu",
@@ -18,10 +19,7 @@
       }
     ],
     "security": {
-      "csp": {
-        "default-src": "'self' customprotocol: asset:",
-        "connect-src": "ipc: http://ipc.localhost https://qianyu-api-prod.tiesen.workers.dev"
-      }
+      "csp": null
     }
   },
   "bundle": {
