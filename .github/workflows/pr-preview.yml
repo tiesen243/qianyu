@@ -7,6 +7,7 @@ on:
       - synchronize
       - closed
     paths:
+      - 'apps/api/**'
       - 'apps/web/**'
 
 concurrency:

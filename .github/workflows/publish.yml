@@ -93,6 +93,8 @@ jobs:
   publish-desktop:
     runs-on: ${{ matrix.platform }}
     if: startsWith(github.ref, 'refs/tags/@qianyu/desktop@')
+    env:
+      APP_ROOT: apps/mobile
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
@@ -120,16 +122,15 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Build Tauri
+      - name: Build Tauri Application
         run: bun --filter '@qianyu/desktop' tauri build
         env:
           VITE_API_URL: ${{ secrets.PUBLIC_API_URL }}
-
       - name: Rename artifact
         shell: bash
         run: |
           VERSION=${GITHUB_REF_NAME#@qianyu/desktop@}
-          cd apps/desktop/src-tauri/target/release/bundle
+          cd $APP_ROOT/src-tauri/target/release/bundle
           # Find and rename installer files to include the version and platform
           for file in $(find . -type f \( -name "*.dmg" -o -name "*.msi" -o -name "*.exe" -o -name "*.deb" -o -name "*.AppImage" \)); do
             ext="${file##*.}"
@@ -141,8 +142,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/@qianyu/')
         with:
           files: |
-            apps/desktop/src-tauri/target/release/bundle/**/*.dmg
-            apps/desktop/src-tauri/target/release/bundle/**/*.msi
-            apps/desktop/src-tauri/target/release/bundle/**/*.exe
-            apps/desktop/src-tauri/target/release/bundle/**/*.deb
-            apps/desktop/src-tauri/target/release/bundle/**/*.AppImage
+            ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.dmg
+            ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.msi
+            ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.exe
+            ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.deb
+            ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.AppImage
