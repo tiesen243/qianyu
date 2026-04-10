@@ -94,7 +94,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     if: startsWith(github.ref, 'refs/tags/@qianyu/desktop@')
     env:
-      APP_ROOT: apps/mobile
+      APP_ROOT: apps/desktop
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
@@ -126,6 +126,7 @@ jobs:
         run: bun --filter '@qianyu/desktop' tauri build
         env:
           VITE_API_URL: ${{ secrets.PUBLIC_API_URL }}
+
       - name: Rename artifact
         shell: bash
         run: |
