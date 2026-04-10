@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.0.5
+
+### Patch Changes
+
+- 3dbcc78: fix, wrong app root
+
 ## 0.0.4
 
 ### Patch Changes
