@@ -54,8 +54,6 @@ Qianyu is a modern monorepo containing multiple applications and shared packages
 - **Oxc** (`tools/oxc`): Shared [Oxlint](https://oxc.rs/docs/guide/usage/linter) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) configuration.
 - **TypeScript** (`tools/typescript`): Shared TypeScript (`tsconfig`) base configurations.
 
-## Dependency Graph
-
 ```mermaid
 graph TD
   subgraph Apps
