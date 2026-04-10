@@ -12,8 +12,8 @@ help:
 
 all:
 	@$(pkm) --filter '@qianyu/api' --filter '@qianyu/dev' --filter './packages/*' build
-	@$(pkm) --filter '@qianyu/desktop' tauri build
-	@cd ./apps/mobile/android && ./gradlew assembleRelease
+	@NO_STRIP=true $(pkm) --filter '@qianyu/desktop' tauri build
+	# @cd ./apps/mobile/android && ./gradlew assembleRelease # not recommended, use Github Actions instead
 
 clean:
 	@$(pkm) --filter '*' clean
