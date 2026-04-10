@@ -11,7 +11,7 @@
     },
     "apps/api": {
       "name": "@qianyu/api",
-      "version": "0.0.6",
+      "version": "0.0.7",
       "dependencies": {
         "@elysiajs/cors": "^1.4.1",
         "@elysiajs/openapi": "^1.4.14",
@@ -31,7 +31,7 @@
     },
     "apps/desktop": {
       "name": "@qianyu/desktop",
-      "version": "0.0.2",
+      "version": "0.0.8",
       "dependencies": {
         "@fontsource-variable/geist": "catalog:prod",
         "@qianyu/api": "workspace:*",
@@ -43,6 +43,7 @@
         "react": "catalog:react",
         "react-dom": "catalog:react",
         "react-router": "^7.14.0",
+        "tauri-plugin-serialplugin-api": "^2.22.0",
       },
       "devDependencies": {
         "@qianyu/tsconfig": "workspace:*",
@@ -58,7 +59,7 @@
     },
     "apps/mobile": {
       "name": "@qianyu/mobile",
-      "version": "0.0.17",
+      "version": "0.0.18",
       "dependencies": {
         "@gorhom/bottom-sheet": "^5.2.9",
         "@qianyu/lib": "workspace:*",
@@ -99,7 +100,7 @@
     },
     "apps/web": {
       "name": "@qianyu/web",
-      "version": "0.0.12",
+      "version": "0.0.13",
       "dependencies": {
         "@fontsource-variable/geist": "catalog:prod",
         "@qianyu/api": "workspace:*",
@@ -132,7 +133,7 @@
     },
     "packages/lib": {
       "name": "@qianyu/lib",
-      "version": "0.0.8",
+      "version": "0.0.9",
       "dependencies": {
         "@elysiajs/eden": "^1.4.9",
         "@qianyu/api": "workspace:*",
@@ -2182,6 +2183,8 @@
     "tar-fs": ["tar-fs@2.1.4", "", { "dependencies": { "chownr": "^1.1.1", "mkdirp-classic": "^0.5.2", "pump": "^3.0.0", "tar-stream": "^2.1.4" } }, "sha512-mDAjwmZdh7LTT6pNleZ05Yt65HC3E+NiQzl672vQG38jIrehtJk/J3mNwIg+vShQPcLF/LV7CMnDW6vjj6sfYQ=="],
 
     "tar-stream": ["tar-stream@2.2.0", "", { "dependencies": { "bl": "^4.0.3", "end-of-stream": "^1.4.1", "fs-constants": "^1.0.0", "inherits": "^2.0.3", "readable-stream": "^3.1.1" } }, "sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ=="],
+
+    "tauri-plugin-serialplugin-api": ["tauri-plugin-serialplugin-api@2.22.0", "", { "dependencies": { "@tauri-apps/api": ">=2.0.0-beta.6" } }, "sha512-QV2SLgVr2pxnTZNYet9V8zZ+IISZCzLmxoe56uksO3Dv+TBahBYOf1EkBD6LD7dv9wr6E7EF+z7TX5WCHQ+nJQ=="],
 
     "term-size": ["term-size@2.2.1", "", {}, "sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg=="],
 

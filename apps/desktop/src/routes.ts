@@ -1,13 +1,12 @@
-import { getVersion } from '@tauri-apps/api/app'
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
 
 export const routes = createBrowserRouter([
   {
-    loader: async () => ({
-      version: await getVersion(),
-    }),
-    Component: lazy(() => import('@/routes/__root')),
+    lazy: async () => {
+      const { default: Component, loader } = await import('@/routes/__root')
+      return { Component, loader }
+    },
     children: [
       {
         index: true,
@@ -24,6 +23,14 @@ export const routes = createBrowserRouter([
       {
         path: '/chat',
         Component: lazy(() => import('@/routes/chat')),
+      },
+      {
+        path: '/serial-monitor',
+        lazy: async () => {
+          const { default: Component, loader } =
+            await import('@/routes/serial-monitor')
+          return { Component, loader }
+        },
       },
     ],
   },

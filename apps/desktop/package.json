@@ -20,7 +20,8 @@
     "@tauri-apps/plugin-opener": "^2.5.3",
     "react": "catalog:react",
     "react-dom": "catalog:react",
-    "react-router": "^7.14.0"
+    "react-router": "^7.14.0",
+    "tauri-plugin-serialplugin-api": "^2.22.0"
   },
   "devDependencies": {
     "@qianyu/tsconfig": "workspace:*",

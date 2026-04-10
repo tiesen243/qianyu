@@ -1,12 +1,17 @@
 import '@/globals.css'
 
 import { Button } from '@qianyu/ui/button'
+import { getVersion } from '@tauri-apps/api/app'
 import { Link, Outlet, useLoaderData } from 'react-router'
 
 import { Providers } from '@/components/providers'
 
+export const loader = async () => ({
+  version: await getVersion(),
+})
+
 export default function RootLayout() {
-  const { version } = useLoaderData<{ version: string }>()
+  const { version } = useLoaderData<typeof loader>()
 
   return (
     <Providers>
@@ -20,20 +25,16 @@ export default function RootLayout() {
           </h1>
 
           <nav>
-            <Button
-              variant='link'
-              render={<Link to='/' />}
-              nativeButton={false}
-            >
-              Home
-            </Button>
-            <Button
-              variant='link'
-              render={<Link to='/chat' />}
-              nativeButton={false}
-            >
-              Chat
-            </Button>
+            {navItems.map(({ label, to }) => (
+              <Button
+                key={to}
+                variant='link'
+                render={<Link to={to} />}
+                nativeButton={false}
+              >
+                {label}
+              </Button>
+            ))}
           </nav>
         </div>
       </header>
@@ -44,3 +45,18 @@ export default function RootLayout() {
     </Providers>
   )
 }
+
+const navItems = [
+  {
+    label: 'Home',
+    to: '/',
+  },
+  {
+    label: 'Chat',
+    to: '/chat',
+  },
+  {
+    label: 'Serial Monitor',
+    to: '/serial-monitor',
+  },
+]
