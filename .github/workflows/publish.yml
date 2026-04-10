@@ -152,6 +152,7 @@ jobs:
 
   publish-aur:
     runs-on: ubuntu-latest
+    container: archlinux:latest
     needs: publish-desktop
     if: startsWith(github.ref, 'refs/tags/@qianyu/desktop@')
 
