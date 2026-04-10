@@ -1,5 +1,11 @@
 # @qianyu/github
 
+## 0.2.1
+
+### Patch Changes
+
+- 12303e0: remove aur
+
 ## 0.2.0
 
 ### Minor Changes
