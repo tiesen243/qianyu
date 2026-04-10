@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.2.1
+
+### Patch Changes
+
+- 2a4d364: added upload to aur
+
 ## 0.2.0
 
 ### Minor Changes
