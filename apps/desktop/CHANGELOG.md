@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.2.4
+
+### Patch Changes
+
+- 12303e0: remove aur
+
 ## 0.2.3
 
 ### Patch Changes
