@@ -234,7 +234,7 @@ const iosNewDir = join(root, "apps/mobile/ios", newName)
 const iosOldXcodeproj = join(root, "apps/mobile/ios", `${oldName}.xcodeproj`)
 const iosNewXcodeproj = join(root, "apps/mobile/ios", `${newName}.xcodeproj`)
 
-// Update files inside ios/qianyu/ before renaming
+// Update files inside ios/${oldName}/ before renaming
 if (existsSync(iosOldDir)) {
   replaceInFile(join(iosOldDir, "Info.plist"), (content) =>
     applyReplacements(content, [
@@ -281,7 +281,7 @@ replaceInFile(pbxprojPath, (content) =>
   ]),
 )
 
-// Rename ios/qianyu.xcodeproj/ → ios/{newName}.xcodeproj/
+// Rename ios/${oldName}.xcodeproj/ → ios/${newName}.xcodeproj/
 if (existsSync(iosOldXcodeproj)) {
   renameSync(iosOldXcodeproj, iosNewXcodeproj)
   console.log(
