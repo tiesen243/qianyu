@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.2.3
+
+### Patch Changes
+
+- 59ee978: fix public to aur
+
 ## 0.2.2
 
 ### Patch Changes
