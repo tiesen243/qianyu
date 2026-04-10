@@ -54,6 +54,49 @@ Qianyu is a modern monorepo containing multiple applications and shared packages
 - **Oxc** (`tools/oxc`): Shared [Oxlint](https://oxc.rs/docs/guide/usage/linter) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) configuration.
 - **TypeScript** (`tools/typescript`): Shared TypeScript (`tsconfig`) base configurations.
 
+## Dependency Graph
+
+```mermaid
+graph TD
+  subgraph Apps
+    api["@qianyu/api"]
+    web["@qianyu/web"]
+    desktop["@qianyu/desktop"]
+    mobile["@qianyu/mobile"]
+  end
+
+  subgraph Packages
+    lib["@qianyu/lib"]
+    ui["@qianyu/ui"]
+    firmware["@qianyu/firmware"]
+  end
+
+  subgraph Tools
+    infra["@qianyu/infra"]
+    tsconfig["@qianyu/tsconfig"]
+    oxc["@qianyu/oxc"]
+    github["@qianyu/github"]
+  end
+
+  api --> infra
+  api --> tsconfig
+  lib --> api
+  lib --> tsconfig
+  ui --> tsconfig
+  web --> api
+  web --> lib
+  web --> ui
+  web --> infra
+  web --> tsconfig
+  desktop --> api
+  desktop --> lib
+  desktop --> ui
+  desktop --> tsconfig
+  mobile --> lib
+  mobile --> ui
+  mobile --> tsconfig
+```
+
 ## Tech Stack
 
 - **API**: Elysia.js, Drizzle ORM, Effect, Zod, Cloudflare Workers (D1, Durable Objects)
