@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.0.8
+
+### Patch Changes
+
+- 4076c16: replace xml request with fetch
+
 ## 0.0.7
 
 ### Patch Changes
