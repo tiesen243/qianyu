@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.2.2
+
+### Patch Changes
+
+- 32f5ff4: fix upload to aur error
+
 ## 0.2.1
 
 ### Patch Changes
