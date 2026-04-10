@@ -18,7 +18,10 @@
       }
     ],
     "security": {
-      "csp": null
+      "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost https://qianyu-api-prod.tiesen.workers.dev"
+      }
     }
   },
   "bundle": {
