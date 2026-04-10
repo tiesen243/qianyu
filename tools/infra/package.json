@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./index.js",
+    ".": "./index.ts",
     "./alchemy.run": "./alchemy.run.ts"
   },
   "scripts": {
@@ -14,6 +14,7 @@
     "dev": "alchemy dev"
   },
   "devDependencies": {
-    "alchemy": "^0.90.1"
+    "alchemy": "^0.91.2",
+    "typescript": "catalog:dev"
   }
 }

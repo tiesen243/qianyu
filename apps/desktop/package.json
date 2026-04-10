@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
+    "clean": "git clean -fdX .cache dist node_modules",
     "dev": "vite",
     "preview": "vite preview",
     "tauri": "tauri",
