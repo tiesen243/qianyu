@@ -1,13 +1,16 @@
 # Qianyu
 
 <p align="center">
-  <a href="https://github.com/tiesen243/qianyu/releases">
+  <a href="https://github.com/tiesen243/qianyu/releases?q=api">
     <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/api/package.json&label=version@api" alt="Version API">
   </a>
-  <a href="https://github.com/tiesen243/qianyu/releases">
+  <a href="https://github.com/tiesen243/qianyu/releases?q=desktop">
+    <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/desktop/package.json&label=version@desktop" alt="Version Desktop">
+  </a>
+  <a href="https://github.com/tiesen243/qianyu/releases?q=web">
     <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/web/package.json&label=version@web" alt="Version Web">
   </a>
-  <a href="https://github.com/tiesen243/qianyu/releases">
+  <a href="https://github.com/tiesen243/qianyu/releases?q=mobile">
     <img src="https://img.shields.io/github/package-json/v/tiesen243/qianyu?filename=apps/mobile/package.json&label=version@mobile" alt="Version Mobile">
   </a>
   <a href="LICENSE">
