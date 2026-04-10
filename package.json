@@ -36,9 +36,9 @@
     "react": {
       "@types/react-dom": "^19.2.3",
       "@types/react": "^19.2.14",
-      "react-dom": "19.2.5",
+      "react-dom": "19.2.3",
       "react-native": "^0.85.0",
-      "react": "19.2.5"
+      "react": "19.2.3"
     },
     "tailwind": {
       "@tailwindcss/vite": "^4.2.2",

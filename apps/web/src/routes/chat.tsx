@@ -14,21 +14,37 @@ export default function SSEPage() {
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
-    const es = new EventSource(
+    const xhr = new XMLHttpRequest()
+    let processedIndex = 0
+
+    xhr.open(
+      'GET',
       `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/sse`
     )
+    xhr.setRequestHeader('Accept', 'text/event-stream')
+    xhr.timeout = 35_000
 
-    es.addEventListener('message', (event) => {
-      if (event.data === 'keep-alive') return
-      setMessages((prev) => [...prev, event.data])
+    xhr.addEventListener('readystatechange', () => {
+      if (xhr.readyState !== 3) return
+
+      const { responseText } = xhr
+      const newChunk = responseText.slice(processedIndex)
+      processedIndex = responseText.length
+
+      const lines = newChunk.split('\n')
+      for (const line of lines) {
+        if (line.startsWith('data:')) {
+          const data = line.replace('data:', '').trim()
+          if (data === 'keep-alive') continue
+          if (data) setMessages((prev) => [...prev, data])
+        }
+      }
     })
 
-    es.addEventListener('error', (event) => {
-      console.error('SSE error:', event)
-      es.close()
-    })
+    xhr.addEventListener('error', (err) => console.error('SSE XHR error:', err))
+    xhr.send()
 
-    return () => es.close()
+    return () => xhr.abort()
   }, [])
 
   React.useEffect(() => {
@@ -47,7 +63,7 @@ export default function SSEPage() {
       toast.add({
         type: 'error',
         title: 'Failed to send message',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       }),
   })
 

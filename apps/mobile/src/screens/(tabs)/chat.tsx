@@ -21,6 +21,7 @@ export default function CharScreen() {
 
     xhr.open('GET', `${Config.PUBLIC_API_URL}/api/v1/sse`)
     xhr.setRequestHeader('Accept', 'text/event-stream')
+    xhr.timeout = 35_000
 
     xhr.addEventListener('readystatechange', () => {
       if (xhr.readyState !== 3) return
@@ -31,6 +32,8 @@ export default function CharScreen() {
 
       const lines = newChunk.split('\n')
       for (const line of lines) {
+        console.log(line)
+
         if (line.startsWith('data:')) {
           const data = line.replace('data:', '').trim()
           if (data === 'keep-alive') continue

@@ -22,3 +22,10 @@ build-packages:
 build:
 	@$(pkm) --filter '*' build
 
+build-android:
+	@cd apps/mobile/android
+	@./gradlew assembleRelease
+
+build-desktop:
+	@${pkm} --filter @qianyu/desktop tauri build
+

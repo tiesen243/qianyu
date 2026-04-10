@@ -12,11 +12,13 @@ export class SSE extends DurableObject {
     }, 30_000)
   }
 
-  public send(message: string) {
-    this.broadcast(message)
-  }
+  public async fetch(request: Request): Promise<Response> {
+    if (request.method === 'POST') {
+      const { message } = (await request.json()) as { message: string }
+      this.broadcast(message)
+      return new Response('Message broadcasted', { status: 200 })
+    }
 
-  public listen(_request: Request) {
     let sessionController: ReadableStreamDefaultController
 
     const stream = new ReadableStream({

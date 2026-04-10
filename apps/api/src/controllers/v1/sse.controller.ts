@@ -14,8 +14,12 @@ export const sseController = createElysia({
   ({ body }) => {
     const id = env.SSE.idFromName('global-sse')
     const stub = (env.SSE as DurableObjectNamespace<SSE>).get(id)
-    stub.send(body.message)
-    return { success: true }
+    return stub.fetch(
+      new Request('https://qianyu', {
+        method: 'POST',
+        body: JSON.stringify(body),
+      })
+    )
   },
   { body: SSEModel.send }
 )
@@ -23,5 +27,5 @@ export const sseController = createElysia({
 sseController.get('/', ({ request }) => {
   const id = env.SSE.idFromName('global-sse')
   const stub = (env.SSE as DurableObjectNamespace<SSE>).get(id)
-  return stub.listen(request)
+  return stub.fetch(request)
 })
