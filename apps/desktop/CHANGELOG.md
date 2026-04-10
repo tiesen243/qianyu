@@ -1,5 +1,12 @@
 # @qianyu/desktop
 
+## 0.0.4
+
+### Patch Changes
+
+- 4af40f9: remove tauri-cli from build steps
+- 24ab0f2: update build step
+
 ## 0.0.3
 
 ### Patch Changes
