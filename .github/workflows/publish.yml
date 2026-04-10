@@ -133,7 +133,7 @@ jobs:
           VERSION=${GITHUB_REF_NAME#@qianyu/desktop@}
           cd $APP_ROOT/src-tauri/target/release/bundle
           # Find and rename installer files to include the version and platform
-          for file in $(find . -type f \( -name "*.dmg" -o -name "*.msi" -o -name "*.exe" -o -name "*.deb" -o -name "*.AppImage" \)); do
+          for file in $(find . -type f \( -name "*.dmg" -o -name "*.msi" -o -name "*.exe" -o -name "*.deb" -o -name "*.rpm" -o -name "*.AppImage" \)); do
             ext="${file##*.}"
             mv "$file" "$(dirname "$file")/qianyu-$VERSION-${{ matrix.platform }}.$ext"
           done
@@ -147,4 +147,5 @@ jobs:
             ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.msi
             ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.exe
             ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.deb
+            ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.rpm
             ${{ env.APP_ROOT }}/src-tauri/target/release/bundle/**/*.AppImage
