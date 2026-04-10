@@ -1,5 +1,11 @@
 # @qianyu/api
 
+## 0.0.7
+
+### Patch Changes
+
+- 5ca3f48: fix build app error
+
 ## 0.0.6
 
 ### Patch Changes

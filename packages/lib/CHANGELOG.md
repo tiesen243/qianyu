@@ -1,5 +1,12 @@
 # @qianyu/lib
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [5ca3f48]
+  - @qianyu/api@0.0.7
+
 ## 0.0.8
 
 ### Patch Changes
