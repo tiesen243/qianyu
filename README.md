@@ -91,6 +91,14 @@ bun install
 
 ### Development
 
+Before running any app, build all shared packages first:
+
+```bash
+bun --filter '@qianyu/api' --filter './packages/*' build
+# or
+make build-packages
+```
+
 #### API & Web App
 
 The API and web app require Cloudflare D1 and Durable Object bindings to be injected at dev time. Copy the example env file and fill in your values, then run the dev server from the `infra` package:
@@ -106,8 +114,7 @@ Copy the example env file, set `VITE_API_URL` to your local API URL, then start 
 
 ```bash
 cp apps/desktop/.env.example apps/desktop/.env
-cd apps/desktop
-bun run tauri dev
+bun --filter @qianyu/desktop tauri dev
 ```
 
 #### Mobile App
@@ -116,10 +123,9 @@ Copy the example env file, fill in your values, then start the Metro bundler and
 
 ```bash
 cp apps/mobile/.env.example apps/mobile/.env
-cd apps/mobile
-bun run start
+bun --filter @qianyu/mobile start
 # In another terminal:
-bun run android
+bun --filter @qianyu/mobile android
 ```
 
 #### Firmware
