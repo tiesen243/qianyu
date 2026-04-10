@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.0.7
+
+### Patch Changes
+
+- dd195cb: fix cors on windows
+
 ## 0.0.6
 
 ### Patch Changes
