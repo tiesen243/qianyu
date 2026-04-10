@@ -91,36 +91,31 @@ bun install
 
 ### Development
 
-#### API
+#### API & Web App
 
-The API requires Cloudflare D1 and Durable Object bindings to be injected at dev time. Run the dev server from the `infra` package so that these bindings are available:
+The API and web app require Cloudflare D1 and Durable Object bindings to be injected at dev time. Copy the example env file and fill in your values, then run the dev server from the `infra` package:
 
 ```bash
+cp tools/infra/.env.example tools/infra/.env
 bun --filter @qianyu/infra dev
 ```
 
 #### Desktop App
 
-To start the desktop app in development mode:
+Copy the example env file, set `VITE_API_URL` to your local API URL, then start the app:
 
 ```bash
+cp apps/desktop/.env.example apps/desktop/.env
 cd apps/desktop
 bun run tauri dev
 ```
 
-#### Web App
-
-The web app also depends on the Cloudflare D1 and Durable Object bindings provided by the infra package. Start both the web app and API together with:
-
-```bash
-bun --filter @qianyu/infra dev
-```
-
 #### Mobile App
 
-To start the Metro bundler and run the app on an Android emulator or device:
+Copy the example env file, fill in your values, then start the Metro bundler and run the app on an Android emulator or device:
 
 ```bash
+cp apps/mobile/.env.example apps/mobile/.env
 cd apps/mobile
 bun run start
 # In another terminal:
