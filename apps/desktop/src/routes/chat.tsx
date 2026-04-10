@@ -14,37 +14,53 @@ export default function SSEPage() {
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
-    const xhr = new XMLHttpRequest()
-    let processedIndex = 0
+    const controller = new AbortController()
 
-    xhr.open(
-      'GET',
-      `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/sse`
-    )
-    xhr.setRequestHeader('Accept', 'text/event-stream')
-    xhr.timeout = 35_000
+    const run = async () => {
+      try {
+        const response = await fetch(
+          `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/sse`,
+          {
+            headers: { Accept: 'text/event-stream' },
+            signal: AbortSignal.any([
+              controller.signal,
+              AbortSignal.timeout(35_000),
+            ]),
+          }
+        )
 
-    xhr.addEventListener('readystatechange', () => {
-      if (xhr.readyState !== 3) return
+        if (!response.ok || !response.body)
+          throw new Error('Failed to establish SSE stream')
 
-      const { responseText } = xhr
-      const newChunk = responseText.slice(processedIndex)
-      processedIndex = responseText.length
+        const reader = response.body.getReader()
+        const decoder = new TextDecoder()
+        let buffer = ''
 
-      const lines = newChunk.split('\n')
-      for (const line of lines) {
-        if (line.startsWith('data:')) {
-          const data = line.replace('data:', '').trim()
-          if (data === 'keep-alive') continue
-          if (data) setMessages((prev) => [...prev, data])
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+
+          buffer += decoder.decode(value, { stream: true })
+          const lines = buffer.split('\n')
+          buffer = lines.pop() ?? ''
+
+          for (const line of lines) {
+            if (!line.startsWith('data:')) continue
+
+            const data = line.replace('data:', '').trim()
+            if (data === 'keep-alive') continue
+            if (data) setMessages((prev) => [...prev, data])
+          }
         }
+      } catch (error) {
+        if ((error as Error).name !== 'AbortError')
+          console.error('SSE fetch error:', error)
       }
-    })
+    }
 
-    xhr.addEventListener('error', (err) => console.error('SSE XHR error:', err))
-    xhr.send()
+    void run()
 
-    return () => xhr.abort()
+    return () => controller.abort()
   }, [])
 
   React.useEffect(() => {
