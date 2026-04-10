@@ -191,13 +191,16 @@ Set the following repository secrets before running the publish workflows:
    base64 my-release-key.keystore > my-release-key.keystore.base64
    ```
 
-3. Set secrets:
+3. Set signing secrets:
    - `RN_UPLOAD_KEY_ALIAS`: The alias of the key in your keystore
    - `RN_UPLOAD_STORE_BASE64`: The base64-encoded content of your keystore file
    - `RN_UPLOAD_STORE_PASSWORD`: The password for your keystore
-   - `RN_PREFIX` and `RN_SCHEME`: The URL scheme and prefix for deep linking
 
-4. Optionally, generate the SHA256 fingerprint for Android deep linking:
+4. Set deep-linking secrets:
+   - `RN_SCHEME`: The URI scheme for deep links (e.g. `myapp`)
+   - `RN_PREFIX`: The full deep-link prefix (e.g. `myapp://`)
+
+5. Optionally, generate the SHA256 fingerprint for Android deep linking:
 
    ```bash
    keytool -list -v -keystore my-release-key.keystore
