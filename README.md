@@ -224,6 +224,11 @@ Set the following repository secrets before running the publish workflows:
 - `CLOUDFLARE_EMAIL`: Your Cloudflare Account Email
 - `CORS_ORIGINS`: Comma-separated list of allowed CORS origins for the API
 
+- **AUR:** (Desktop deployment to Arch User Repository)
+  - `AUR_SSH_PRIVATE_KEY`: SSH private key with access to the AUR repository (set the public key in your AUR account)
+  - `AUR_USERNAME`: Your AUR username
+  - `AUR_EMAIL`: Your AUR email
+
 **General:**
 
 - `PAT_TOKEN`: GitHub Personal Access Token with `repo` and `workflow` permissions
