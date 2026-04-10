@@ -1,3 +1,0 @@
-[submodule "tools/aur"]
-	path = tools/aur
-	url = ssh://aur@aur.archlinux.org/qianyu-bin.git
