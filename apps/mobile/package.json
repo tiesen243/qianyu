@@ -1,6 +1,6 @@
 {
   "name": "@qianyu/mobile",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "scripts": {
     "android": "react-native run-android",
