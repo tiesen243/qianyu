@@ -32,20 +32,38 @@
 
 ## Overview
 
-Qianyu is a modern monorepo containing a web application and a mobile application, sharing optimized developer tooling and CI/CD pipelines.
+Qianyu is a modern monorepo containing multiple applications and shared packages, all sharing optimized developer tooling and CI/CD pipelines.
 
-The monorepo contains 2 main applications:
+### Apps
 
-- **Web App** (`apps/web`): Built with React Router, with CI configured for automated deployment to Cloudflare Workers.
-- **Mobile App** (`apps/mobile`): A Bare React Native application with CI configured for automated APK builds.
+- **API** (`apps/api`): Backend server built with [Elysia.js](https://elysiajs.com/), [Drizzle ORM](https://orm.drizzle.team/), and [Effect](https://effect.website/). Deployed to Cloudflare Workers via [Alchemy](https://alchemy.run/).
+- **Desktop** (`apps/desktop`): Cross-platform desktop application built with [Tauri](https://tauri.app/) (Rust) + React. Communicates with embedded firmware over a serial port.
+- **Web** (`apps/web`): Web application built with [React Router](https://reactrouter.com/). Deployed to Cloudflare Workers.
+- **Mobile** (`apps/mobile`): Bare [React Native](https://reactnative.dev/) application with [React Navigation](https://reactnavigation.org/) and [HeroUI Native](https://heroui.net/). Builds automated APKs via GitHub Actions.
+
+### Packages
+
+- **Firmware** (`packages/firmware`): Arduino/ESP8266 firmware that connects to the API over Wi-Fi using Server-Sent Events (SSE).
+- **Lib** (`packages/lib`): Shared library providing a typed API client and [TanStack Query](https://tanstack.com/query) utilities for use across apps.
+- **UI** (`packages/ui`): Shared React component library built with Tailwind CSS.
+
+### Tools
+
+- **GitHub** (`tools/github`): Shared GitHub Actions composite actions and release scripts.
+- **Infra** (`tools/infra`): Cloudflare infrastructure definitions using [Alchemy](https://alchemy.run/) (D1 database, Durable Objects, Workers, React Router deployment).
+- **Oxc** (`tools/oxc`): Shared [Oxlint](https://oxc.rs/docs/guide/usage/linter) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) configuration.
+- **TypeScript** (`tools/typescript`): Shared TypeScript (`tsconfig`) base configurations.
 
 ## Tech Stack
 
-- **Web App**: React Router, Cloudflare Workers
-- **Mobile App**: Bare React Native, React Navigation, HeroUI Native
-- **Styling**: Tailwind CSS (Utility-first styling approach for rapid UI development)
-- **Language**: TypeScript for safer and more maintainable code
-- **Package Manager**: Bun (Fast JavaScript runtime for development and production)
+- **API**: Elysia.js, Drizzle ORM, Effect, Zod, Cloudflare Workers (D1, Durable Objects)
+- **Desktop**: Tauri (Rust), React, React Router, Vite
+- **Web**: React Router, Cloudflare Workers
+- **Mobile**: Bare React Native, React Navigation, HeroUI Native
+- **Firmware**: Arduino / ESP8266 (C++)
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript (all JS apps), Rust (Tauri backend), C++ (firmware)
+- **Package Manager**: Bun
 - **Tooling**: Oxlint & Oxfmt for high-performance linting and formatting
 - **CI/CD**: GitHub Actions for automated builds, deployments, and releases
 
@@ -56,8 +74,10 @@ The monorepo contains 2 main applications:
 Make sure you have the following installed:
 
 - [Bun](https://bun.com/)
+- [Rust](https://www.rust-lang.org/tools/install) (for Desktop App)
 - [Android SDK](https://developer.android.com/studio) (for Mobile App)
 - [JDK 17 or higher](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html) (for Mobile App)
+- [Arduino IDE](https://www.arduino.cc/en/software) with ESP8266 board support (for Firmware)
 
 ### Installation
 
@@ -70,6 +90,24 @@ bun install
 ```
 
 ### Development
+
+#### API
+
+To start the API development server:
+
+```bash
+cd apps/api
+bun run dev
+```
+
+#### Desktop App
+
+To start the desktop app in development mode:
+
+```bash
+cd apps/desktop
+bun run tauri dev
+```
 
 #### Web App
 
@@ -91,9 +129,14 @@ bun run start
 bun run android
 ```
 
+#### Firmware
+
+1. Copy `packages/firmware/config.h.example` to `packages/firmware/config.h` and fill in your Wi-Fi credentials and API URL.
+2. Open `packages/firmware/firmware.ino` in the Arduino IDE and flash it to your ESP8266 board.
+
 ## Deployment & Workflows
 
-This project uses **GitHub Actions** to automate code quality checks, releases, web deployments, and APK builds.
+This project uses **GitHub Actions** to automate code quality checks, releases, and deployments.
 
 ### CI/CD Pipelines
 
@@ -102,21 +145,36 @@ This project uses **GitHub Actions** to automate code quality checks, releases, 
    - Linting (Oxlint)
    - Type checking (TypeScript)
 
-2. **Web App Deployment**:
-   - Automated deployment to **Cloudflare Workers** on merge/push to the main branch.
-   - PR Preview deployments via `pr-preview.yml`.
+2. **Release (`release.yml`)**: Handles versioning and release management using [Changesets](https://github.com/changesets/changesets):
+   - Opens a versioning PR that bumps package versions and generates changelogs.
+   - Tags the release commit, which triggers the Publish workflow.
 
-3. **Mobile App Build (`build-apk.yml`)**:
-   - Triggered automatically after a release is created.
-   - Builds the Android APK and uploads the artifact to the GitHub Release.
+3. **Publish (`publish.yml`)**: Triggered on version tags — deploys each app independently:
+   - **Web & API** (`@qianyu/web@*`): Deploys via Alchemy to Cloudflare Workers (production stage).
+   - **Mobile** (`@qianyu/mobile@*`): Builds a signed Android APK and uploads it to the GitHub Release.
+   - **Desktop** (`@qianyu/desktop@*`): Builds Tauri bundles for Linux, Windows, and macOS and uploads all installers to the GitHub Release.
 
-4. **Release (`release.yml`)**: Handles versioning and release management:
-   - Generates changelog using Changesets.
-   - Creates a GitHub Release.
+4. **PR Preview (`pr-preview.yml`)**: Deploys a preview of the web app and API on pull requests.
 
-### Configuring Mobile Keystore for GitHub Actions
+### Configuring GitHub Secrets
 
-If you are setting up the Android build for the first time, you need to configure GitHub Secrets for the APK build:
+Set the following repository secrets before running the publish workflows:
+
+**Cloudflare / Alchemy (Web & API deployment):**
+
+- `ALCHEMY_PASSWORD`: Generated by `openssl rand -base64 32`
+- `ALCHEMY_STATE_TOKEN`: Generated by `openssl rand -base64 32`
+- `CLOUDFLARE_ACCOUNT_ID`: Your Cloudflare Account ID
+- `CLOUDFLARE_API_TOKEN`: Your Cloudflare API Token with permissions: `Workers Scripts:Edit`, `Workers KV Storage:Edit`, `Workers R2 Storage:Edit`, `Workers Tail:Read`, `Workers Builds Configuration:Edit`, `Workers Observability:Edit`, `Workers Agents Configuration:Edit`, `Containers:Edit`, `Cloudflare Pages:Edit`, `Account Settings:Read`
+- `CLOUDFLARE_EMAIL`: Your Cloudflare Account Email
+- `CORS_ORIGINS`: Comma-separated list of allowed CORS origins for the API
+
+**General:**
+
+- `PAT_TOKEN`: GitHub Personal Access Token with `repo` and `workflow` permissions
+- `PUBLIC_API_URL`: The publicly accessible URL of the deployed API (used by Web, Mobile, and Desktop builds)
+
+**Mobile APK signing:**
 
 1. Generate a keystore:
 
@@ -133,28 +191,19 @@ If you are setting up the Android build for the first time, you need to configur
    base64 my-release-key.keystore > my-release-key.keystore.base64
    ```
 
-3. Set the following repository secrets:
+3. Set secrets:
+   - `RN_UPLOAD_KEY_ALIAS`: The alias of the key in your keystore
+   - `RN_UPLOAD_STORE_BASE64`: The base64-encoded content of your keystore file
+   - `RN_UPLOAD_STORE_PASSWORD`: The password for your keystore
+   - `RN_PREFIX` and `RN_SCHEME`: The URL scheme and prefix for deep linking
 
-- `ALCHEMY_PASSWORD`: Your Alchemy Password (generated by `openssl rand -base64 32`)
-- `ALCHEMY_STATE_TOKEN`: Your Alchemy State Token for Cloudflare Workers (generated by `openssl rand -base64 32`)
-- `CLOUDFLARE_ACCOUNT_ID`: Your Cloudflare Account ID
-- `CLOUDFLARE_API_TOKEN`: Your Cloudflare API Token with permissions: `Workers Agents Configuration:Edit`, `Containers:Edit`, `Workers Observability:Edit`, `Workers Builds Configuration:Edit`, `Cloudflare Pages:Edit`, `Workers R2 Storage:Edit`, `Workers Tail:Read`, `Workers KV Storage:Edit`, `Workers Scripts:Edit`, `Account Settings:Read`
-- `CLOUDFLARE_EMAIL`: Your Cloudflare Account Email
-- `CORS_ORIGINS`: Comma-separated list of allowed CORS origins for the API
-- `PAT_TOKEN`: Your GitHub Personal Access Token with `repo` and `workflow` permissions
-- `RN_API_URL`: The API URL of your deployed backend for the mobile app
-- `RN_PREFIX` and `RN_SCHEME`: The URL scheme and prefix for deep linking in the mobile app
-- `RN_UPLOAD_KEY_ALIAS`: The alias of the key in your keystore
-- `RN_UPLOAD_STORE_BASE64`: The base64-encoded content of your keystore file
-- `RN_UPLOAD_STORE_PASSWORD`: The password for your keystore
-
-4. Generate SHA256 fingerprint of your keystore (optional, for deep linking):
+4. Optionally, generate the SHA256 fingerprint for Android deep linking:
 
    ```bash
    keytool -list -v -keystore my-release-key.keystore
    ```
 
-   Then copy the SHA256 fingerprint and add it to `apps/web/public/.well-known/assetlinks.json` for Android deep linking.
+   Copy the SHA256 fingerprint and add it to `apps/web/public/.well-known/assetlinks.json`.
 
 ## License
 
