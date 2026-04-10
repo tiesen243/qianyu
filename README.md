@@ -127,17 +127,28 @@ Clone the repository and install dependencies:
 ```bash
 git clone https://github.com/tiesen243/qianyu.git
 cd qianyu
-bun install
 ```
 
 ### Development
+
+All development commands are run from the root using Bun's workspace filtering. You can also use the provided Makefile for convenience.
+
+```bash
+make help
+```
+
+Set up the development environment (e.g. generate types, set up pre-commit hooks):
+
+```bash
+make setup
+```
 
 Before running any app, build all shared packages first:
 
 ```bash
 bun --filter '@qianyu/api' --filter './packages/*' build
 # or
-make build-packages
+make deps
 ```
 
 #### API & Web App
@@ -147,6 +158,8 @@ The API and web app require Cloudflare D1 and Durable Object bindings to be inje
 ```bash
 cp tools/infra/.env.example tools/infra/.env
 bun --filter @qianyu/infra dev
+# or
+make dev-web
 ```
 
 #### Desktop App
@@ -156,6 +169,8 @@ Copy the example env file, set `VITE_API_URL` to your local API URL, then start 
 ```bash
 cp apps/desktop/.env.example apps/desktop/.env
 bun --filter @qianyu/desktop tauri dev
+# or
+make dev-desktop
 ```
 
 #### Mobile App
