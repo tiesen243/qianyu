@@ -63,10 +63,13 @@ void loop() {
 }
 
 void handleData(String data) {
-  if (data == "LED_ON")
+  if (data == "LED_ON") {
     digitalWrite(LED_BUILTIN, LOW);
-  else if (data == "LED_OFF")
+    Serial.println("LED ON");
+  } else if (data == "LED_OFF") {
     digitalWrite(LED_BUILTIN, HIGH);
+    Serial.println("LED OFF");
+  }
 }
 
 bool connectSSE() {
