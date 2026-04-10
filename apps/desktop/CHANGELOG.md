@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.1.1
+
+### Patch Changes
+
+- 546cb73: fix build error
+
 ## 0.1.0
 
 ### Minor Changes
