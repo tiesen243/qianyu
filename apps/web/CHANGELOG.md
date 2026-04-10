@@ -1,5 +1,18 @@
 # @qianyu/web
 
+## 0.2.0
+
+### Minor Changes
+
+- 376da4f: bump all apps and packages
+
+### Patch Changes
+
+- Updated dependencies [376da4f]
+  - @qianyu/api@0.2.0
+  - @qianyu/lib@0.2.0
+  - @qianyu/ui@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
