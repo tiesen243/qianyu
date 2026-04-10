@@ -1,5 +1,14 @@
 # @qianyu/desktop
 
+## 0.0.3
+
+### Patch Changes
+
+- 5ca3f48: fix build app error
+- Updated dependencies [5ca3f48]
+  - @qianyu/api@0.0.7
+  - @qianyu/lib@0.0.9
+
 ## 0.0.2
 
 ### Patch Changes

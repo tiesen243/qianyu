@@ -1,5 +1,12 @@
 # @qianyu/mobile
 
+## 0.0.18
+
+### Patch Changes
+
+- 5ca3f48: fix build app error
+  - @qianyu/lib@0.0.9
+
 ## 0.0.17
 
 ### Patch Changes
