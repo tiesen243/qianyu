@@ -1,5 +1,11 @@
 # @qianyu/desktop
 
+## 0.0.6
+
+### Patch Changes
+
+- b304a91: fix cors error
+
 ## 0.0.5
 
 ### Patch Changes
