@@ -1,5 +1,11 @@
 # @qianyu/api
 
+## 0.2.1
+
+### Patch Changes
+
+- e51e579: bump deps
+
 ## 0.2.0
 
 ### Minor Changes

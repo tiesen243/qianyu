@@ -1,5 +1,14 @@
 # @qianyu/mobile
 
+## 0.2.1
+
+### Patch Changes
+
+- e51e579: bump deps
+- Updated dependencies [e51e579]
+  - @qianyu/lib@0.2.1
+  - @qianyu/ui@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
