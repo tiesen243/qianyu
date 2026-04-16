@@ -3,8 +3,6 @@
   "version": "0.2.0",
   "private": true,
   "files": [
-    "*.ino",
-    "*.cpp",
-    "*.h"
+    "*.py"
   ]
 }
