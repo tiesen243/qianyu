@@ -4,11 +4,17 @@ import { createStaticNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { lazy } from 'react'
 
+import Labs from '@/screens/(labs)/__root'
 import Tabs from '@/screens/(tabs)/__root'
 import { PostDetailsHeaderRight } from '@/screens/post-details'
 
 const RootStack = createNativeStackNavigator({
   screens: {
+    labs: {
+      screen: Labs,
+      options: { headerShown: false },
+    },
+
     tabs: {
       screen: Tabs,
       linking: { initialRouteName: 'index' },
