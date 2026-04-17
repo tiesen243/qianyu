@@ -1,6 +1,10 @@
 # node.js
 node_modules/
 
+# python
+.venv/
+__pycache__/
+
 # React Router
 .react-router/
 
