@@ -7,7 +7,7 @@ import urequests  # pyright: ignore[reportMissingModuleSource]
 
 WIFI_SSID = ""
 WIFI_PASSWORD = ""
-API_URL = "http://qianyu-api-prod.tiesen.workers.dev"
+API_URL = ""
 
 # Setup LED (NodeMCU chân 2 là LED_BUILTIN, Active Low)
 led = machine.Pin(2, machine.Pin.OUT)
