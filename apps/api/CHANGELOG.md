@@ -1,5 +1,12 @@
 # @qianyu/api
 
+## 0.2.3
+
+### Patch Changes
+
+- bca8e55: switch to D1
+- d6bf311: update api to support rpc and cron job
+
 ## 0.2.2
 
 ### Patch Changes

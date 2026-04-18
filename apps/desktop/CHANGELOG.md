@@ -1,5 +1,14 @@
 # @qianyu/desktop
 
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [bca8e55]
+- Updated dependencies [d6bf311]
+  - @qianyu/api@0.2.3
+  - @qianyu/lib@0.2.3
+
 ## 0.2.6
 
 ### Patch Changes
