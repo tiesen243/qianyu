@@ -1,10 +1,10 @@
 import type { GetPostDTO } from '@/modules/post/application/dtos/get-post.dto'
 import type { IPostRepository } from '@/modules/post/domain/repositories/post.repository'
 
-import { UseCase } from '@/shared/abtracts/use-case'
+import { AbstractUseCase } from '@/shared/abstracts/use-case'
 import { Response } from '@/shared/response'
 
-export class GetPostUseCase extends UseCase<
+export class GetPostUseCase extends AbstractUseCase<
   GetPostDTO.Input,
   GetPostDTO.Output
 > {

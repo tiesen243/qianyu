@@ -1,10 +1,9 @@
-import type { Entity } from '@/shared/abtracts/entity'
-
-import { Repository } from '@/shared/abtracts/repository'
+import type { AbstractEntity } from '@/shared/abstracts/entity'
+import { AbstractRepository } from '@/shared/abstracts/repository'
 
 export abstract class MockRepository<
-  TEntity extends Entity<{ id: unknown }>,
-> extends Repository<TEntity> {
+  TEntity extends AbstractEntity<{ id: unknown }>,
+> extends AbstractRepository<TEntity> {
   protected _entities: TEntity[] = []
 
   public override all(

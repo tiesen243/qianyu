@@ -1,10 +1,10 @@
 import type { SendMessageDTO } from '@/modules/chat/application/dtos/send-message.dto'
 import type { SSE } from '@/sse'
 
-import { UseCase } from '@/shared/abtracts/use-case'
+import { AbstractUseCase } from '@/shared/abstracts/use-case'
 import { Response } from '@/shared/response'
 
-export class SendMessagesUseCase extends UseCase<
+export class SendMessagesUseCase extends AbstractUseCase<
   SendMessageDTO.Input,
   SendMessageDTO.Output
 > {

@@ -23,20 +23,20 @@ import {
   or,
 } from 'drizzle-orm'
 
-import type { Entity } from '@/shared/abtracts/entity'
+import type { AbstractEntity } from '@/shared/abstracts/entity'
 import type { Database, Tx } from '@/shared/infrastructure/drizzle/types'
 
-import { Repository } from '@/shared/abtracts/repository'
+import { AbstractRepository } from '@/shared/abstracts/repository'
 
 export abstract class DrizzleRepository<
-  TEntity extends Entity<unknown>,
+  TEntity extends AbstractEntity<unknown>,
   TTable extends SQLiteTableWithColumns<{
     name: string
     schema: undefined
     dialect: 'sqlite'
     columns: { id: SQLiteColumn }
   }>,
-> extends Repository<TEntity> {
+> extends AbstractRepository<TEntity> {
   constructor(
     protected readonly _db: Database,
     protected readonly _table: TTable

@@ -1,4 +1,4 @@
 import type { PostEntity } from '@/modules/post/domain/entities/post.entity'
-import type { Repository } from '@/shared/abtracts/repository'
+import type { AbstractRepository } from '@/shared/abstracts/repository'
 
-export interface IPostRepository extends Repository<PostEntity> {}
+export interface IPostRepository extends AbstractRepository<PostEntity> {}

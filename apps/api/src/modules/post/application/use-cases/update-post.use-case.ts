@@ -1,10 +1,10 @@
 import type { UpdatePostDTO } from '@/modules/post/application/dtos/update-post.dto'
 import type { IPostRepository } from '@/modules/post/domain/repositories/post.repository'
 
-import { UseCase } from '@/shared/abtracts/use-case'
+import { AbstractUseCase } from '@/shared/abstracts/use-case'
 import { Response } from '@/shared/response'
 
-export class UpdatePostUseCase extends UseCase<
+export class UpdatePostUseCase extends AbstractUseCase<
   UpdatePostDTO.Input,
   UpdatePostDTO.Output
 > {

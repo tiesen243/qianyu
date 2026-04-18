@@ -1,4 +1,4 @@
-export abstract class Entity<T> {
+export abstract class AbstractEntity<T> {
   public abstract id: string
 
   public clone(overrides: Partial<T> = {}): this {

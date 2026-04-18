@@ -1,6 +1,8 @@
-import type { Entity } from '@/shared/abtracts/entity'
+import type { AbstractEntity } from '@/shared/abstracts/entity'
 
-export abstract class Repository<TEntity extends Entity<unknown>> {
+export abstract class AbstractRepository<
+  TEntity extends AbstractEntity<unknown>,
+> {
   public abstract all(
     criterias?: Partial<TEntity>[],
     orderBy?: Partial<Record<keyof TEntity, 'asc' | 'desc'>>,

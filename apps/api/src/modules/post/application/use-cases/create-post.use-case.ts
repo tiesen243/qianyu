@@ -2,10 +2,10 @@ import type { CreatePostDTO } from '@/modules/post/application/dtos/create-post.
 import type { IPostRepository } from '@/modules/post/domain/repositories/post.repository'
 
 import { PostEntity } from '@/modules/post/domain/entities/post.entity'
-import { UseCase } from '@/shared/abtracts/use-case'
+import { AbstractUseCase } from '@/shared/abstracts/use-case'
 import { Response } from '@/shared/response'
 
-export class CreatePostUseCase extends UseCase<
+export class CreatePostUseCase extends AbstractUseCase<
   CreatePostDTO.Input,
   CreatePostDTO.Output
 > {
