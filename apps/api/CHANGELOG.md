@@ -1,5 +1,12 @@
 # @qianyu/api
 
+## 0.2.2
+
+### Patch Changes
+
+- 18529e2: migrate to DDD architecture
+- 1201e16: update FE code to match new API
+
 ## 0.2.1
 
 ### Patch Changes

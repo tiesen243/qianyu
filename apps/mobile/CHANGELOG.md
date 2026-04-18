@@ -1,5 +1,13 @@
 # @qianyu/mobile
 
+## 0.2.2
+
+### Patch Changes
+
+- 1201e16: update FE code to match new API
+- Updated dependencies [1201e16]
+  - @qianyu/lib@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

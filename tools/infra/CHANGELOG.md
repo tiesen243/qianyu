@@ -1,5 +1,11 @@
 # @qianyu/infra
 
+## 0.2.1
+
+### Patch Changes
+
+- 1201e16: update FE code to match new API
+
 ## 0.2.0
 
 ### Minor Changes
