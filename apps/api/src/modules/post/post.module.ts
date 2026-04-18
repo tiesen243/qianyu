@@ -1,3 +1,8 @@
+// Scheduler
+// import { postScheduler } from '@/modules/post/interfaces/schedulers/post.scheduler'
+// Infrastructure
+import type { Database } from '@/shared/infrastructure/drizzle/types'
+
 // Usecases
 import { CreatePostUseCase } from '@/modules/post/application/use-cases/create-post.use-case'
 import { DeletePostUseCase } from '@/modules/post/application/use-cases/delete-post.use-case'
@@ -10,12 +15,8 @@ import { PostRepository } from '@/modules/post/infrastructure/repositories/post.
 import { postController } from '@/modules/post/interfaces/http/post.controller'
 // RPC
 import { postRouter } from '@/modules/post/interfaces/rpc/post.router'
-// Scheduler
-// import { postScheduler } from '@/modules/post/interfaces/schedulers/post.scheduler'
-// Infrastructure
-import { DrizzleRepository } from '@/shared/infrastructure/drizzle/drizzle.repository'
 
-export const createPostModule = (db: DrizzleRepository.Database) => {
+export const createPostModule = (db: Database) => {
   const postRepository = new PostRepository(db)
 
   const usecases = {

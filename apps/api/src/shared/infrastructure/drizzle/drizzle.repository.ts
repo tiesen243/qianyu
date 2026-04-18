@@ -1,9 +1,7 @@
-import type { SQL, SQLWrapper, TablesRelationalConfig } from 'drizzle-orm'
+import type { SQL, SQLWrapper } from 'drizzle-orm'
 import type {
-  BaseSQLiteDatabase,
   SQLiteColumn,
   SQLiteTableWithColumns,
-  SQLiteTransaction,
 } from 'drizzle-orm/sqlite-core'
 
 import {
@@ -26,6 +24,7 @@ import {
 } from 'drizzle-orm'
 
 import type { Entity } from '@/shared/abtracts/entity'
+import type { Database, Tx } from '@/shared/infrastructure/drizzle/types'
 
 import { Repository } from '@/shared/abtracts/repository'
 
@@ -39,7 +38,7 @@ export abstract class DrizzleRepository<
   }>,
 > extends Repository<TEntity> {
   constructor(
-    protected readonly _db: DrizzleRepository.Database,
+    protected readonly _db: Database,
     protected readonly _table: TTable
   ) {
     super()
@@ -54,7 +53,7 @@ export abstract class DrizzleRepository<
     criterias: Partial<TEntity>[] = [],
     orderBy: Partial<Record<keyof TEntity, 'asc' | 'desc'>> = {},
     options: { limit?: number; offset?: number } = {},
-    tx: DrizzleRepository.Tx = this._db
+    tx: Tx = this._db
   ): Promise<TEntity[]> {
     const whereClauses = this._buildCriteria(criterias)
     const orderByClause = this._buildOrderBy(orderBy)
@@ -72,7 +71,7 @@ export abstract class DrizzleRepository<
 
   public override async find(
     criteria: Partial<TEntity>,
-    tx: DrizzleRepository.Tx = this._db
+    tx: Tx = this._db
   ): Promise<TEntity | null> {
     const whereClause = this._buildCriteria([criteria])
     if (!whereClause) return null
@@ -88,7 +87,7 @@ export abstract class DrizzleRepository<
 
   public override count(
     criteria: Partial<TEntity>,
-    tx: DrizzleRepository.Tx = this._db
+    tx: Tx = this._db
   ): Promise<number> {
     const whereClause = this._buildCriteria([criteria])
     return tx.$count(this._table, whereClause)
@@ -96,7 +95,7 @@ export abstract class DrizzleRepository<
 
   public override async save(
     entity: TEntity,
-    tx: DrizzleRepository.Tx = this._db
+    tx: Tx = this._db
   ): Promise<void> {
     const row = this._mapToRow(entity)
 
@@ -111,7 +110,7 @@ export abstract class DrizzleRepository<
 
   public override async delete(
     criteria: Partial<TEntity>,
-    tx: DrizzleRepository.Tx = this._db
+    tx: Tx = this._db
   ): Promise<void> {
     const whereClause = this._buildCriteria([criteria])
     if (!whereClause) return
@@ -171,17 +170,4 @@ export abstract class DrizzleRepository<
 
     return conditions.length === 1 ? conditions[0] : and(...conditions)
   }
-}
-
-export namespace DrizzleRepository {
-  export type Database = BaseSQLiteDatabase<'sync' | 'async', unknown>
-
-  export type Tx =
-    | Database
-    | SQLiteTransaction<
-        'sync' | 'async',
-        unknown,
-        Record<string, unknown>,
-        TablesRelationalConfig
-      >
 }

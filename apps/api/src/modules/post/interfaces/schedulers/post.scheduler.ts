@@ -1,7 +1,8 @@
 import { cron } from '@elysiajs/cron'
 import { Elysia } from 'elysia'
 
-import { PostUseCases } from '@/modules/post/application/types/use-cases.type'
+import type { PostUseCases } from '@/modules/post/application/types/use-cases.type'
+
 import config from '@/shared/config'
 
 export const postScheduler = (usecases: PostUseCases) =>

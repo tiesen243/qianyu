@@ -1,11 +1,9 @@
 import { Database } from 'bun:sqlite'
 import { drizzle } from 'drizzle-orm/bun-sqlite'
 
-import type { DrizzleRepository } from '@/shared/infrastructure/drizzle/drizzle.repository'
-
 import config from '@/shared/config'
 
-const createDrizzleClient = (): DrizzleRepository.Database => {
+const createDrizzleClient = () => {
   const client = new Database('./drizzle/dev.sqlite')
   return drizzle(client)
 }

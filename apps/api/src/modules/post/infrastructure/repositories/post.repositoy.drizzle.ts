@@ -1,4 +1,5 @@
 import type { IPostRepository } from '@/modules/post/domain/repositories/post.repository'
+import type { Database } from '@/shared/infrastructure/drizzle/types'
 
 import { PostEntity } from '@/modules/post/domain/entities/post.entity'
 import { DrizzleRepository } from '@/shared/infrastructure/drizzle/drizzle.repository'
@@ -8,7 +9,7 @@ export class PostRepository
   extends DrizzleRepository<PostEntity, typeof posts>
   implements IPostRepository
 {
-  constructor(db: DrizzleRepository.Database) {
+  constructor(db: Database) {
     super(db, posts)
   }
 

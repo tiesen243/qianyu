@@ -1,12 +1,12 @@
-import {
+import type {
   inferRouterInputs,
   inferRouterOutputs,
   TRPCBuiltRouter,
   TRPCDecorateCreateRouterOptions,
 } from '@trpc/server'
-import { AnyRootTypes } from '@trpc/server/unstable-core-do-not-import'
+import type { AnyRootTypes } from '@trpc/server/unstable-core-do-not-import'
 
-import { PostRouter } from '@/modules/post/interfaces/rpc/post.router'
+import type { PostRouter } from '@/modules/post/interfaces/rpc/post.router'
 
 type AppRouter = TRPCBuiltRouter<
   AnyRootTypes,

@@ -5,12 +5,27 @@
     {
       "files": ["**/*.ts"],
       "rules": {
-        "promises/prefer-await-to-then": "off",
-
         "typescript/class-methods-use-this": "off",
-        "typescript/no-empty-interface": "off",
-        "typescript/no-namespace": "off",
+        "typescript/no-empty-object-type": "off",
         "typescript/parameter-properties": "off"
+      }
+    },
+    {
+      "files": ["**/*.repository.ts"],
+      "rules": {
+        "typescript/no-empty-interface": "off"
+      }
+    },
+    {
+      "files": ["**/rpc/*.ts"],
+      "rules": {
+        "promise/prefer-await-to-then": "off"
+      }
+    },
+    {
+      "files": ["**/dtos/*.dto.ts"],
+      "rules": {
+        "typescript/no-namespace": "off"
       }
     }
   ]

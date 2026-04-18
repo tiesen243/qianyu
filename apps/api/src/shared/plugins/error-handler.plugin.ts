@@ -1,4 +1,4 @@
-import Elysia from 'elysia'
+import { Elysia } from 'elysia'
 
 import config from '@/shared/config'
 import { Response } from '@/shared/response'
@@ -9,10 +9,12 @@ export const errorHandlerPlugin = new Elysia({
 
   .onError(({ error, code }) => {
     switch (code) {
-      case 'VALIDATION':
+      case 'VALIDATION': {
         return new Response('Bad Request', 'Validation Error', error.valueError)
-      default:
+      }
+      default: {
         return Response.Error('Internal Server Error')
+      }
     }
   })
 

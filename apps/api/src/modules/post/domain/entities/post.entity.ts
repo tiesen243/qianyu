@@ -1,4 +1,5 @@
 import type { Post } from '@/modules/post/application/types/post.type'
+
 import { Entity } from '@/shared/abtracts/entity'
 import { createId } from '@/shared/utils/create-id'
 
