@@ -10,7 +10,8 @@ import { PostRepository } from '@/modules/post/infrastructure/repositories/post.
 import { postController } from '@/modules/post/interfaces/http/post.controller'
 // RPC
 import { postRouter } from '@/modules/post/interfaces/rpc/post.router'
-import { postScheduler } from '@/modules/post/interfaces/schedulers/post.scheduler'
+// Scheduler
+// import { postScheduler } from '@/modules/post/interfaces/schedulers/post.scheduler'
 // Infrastructure
 import { DrizzleRepository } from '@/shared/infrastructure/drizzle/drizzle.repository'
 
@@ -32,6 +33,6 @@ export const createPostModule = (db: DrizzleRepository.Database) => {
     rpc: {
       router: postRouter(usecases),
     },
-    scheduler: postScheduler(usecases),
+    // scheduler: postScheduler(usecases),
   }
 }
