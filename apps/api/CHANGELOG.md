@@ -1,5 +1,11 @@
 # @qianyu/api
 
+## 0.2.4
+
+### Patch Changes
+
+- 677b683: update error handler plugin
+
 ## 0.2.3
 
 ### Patch Changes
