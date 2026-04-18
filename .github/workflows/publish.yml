@@ -32,7 +32,7 @@ jobs:
           ALCHEMY_PASSWORD: ${{ secrets.ALCHEMY_PASSWORD }}
           ALCHEMY_STATE_TOKEN: ${{ secrets.ALCHEMY_STATE_TOKEN }}
 
-          APP_VERSION: ${{ github.ref_name && github.ref_name != '' && contains(github.ref_name, '@') && split(github.ref_name, '@')[1] || '' }}
+          APP_VERSION: ${{ replace(github.ref_name, '@qianyu/api@', '') }}
           CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
 
   publish-apk:
