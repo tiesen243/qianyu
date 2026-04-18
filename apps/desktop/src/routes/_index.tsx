@@ -1,4 +1,4 @@
-import type { Post } from '@qianyu/api/models/post'
+import type { Post } from '@qianyu/api/post'
 
 import { Button } from '@qianyu/ui/button'
 import {
@@ -37,7 +37,12 @@ export default function IndexPage() {
 }
 
 const PostList: React.FC = () => {
-  const { data, isLoading } = useQuery(api.post.all.queryOptions({}))
+  const { data, isLoading } = useQuery(
+    api.post.all.queryOptions({
+      page: 1,
+      limit: 12,
+    })
+  )
 
   if (isLoading || !data)
     return Array.from({ length: 6 }, (_, i) => (
@@ -59,7 +64,7 @@ const PostList: React.FC = () => {
       </Card>
     ))
 
-  return data.posts.map((_post) => <PostCard key={_post.id} post={_post} />)
+  return data.map((post) => <PostCard key={post.id} post={post} />)
 }
 
 const PostCard: React.FC<{ post: Post }> = ({ post }) => {
@@ -70,7 +75,14 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
       toast.add({ type: 'success', description: 'Post deleted successfully!' }),
     onError: ({ message }) =>
       toast.add({ type: 'error', description: message }),
-    meta: { filter: { queryKey: api.post.all.queryKey({}) } },
+    meta: {
+      filter: {
+        queryKey: api.post.all.queryKey({
+          page: 1,
+          limit: 12,
+        }),
+      },
+    },
   })
 
   return (

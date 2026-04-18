@@ -27,7 +27,7 @@ const RootStack = createNativeStackNavigator({
       options: ({ route }) => ({
         title: 'Post Details',
         headerRight: () => (
-          <PostDetailsHeaderRight id={(route.params as { id: number }).id} />
+          <PostDetailsHeaderRight id={(route.params as { id: string }).id} />
         ),
       }),
     },

@@ -9,7 +9,7 @@ const app = await createApp()
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
+    origin: config.corsOrigin,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -27,6 +27,7 @@ app.use(
 
 app.compile()
 
+export { SSE } from '@/sse'
 export default {
   fetch: app.fetch,
 }

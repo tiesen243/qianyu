@@ -44,14 +44,17 @@ const CreatePostCard: React.FC = () => {
 const PostList: React.FC = () => {
   const navigation = useNavigation()
   const { data, isLoading, refetch, isRefetching } = useQuery(
-    api.post.all.queryOptions({})
+    api.post.all.queryOptions({
+      page: 1,
+      limit: 12,
+    })
   )
 
   if (isLoading || !data) return <ActivityIndicator />
 
   return (
     <FlatList
-      data={data.posts}
+      data={data}
       keyExtractor={(item) => item.id.toString()}
       contentContainerClassName='px-4 gap-2'
       refreshing={isRefetching}

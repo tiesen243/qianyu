@@ -16,7 +16,7 @@ const app = await alchemy('qianyu', {
 })
 
 export const db = await D1Database('db', {
-  migrationsDir: path.resolve(__dirname, '../../apps/api/migrations'),
+  migrationsDir: path.resolve(__dirname, '../../apps/api/drizzle/migrations'),
 })
 
 const SSE = DurableObjectNamespace('sse', {
@@ -29,10 +29,13 @@ export const api = await Worker('api', {
   entrypoint: 'src/server.ts',
   compatibilityFlags: ['nodejs_compat'],
   bindings: {
+    NODE_ENV: 'production',
+
     APP_NAME: 'Qianyu',
-    CORS_ORIGINS: alchemy.secret(
-      process.env.CORS_ORIGINS ?? 'http://localhost:5173'
-    ),
+    APP_VERSION: process.env.APP_VERSION ?? '0.0.0',
+
+    CORS_ORIGIN: alchemy.secret(process.env.CORS_ORIGIN ?? '*'),
+
     DB: db,
     SSE,
   },

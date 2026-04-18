@@ -8,6 +8,7 @@ import { api } from '@/lib/api'
 
 export default function PostDetailPage() {
   const params = useParams()
+  if (!params.id) return null
 
   return (
     <section className='container py-4'>
@@ -16,13 +17,13 @@ export default function PostDetailPage() {
       </Button>
 
       <article>
-        <PostDetails id={Number(params.id)} />
+        <PostDetails id={params.id} />
       </article>
     </section>
   )
 }
 
-const PostDetails: React.FC<{ id: number }> = ({ id }) => {
+const PostDetails: React.FC<{ id: string }> = ({ id }) => {
   const { data, isLoading, error } = useQuery(api.post.one.queryOptions({ id }))
 
   if (isLoading)

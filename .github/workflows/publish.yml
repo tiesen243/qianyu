@@ -32,7 +32,8 @@ jobs:
           ALCHEMY_PASSWORD: ${{ secrets.ALCHEMY_PASSWORD }}
           ALCHEMY_STATE_TOKEN: ${{ secrets.ALCHEMY_STATE_TOKEN }}
 
-          CORS_ORIGINS: ${{ secrets.CORS_ORIGINS }}
+          APP_VERSION: ${{ github.ref_name && github.ref_name != '' && contains(github.ref_name, '@') && split(github.ref_name, '@')[1] || '' }}
+          CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
 
   publish-apk:
     runs-on: ubuntu-latest

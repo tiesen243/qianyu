@@ -8,11 +8,7 @@ export const homeController = () =>
     name: `${config.appName}.controller.home`,
   })
 
-    .get('/', () =>
-      Response.Ok(`Welcome to ${config.appName}!`, {
-        openapi: `${config.appUrl}/openapi`,
-      })
-    )
+    .get('/', () => Response.Ok(`Welcome to ${config.appName}!`))
 
     .get('/health', () =>
       Response.Ok('Service is healthy', {

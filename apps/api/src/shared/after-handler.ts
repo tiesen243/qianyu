@@ -31,6 +31,8 @@ export const afterHandler = new Elysia({
         return new Response('Bad Request', 'Validation Error', error.valueError)
       }
       default: {
+        console.log(error)
+
         return Response.Error('Internal Server Error')
       }
     }

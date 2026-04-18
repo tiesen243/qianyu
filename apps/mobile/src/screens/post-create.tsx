@@ -23,7 +23,14 @@ export default function PostCreateScreen() {
       toast.show('Post created successfully!')
       navigation.goBack()
     },
-    meta: { filter: { queryKey: api.post.all.queryKey({}) } },
+    meta: {
+      filter: {
+        queryKey: api.post.all.queryKey({
+          page: 1,
+          limit: 12,
+        }),
+      },
+    },
   })
 
   return (

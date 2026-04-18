@@ -19,7 +19,7 @@ export default function CharScreen() {
     const xhr = new XMLHttpRequest()
     let processedIndex = 0
 
-    xhr.open('GET', `${Config.PUBLIC_API_URL}/api/v1/sse`)
+    xhr.open('GET', `${Config.PUBLIC_API_URL}/api/v1/chat`)
     xhr.setRequestHeader('Accept', 'text/event-stream')
     xhr.timeout = 35_000
 
@@ -49,7 +49,7 @@ export default function CharScreen() {
   }, [])
 
   const { mutate, isPending } = useMutation({
-    ...api.sse.send.mutationOptions(),
+    ...api.chat.send.mutationOptions(),
     onSettled: () => setMessage(''),
     onSuccess: () => toast.show('Message sent successfully'),
     onError: (error) => toast.show(`Failed to send message: ${error.message}`),

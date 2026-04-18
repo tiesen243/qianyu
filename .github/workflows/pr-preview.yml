@@ -39,7 +39,8 @@ jobs:
           ALCHEMY_PASSWORD: ${{ secrets.ALCHEMY_PASSWORD }}
           ALCHEMY_STATE_TOKEN: ${{ secrets.ALCHEMY_STATE_TOKEN }}
 
-          CORS_ORIGINS: '*'
+          APP_VERSION: pr-${{ github.event.pull_request.number }}
+          CORS_ORIGIN: '*'
 
   cleanup-preview:
     if: ${{ github.event.action == 'closed' }}
@@ -65,4 +66,5 @@ jobs:
           ALCHEMY_PASSWORD: ${{ secrets.ALCHEMY_PASSWORD }}
           ALCHEMY_STATE_TOKEN: ${{ secrets.ALCHEMY_STATE_TOKEN }}
 
-          CORS_ORIGINS: '*'
+          APP_VERSION: pr-${{ github.event.pull_request.number }}
+          CORS_ORIGIN: '*'

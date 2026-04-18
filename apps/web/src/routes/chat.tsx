@@ -19,7 +19,7 @@ export default function SSEPage() {
 
     xhr.open(
       'GET',
-      `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/sse`
+      `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/chat`
     )
     xhr.setRequestHeader('Accept', 'text/event-stream')
     xhr.timeout = 35_000
@@ -52,7 +52,7 @@ export default function SSEPage() {
   }, [messages])
 
   const { mutate, isPending } = useMutation({
-    ...api.sse.send.mutationOptions(),
+    ...api.chat.send.mutationOptions(),
     onSettled: () => setMessage(''),
     onSuccess: () =>
       toast.add({

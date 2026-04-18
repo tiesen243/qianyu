@@ -16,13 +16,13 @@ export default function PostDetailPage({ params }: Route.ComponentProps) {
       </Button>
 
       <article>
-        <PostDetails id={Number(params.id)} />
+        <PostDetails id={params.id} />
       </article>
     </main>
   )
 }
 
-const PostDetails: React.FC<{ id: number }> = ({ id }) => {
+const PostDetails: React.FC<{ id: string }> = ({ id }) => {
   const { data, isLoading, error } = useQuery(api.post.one.queryOptions({ id }))
 
   if (isLoading)

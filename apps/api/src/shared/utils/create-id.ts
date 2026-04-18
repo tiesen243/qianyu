@@ -1,66 +1,61 @@
-import { createHash } from 'node:crypto'
+// oxlint-disable no-bitwise
+const alphabet = '0123456789abcdefghijklmnopqrstuvwxyz'
 
-const createRandom = () => {
-  if (
-    typeof globalThis !== 'undefined' &&
-    typeof globalThis.crypto.getRandomValues === 'function'
-  ) {
-    return () => {
-      const buffer = new Uint32Array(1)
-      globalThis.crypto.getRandomValues(buffer)
-      return (buffer[0] ?? 0) / 0x1_00_00_00_00
-    }
+const toBase36Fixed = (num: bigint, length: number) => {
+  let out = ''
+  const base = 36n
+
+  while (num > 0n) {
+    const r = num % base
+    out = alphabet[Number(r)] + out
+    // oxlint-disable-next-line no-param-reassign
+    num /= base
   }
 
-  return Math.random
+  return out.padStart(length, '0').slice(0, length)
 }
 
-const random = createRandom()
+// counter per process
+let counter = 0
 
-const createEntropy = (length = 4, rand = random) => {
-  let entropy = ''
-
-  while (entropy.length < length)
-    entropy += Math.floor(rand() * 36).toString(36)
-
-  return entropy
+const getRandom64 = () => {
+  const buf = new Uint32Array(2)
+  crypto.getRandomValues(buf)
+  return (BigInt(buf[0] ?? 0) << 32n) | BigInt(buf[1] ?? 0)
 }
 
-const bufToBigInt = (buf: Buffer) => {
-  let v = 0n
-  // oxlint-disable-next-line no-bitwise
-  for (const i of buf) v = (v << 8n) + BigInt(i)
-  return v
-}
+// fingerprint nhẹ (browser/server-safe)
+const fingerprint = (() => {
+  const nav = typeof navigator === 'undefined' ? '' : navigator.userAgent
+  const mem =
+    typeof performance === 'undefined' ? Math.random() : performance.now()
+  let h = 0n
 
-const hash = (input: string) => {
-  const hashBuf = createHash('sha3-512').update(input).digest()
-  return bufToBigInt(hashBuf).toString(36).slice(1)
-}
+  for (let i = 0; i < nav.length; i += 1) {
+    h ^= BigInt(nav.codePointAt(i) ?? 0)
+    h = (h << 5n) - h
+  }
 
-const createFingerprint = ({
-  globalObj = globalThis,
-  random: rand = random,
-}) => {
-  const globals = Object.keys(globalObj).toString()
-  const sourceString =
-    globals.length > 0
-      ? globals + createEntropy(32, rand)
-      : createEntropy(32, rand)
+  h ^= BigInt(Math.floor(mem * 1e9))
 
-  return hash(sourceString).slice(0, 32)
-}
+  // oxlint-disable-next-line unicorn/numeric-separators-style, unicorn/number-literal-case
+  return h & 0xffffffffn
+})()
 
-// oxlint-disable-next-line no-param-reassign, no-plusplus
-const createCounter = (count: number) => () => count++
+export function createId() {
+  const time = BigInt(Date.now())
+  const rand = getRandom64()
 
-export function createId(rand = random): string {
-  const time = Date.now().toString(36)
-  const count = createCounter(Math.floor(rand() * 476_782_367))().toString(36)
-  const fingerprint = createFingerprint({ random: rand })
+  // oxlint-disable-next-line unicorn/numeric-separators-style, unicorn/number-literal-case
+  counter = (counter + 1) & 0xffffff
 
-  const salt = createEntropy(24, rand)
-  const hashInput = `${time}${salt}${count}${fingerprint}`
+  let id = (time << 48n) ^ (rand << 16n) ^ BigInt(counter) ^ fingerprint
 
-  return `c${hash(hashInput).slice(1, 24)}`
+  id ^= id >> 23n
+  // oxlint-disable-next-line unicorn/numeric-separators-style, unicorn/number-literal-case
+  id *= 0x2127599bf4325c37n
+  id &= (1n << 128n) - 1n
+
+  // encode base36 fixed 24 chars
+  return toBase36Fixed(id, 24)
 }

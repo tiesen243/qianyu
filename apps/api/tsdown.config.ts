@@ -1,8 +1,8 @@
 import { defineConfig } from 'tsdown'
 
 export default defineConfig({
-  entry: ['src/server.ts'],
-  deps: { neverBundle: ['cloudflare:workers'] },
+  entry: ['./src/types/*.ts'],
+  deps: { neverBundle: ['bun:sqlite', 'cloudflare:workers'] },
   dts: true,
   minify: true,
   shims: true,

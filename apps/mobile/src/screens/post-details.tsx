@@ -16,12 +16,19 @@ import { Container } from '@/components/container'
 import { Icon } from '@/components/ui/icon'
 import { api } from '@/lib/api'
 
-export function PostDetailsHeaderRight({ id }: { id: number }) {
+export function PostDetailsHeaderRight({ id }: { id: string }) {
   const navigation = useNavigation()
   const { mutate } = useMutation({
     ...api.post.delete.mutationOptions(),
     onSuccess: () => navigation.goBack(),
-    meta: { filter: { queryKey: api.post.all.queryKey({}) } },
+    meta: {
+      filter: {
+        queryKey: api.post.all.queryKey({
+          page: 1,
+          limit: 12,
+        }),
+      },
+    },
   })
 
   return (
@@ -35,7 +42,7 @@ export function PostDetailsHeaderRight({ id }: { id: number }) {
 
 export default function PostDetailsScreen({
   route: { params },
-}: StaticScreenProps<{ id: number }>) {
+}: StaticScreenProps<{ id: string }>) {
   const { data, isLoading, refetch, isRefetching } = useQuery(
     api.post.one.queryOptions(params)
   )

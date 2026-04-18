@@ -19,7 +19,7 @@ export default function SSEPage() {
     const run = async () => {
       try {
         const response = await fetch(
-          `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/sse`,
+          `${new URL(import.meta.env.VITE_API_URL).origin}/api/v1/chat`,
           {
             headers: { Accept: 'text/event-stream' },
             signal: AbortSignal.any([
@@ -68,7 +68,7 @@ export default function SSEPage() {
   }, [messages])
 
   const { mutate, isPending } = useMutation({
-    ...api.sse.send.mutationOptions(),
+    ...api.chat.send.mutationOptions(),
     onSettled: () => setMessage(''),
     onSuccess: () =>
       toast.add({

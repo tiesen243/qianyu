@@ -21,7 +21,14 @@ export default function CreatePage() {
     },
     onError: ({ message }) =>
       toast.add({ type: 'error', description: message }),
-    meta: { filter: { queryKey: api.post.all.queryKey({}) } },
+    meta: {
+      filter: {
+        queryKey: api.post.all.queryKey({
+          page: 1,
+          limit: 12,
+        }),
+      },
+    },
   })
 
   return (

@@ -3,13 +3,13 @@ import type { DrizzleRepository } from '@/shared/infrastructure/drizzle/drizzle.
 import config from '@/shared/config'
 
 const createDrizzleClient = async (): Promise<DrizzleRepository.Database> => {
-  if (config.env === 'development') {
-    const { Database } = await import('bun:sqlite')
-    const { drizzle } = await import('drizzle-orm/bun-sqlite')
-
-    const client = new Database('./drizzle/dev.sqlite')
-    return drizzle(client)
-  }
+  // if (config.env === 'development') {
+  //   const { Database } = await import('bun:sqlite')
+  //   const { drizzle } = await import('drizzle-orm/bun-sqlite')
+  //
+  //   const client = new Database('./drizzle/dev.sqlite')
+  //   return drizzle(client)
+  // }
 
   const { env } = await import('cloudflare:workers')
   const { drizzle } = await import('drizzle-orm/d1')
