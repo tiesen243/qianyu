@@ -32,8 +32,8 @@ export function createApp(db: DrizzleRepository.Database) {
     .use(chatModule.controller)
     .use(postModule.http.controller)
 
-    // Register schedulers
-    .use(postModule.scheduler)
+  // Register schedulers
+  // .use(postModule.scheduler)
 
   // Initialize tRPC routers
   app.all(
