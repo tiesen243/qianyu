@@ -14,7 +14,7 @@ export const chat = ({ api }: ReturnType<typeof treaty<App>>) => ({
     mutationOptions: () =>
       mutationOptions({
         mutationKey: keys.send(),
-        mutationFn: async (input: SendMessageDTO) => {
+        mutationFn: async (input: SendMessageDTO.Input) => {
           const { data, error } = await api.v1.chat.post(input)
           if (error) throw error.value
           return data.data

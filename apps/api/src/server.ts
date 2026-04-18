@@ -4,8 +4,9 @@ import { toJSONSchema } from 'zod'
 
 import { createApp } from '@/app'
 import config from '@/shared/config'
+import { db } from '@/shared/infrastructure/drizzle/bun'
 
-const app = await createApp()
+const app = createApp(db)
 
 app.use(
   cors({
@@ -27,7 +28,7 @@ app.use(
 
 app.compile()
 
-export { SSE } from '@/sse'
+// export { SSE } from '@/sse'
 export default {
   fetch: app.fetch,
 }

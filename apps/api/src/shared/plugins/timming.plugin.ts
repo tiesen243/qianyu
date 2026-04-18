@@ -1,10 +1,9 @@
-import { Elysia } from 'elysia'
+import Elysia from 'elysia'
 
 import config from '@/shared/config'
-import { Response } from '@/shared/response'
 
-export const afterHandler = new Elysia({
-  name: `${config.appName}.after-handler`,
+export const timmingPlugin = new Elysia({
+  name: `${config.appName}.plugin.timming`,
 })
 
   .state('startTime', performance.now())
@@ -25,17 +24,4 @@ export const afterHandler = new Elysia({
     )
   })
 
-  .onError(({ error, code }) => {
-    switch (code) {
-      case 'VALIDATION': {
-        return new Response('Bad Request', 'Validation Error', error.valueError)
-      }
-      default: {
-        console.log(error)
-
-        return Response.Error('Internal Server Error')
-      }
-    }
-  })
-
-  .as('global')
+  .as('scoped')

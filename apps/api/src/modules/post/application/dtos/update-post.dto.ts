@@ -1,8 +1,15 @@
-import { createPostDTO } from '@/modules/post/application/dtos/create-post.dto'
-import { getPostDTO } from '@/modules/post/application/dtos/get-post.dto'
+import * as z from 'zod'
 
-export const updatePostDTO = createPostDTO.partial().extend({
-  id: getPostDTO.shape.id,
-})
+import { post } from '@/modules/post/application/types/post.type'
 
-export type UpdatePostDTO = ReturnType<typeof updatePostDTO.parse>
+export namespace UpdatePostDTO {
+  export const input = post.partial().extend({
+    id: post.shape.id,
+  })
+
+  export type Input = z.infer<typeof input>
+
+  export const output = z.void()
+
+  export type Output = z.infer<typeof output>
+}

@@ -1,7 +1,13 @@
 import * as z from 'zod'
 
-export const sendMessageDTO = z.object({
-  message: z.string().min(1),
-})
+export namespace SendMessageDTO {
+  export const input = z.object({
+    message: z.string().min(1),
+  })
 
-export type SendMessageDTO = z.infer<typeof sendMessageDTO>
+  export type Input = z.infer<typeof input>
+
+  export const output = z.void()
+
+  export type Output = z.infer<typeof output>
+}

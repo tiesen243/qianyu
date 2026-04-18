@@ -1,5 +1,13 @@
-import { getPostDTO } from '@/modules/post/application/dtos/get-post.dto'
+import * as z from 'zod'
 
-export const deletePostDTO = getPostDTO
+import { post } from '@/modules/post/application/types/post.type'
 
-export type DeletePostDTO = ReturnType<typeof deletePostDTO.parse>
+export namespace DeletePostDTO {
+  export const input = post.pick({ id: true })
+
+  export type Input = z.infer<typeof input>
+
+  export const output = z.void()
+
+  export type Output = z.infer<typeof output>
+}

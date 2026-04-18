@@ -4,12 +4,17 @@ import type { IPostRepository } from '@/modules/post/domain/repositories/post.re
 import { UseCase } from '@/shared/abtracts/use-case'
 import { Response } from '@/shared/response'
 
-export class DeletePostUseCase extends UseCase<DeletePostDTO, void> {
+export class DeletePostUseCase extends UseCase<
+  DeletePostDTO.Input,
+  DeletePostDTO.Output
+> {
   constructor(private readonly postRepository: IPostRepository) {
     super()
   }
 
-  public async execute(input: DeletePostDTO): Promise<Response<void>> {
+  public async execute(
+    input: DeletePostDTO.Input
+  ): Promise<Response<DeletePostDTO.Output>> {
     const post = await this.postRepository.find(input)
     if (!post) return Response.NotFound(`Post with id ${input.id} not found`)
 

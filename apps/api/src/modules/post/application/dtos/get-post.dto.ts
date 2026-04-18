@@ -1,7 +1,13 @@
-import * as z from 'zod'
+import type * as z from 'zod'
 
-export const getPostDTO = z.object({
-  id: z.cuid2(),
-})
+import { post } from '@/modules/post/application/types/post.type'
 
-export type GetPostDTO = z.infer<typeof getPostDTO>
+export namespace GetPostDTO {
+  export const input = post.pick({ id: true })
+
+  export type Input = z.infer<typeof input>
+
+  export const output = post.nullable()
+
+  export type Output = z.infer<typeof output>
+}

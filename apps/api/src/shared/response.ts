@@ -1,6 +1,12 @@
 import { status, StatusMap } from 'elysia'
 
 export class Response<T> {
+  public readonly response: {
+    status: number
+    message: string
+    data: T
+  } = {} as never
+
   constructor(
     protected statusCode: keyof StatusMap,
     public message: string,

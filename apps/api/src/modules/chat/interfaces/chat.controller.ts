@@ -3,8 +3,8 @@ import { Elysia } from 'elysia'
 import type { SendMessagesUseCase } from '@/modules/chat/application/use-cases/send-message.use-case'
 import type { SSE } from '@/sse'
 
-import { sendMessageDTO } from '@/modules/chat/application/dtos/send-message.dto'
 import config from '@/shared/config'
+import { SendMessageDTO } from '@/types/dtos/chat'
 
 interface ChatUsecases {
   sendMessage: SendMessagesUseCase
@@ -27,5 +27,5 @@ export const chatController = (usecases: ChatUsecases) =>
     })
 
     .post('/', ({ body }) => usecases.sendMessage.execute(body), {
-      body: sendMessageDTO,
+      body: SendMessageDTO.input,
     })

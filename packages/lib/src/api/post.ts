@@ -11,8 +11,8 @@ import {
 import { mutationOptions, queryOptions } from '@tanstack/react-query'
 
 const keys = {
-  all: (opts: GetPostsDTO) => ['posts', opts],
-  one: (opts: GetPostDTO) => ['posts', opts],
+  all: (opts: GetPostsDTO.Input) => ['posts', opts],
+  one: (opts: GetPostDTO.Input) => ['posts', opts],
   create: () => ['posts', 'create'],
   update: () => ['posts', 'update'],
   delete: () => ['posts', 'delete'],
@@ -21,7 +21,7 @@ const keys = {
 export const post = ({ api }: ReturnType<typeof treaty<App>>) => ({
   all: {
     queryKey: keys.all,
-    queryOptions: (opts: GetPostsDTO) =>
+    queryOptions: (opts: GetPostsDTO.Input) =>
       queryOptions({
         queryKey: keys.all(opts),
         queryFn: async () => {
@@ -34,7 +34,7 @@ export const post = ({ api }: ReturnType<typeof treaty<App>>) => ({
 
   one: {
     queryKey: keys.one,
-    queryOptions: (opts: GetPostDTO) =>
+    queryOptions: (opts: GetPostDTO.Input) =>
       queryOptions({
         queryKey: keys.one(opts),
         queryFn: async () => {
@@ -50,7 +50,7 @@ export const post = ({ api }: ReturnType<typeof treaty<App>>) => ({
     mutationOptions: () =>
       mutationOptions({
         mutationKey: keys.create(),
-        mutationFn: async (input: CreatePostDTO) => {
+        mutationFn: async (input: CreatePostDTO.Input) => {
           const { data, error } = await api.v1.posts.post(input)
           if (error) throw error.value
           return data.data
@@ -63,7 +63,7 @@ export const post = ({ api }: ReturnType<typeof treaty<App>>) => ({
     mutationOptions: () =>
       mutationOptions({
         mutationKey: keys.update(),
-        mutationFn: async ({ id, ...input }: UpdatePostDTO) => {
+        mutationFn: async ({ id, ...input }: UpdatePostDTO.Input) => {
           const { data, error } = await api.v1.posts({ id }).put(input)
           if (error) throw error.value
           return data.data
@@ -76,7 +76,7 @@ export const post = ({ api }: ReturnType<typeof treaty<App>>) => ({
     mutationOptions: () =>
       mutationOptions({
         mutationKey: keys.delete(),
-        mutationFn: async (input: DeletePostDTO) => {
+        mutationFn: async (input: DeletePostDTO.Input) => {
           const { data, error } = await api.v1.posts(input).delete()
           if (error) throw error.value
           return data.data

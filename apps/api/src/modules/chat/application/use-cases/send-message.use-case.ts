@@ -4,8 +4,13 @@ import type { SSE } from '@/sse'
 import { UseCase } from '@/shared/abtracts/use-case'
 import { Response } from '@/shared/response'
 
-export class SendMessagesUseCase extends UseCase<SendMessageDTO, void> {
-  public async execute(input: SendMessageDTO): Promise<Response<void>> {
+export class SendMessagesUseCase extends UseCase<
+  SendMessageDTO.Input,
+  SendMessageDTO.Output
+> {
+  public async execute(
+    input: SendMessageDTO.Input
+  ): Promise<Response<SendMessageDTO.Output>> {
     const { env } = await import('cloudflare:workers')
 
     const id = env.SSE.idFromName('global-sse')

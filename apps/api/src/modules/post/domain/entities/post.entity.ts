@@ -1,7 +1,8 @@
+import type { Post } from '@/modules/post/application/types/post.type'
 import { Entity } from '@/shared/abtracts/entity'
 import { createId } from '@/shared/utils/create-id'
 
-export class Post extends Entity<Post> {
+export class PostEntity extends Entity<Post> {
   public id: string
   public title: string
   public content: string

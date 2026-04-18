@@ -1,0 +1,6 @@
+export type { Post } from '@/modules/post/application/types/post.type'
+export { CreatePostDTO } from '@/modules/post/application/dtos/create-post.dto'
+export { DeletePostDTO } from '@/modules/post/application/dtos/delete-post.dto'
+export { GetPostDTO } from '@/modules/post/application/dtos/get-post.dto'
+export { GetPostsDTO } from '@/modules/post/application/dtos/get-posts.dto'
+export { UpdatePostDTO } from '@/modules/post/application/dtos/update-post.dto'

@@ -174,12 +174,12 @@ export abstract class DrizzleRepository<
 }
 
 export namespace DrizzleRepository {
-  export type Database = BaseSQLiteDatabase<'sync', unknown>
+  export type Database = BaseSQLiteDatabase<'sync' | 'async', unknown>
 
   export type Tx =
     | Database
     | SQLiteTransaction<
-        'sync',
+        'sync' | 'async',
         unknown,
         Record<string, unknown>,
         TablesRelationalConfig

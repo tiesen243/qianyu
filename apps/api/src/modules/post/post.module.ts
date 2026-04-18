@@ -1,14 +1,21 @@
+// Usecases
 import { CreatePostUseCase } from '@/modules/post/application/use-cases/create-post.use-case'
 import { DeletePostUseCase } from '@/modules/post/application/use-cases/delete-post.use-case'
 import { GetPostUseCase } from '@/modules/post/application/use-cases/get-post.use-case'
 import { GetPostsUseCase } from '@/modules/post/application/use-cases/get-posts.use-case'
 import { UpdatePostUseCase } from '@/modules/post/application/use-cases/update-post.use-case'
+// Repositories
 import { PostRepository } from '@/modules/post/infrastructure/repositories/post.repositoy.drizzle'
-import { postController } from '@/modules/post/interfaces/post.controller'
-import { db } from '@/shared/infrastructure/drizzle'
+// HTTP
+import { postController } from '@/modules/post/interfaces/http/post.controller'
+// RPC
+import { postRouter } from '@/modules/post/interfaces/rpc/post.router'
+import { postScheduler } from '@/modules/post/interfaces/schedulers/post.scheduler'
+// Infrastructure
+import { DrizzleRepository } from '@/shared/infrastructure/drizzle/drizzle.repository'
 
-export const createPostModule = async () => {
-  const postRepository = new PostRepository(await db)
+export const createPostModule = (db: DrizzleRepository.Database) => {
+  const postRepository = new PostRepository(db)
 
   const usecases = {
     getPosts: new GetPostsUseCase(postRepository),
@@ -19,7 +26,12 @@ export const createPostModule = async () => {
   }
 
   return {
-    controller: postController(usecases),
-    usecases,
+    http: {
+      controller: postController(usecases),
+    },
+    rpc: {
+      router: postRouter(usecases),
+    },
+    scheduler: postScheduler(usecases),
   }
 }

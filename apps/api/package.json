@@ -5,12 +5,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
+      "types": "./dist/types/index.d.mts",
+      "default": "./dist/types/index.mjs"
+    },
+    "./rpc": {
+      "types": "./dist/types/rpc.d.mts",
+      "default": "./dist/types/rpc.mjs"
     },
     "./*": {
-      "types": "./dist/*.d.mts",
-      "default": "./dist/*.mjs"
+      "types": "./dist/types/dtos/*.d.mts",
+      "default": "./dist/types/dtos/*.mjs"
     }
   },
   "scripts": {
@@ -22,7 +26,9 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
+    "@elysiajs/cron": "^1.4.1",
     "@elysiajs/openapi": "^1.4.14",
+    "@trpc/server": "^11.16.0",
     "drizzle-orm": "^0.45.2",
     "elysia": "^1.4.28",
     "zod": "^4.3.6"

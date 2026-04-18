@@ -1,8 +1,13 @@
 import * as z from 'zod'
 
-export const createPostDTO = z.object({
-  title: z.string().min(1, 'Title is required'),
-  content: z.string().min(1, 'Content is required'),
-})
+import { post } from '@/modules/post/application/types/post.type'
 
-export type CreatePostDTO = z.infer<typeof createPostDTO>
+export namespace CreatePostDTO {
+  export const input = post.pick({ title: true, content: true })
+
+  export type Input = z.infer<typeof input>
+
+  export const output = z.void()
+
+  export type Output = z.infer<typeof output>
+}
