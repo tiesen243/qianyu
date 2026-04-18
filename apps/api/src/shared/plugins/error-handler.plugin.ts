@@ -12,8 +12,14 @@ export const errorHandlerPlugin = new Elysia({
       case 'VALIDATION': {
         return new Response('Bad Request', 'Validation Error', error.valueError)
       }
+      case 'NOT_FOUND': {
+        return Response.NotFound('The requested resource was not found')
+      }
+      case 'INTERNAL_SERVER_ERROR': {
+        return Response.Error(error.message)
+      }
       default: {
-        return Response.Error('Internal Server Error')
+        return Response.Error('An unexpected error occurred')
       }
     }
   })
