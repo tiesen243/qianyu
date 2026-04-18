@@ -1,0 +1,28 @@
+import type { GetPostsDTO } from '@/modules/post/application/dtos/get-posts.dto'
+import type { Post } from '@/modules/post/domain/entities/post.entity'
+import type { IPostRepository } from '@/modules/post/domain/repositories/post.repository'
+
+import { UseCase } from '@/shared/abtracts/use-case'
+import { Response } from '@/shared/response'
+
+export class GetPostsUseCase extends UseCase<GetPostsDTO, Post[]> {
+  constructor(private readonly postRepository: IPostRepository) {
+    super()
+  }
+
+  public async execute({
+    query = '',
+    page,
+    limit,
+  }: GetPostsDTO): Promise<Response<Post[]>> {
+    const offset = (page - 1) * limit
+
+    const posts = await this.postRepository.all(
+      query ? [{ title: `%${query}%` }] : [],
+      { createdAt: 'desc' },
+      { limit, offset }
+    )
+
+    return Response.Ok('Posts retrieved successfully', posts)
+  }
+}

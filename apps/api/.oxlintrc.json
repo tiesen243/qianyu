@@ -5,7 +5,10 @@
     {
       "files": ["**/*.ts"],
       "rules": {
-        "require-yield": "off"
+        "typescript/class-methods-use-this": "off",
+        "typescript/no-empty-interface": "off",
+        "typescript/no-namespace": "off",
+        "typescript/parameter-properties": "off"
       }
     }
   ]

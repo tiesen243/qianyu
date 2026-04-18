@@ -1,44 +1,32 @@
 import { cors } from '@elysiajs/cors'
 import { openapi } from '@elysiajs/openapi'
-import { env } from 'cloudflare:workers'
-import { CloudflareAdapter } from 'elysia/adapter/cloudflare-worker'
+import { toJSONSchema } from 'zod'
 
-import packageJson from '@/../package.json'
-import { postController } from '@/controllers/v1/post.controller'
-import { sseController } from '@/controllers/v1/sse.controller'
-import { createElysia } from '@/lib/create-elysia'
+import { createApp } from '@/app'
+import config from '@/shared/config'
 
-const server = createElysia({
-  name: 'server',
+const app = await createApp()
 
-  adapter: CloudflareAdapter,
-})
-  .use(
-    cors({
-      origin: env.CORS_ORIGINS.split(',').map((o) => o.trim()),
-      credentials: true,
-    })
-  )
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
+)
 
-  .use(
-    openapi({
-      path: '/docs',
-      documentation: {
-        info: { title: packageJson.name, version: packageJson.version },
-      },
-    })
-  )
+app.use(
+  openapi({
+    documentation: {
+      info: { title: config.appName, version: config.appVersion },
+    },
+    mapJsonSchema: { zod: toJSONSchema },
+  })
+)
 
-  .get('/', () => ({
-    message: `Welcome to ${packageJson.name}! Visit /docs for API documentation.`,
-  }))
+app.compile()
 
-  .use(postController)
-  .use(sseController)
-
-  .compile()
-
-export type Server = typeof server
-export default server
-
-export { SSE } from '@/sse'
+export default {
+  fetch: app.fetch,
+}

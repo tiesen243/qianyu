@@ -1,0 +1,17 @@
+import type { Entity } from '@/shared/abtracts/entity'
+
+export abstract class Repository<TEntity extends Entity<unknown>> {
+  public abstract all(
+    criterias?: Partial<TEntity>[],
+    orderBy?: Partial<Record<keyof TEntity, 'asc' | 'desc'>>,
+    options?: { limit?: number; offset?: number }
+  ): Promise<TEntity[]>
+
+  public abstract find(criteria: Partial<TEntity>): Promise<TEntity | null>
+
+  public abstract count(criteria: Partial<TEntity>): Promise<number>
+
+  public abstract save(entity: TEntity): Promise<void>
+
+  public abstract delete(criteria: Partial<TEntity>): Promise<void>
+}
