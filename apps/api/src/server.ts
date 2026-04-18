@@ -4,7 +4,7 @@ import { toJSONSchema } from 'zod'
 
 import { createApp } from '@/app'
 import config from '@/shared/config'
-import { db } from '@/shared/infrastructure/drizzle/bun'
+import { db } from '@/shared/infrastructure/drizzle/d1'
 
 const app = createApp(db)
 
@@ -28,7 +28,7 @@ app.use(
 
 app.compile()
 
-// export { SSE } from '@/sse'
+export { SSE } from '@/sse'
 export default {
   fetch: app.fetch,
 }
