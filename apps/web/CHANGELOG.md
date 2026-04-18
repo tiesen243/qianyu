@@ -1,5 +1,15 @@
 # @qianyu/web
 
+## 0.2.2
+
+### Patch Changes
+
+- 1201e16: update FE code to match new API
+- Updated dependencies [18529e2]
+- Updated dependencies [1201e16]
+  - @qianyu/api@0.2.2
+  - @qianyu/lib@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes
