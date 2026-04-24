@@ -19,14 +19,14 @@
     "isbot": "^5.1.39",
     "react": "catalog:react",
     "react-dom": "catalog:react",
-    "react-router": "^7.14.1"
+    "react-router": "^7.14.2"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.32.3",
+    "@cloudflare/vite-plugin": "^1.33.1",
     "@cloudflare/workers-types": "catalog:dev",
     "@qianyu/infra": "workspace:*",
     "@qianyu/tsconfig": "workspace:*",
-    "@react-router/dev": "^7.14.1",
+    "@react-router/dev": "^7.14.2",
     "@tailwindcss/vite": "catalog:tailwind",
     "@types/node": "catalog:dev",
     "@types/react": "catalog:react",

@@ -2,6 +2,8 @@ import { Elysia } from 'elysia'
 
 import config from '@/shared/config'
 
+const logPath = ['/api', '/trpc']
+
 export const timmingPlugin = new Elysia({
   name: `${config.appName}.plugin.timming`,
 })
@@ -13,6 +15,8 @@ export const timmingPlugin = new Elysia({
   })
 
   .onAfterResponse(({ store, request, set }) => {
+    if (!logPath.some((path) => request.url.includes(path))) return
+
     const duration = performance.now() - store.startTime
 
     const timestamp = new Date().toISOString()

@@ -26,7 +26,7 @@ const SSE = DurableObjectNamespace('sse', {
 
 export const api = await Worker('api', {
   cwd: path.resolve(__dirname, '../../apps/api'),
-  entrypoint: 'src/server.ts',
+  entrypoint: 'src/worker.ts',
   compatibilityFlags: ['nodejs_compat'],
   bindings: {
     NODE_ENV: 'production',

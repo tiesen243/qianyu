@@ -19,6 +19,7 @@ export const errorHandlerPlugin = new Elysia({
         return Response.Error(error.message)
       }
       default: {
+        console.log('Unhandled error:', error)
         return Response.Error('An unexpected error occurred')
       }
     }
