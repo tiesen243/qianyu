@@ -1,5 +1,14 @@
 # @qianyu/web
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [dc1a9b8]
+- Updated dependencies [712b7a0]
+  - @qianyu/api@0.2.5
+  - @qianyu/lib@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes
