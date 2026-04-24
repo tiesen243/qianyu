@@ -1,6 +1,6 @@
 import { BunAdapter } from 'elysia/adapter/bun'
 
-import { createApp, crons } from '@/app'
+import { createApp, createCrons } from '@/app'
 import { db } from '@/shared/infrastructure/drizzle/bun-sqlite'
 
 const app = createApp(db, {
@@ -8,11 +8,7 @@ const app = createApp(db, {
   adapter: BunAdapter,
 })
 
-for (const [schedule, cron] of crons)
-  Bun.cron(schedule, async () => {
-    await cron.task(app)
-    console.log(`[CRON] '${cron.name}' executed at ${new Date().toISOString()}`)
-  })
+const crons = createCrons()
 
 const server = Bun.serve({
   fetch: app.fetch,
@@ -24,5 +20,20 @@ const server = Bun.serve({
     console: true,
   },
 })
+
+for (const [schedule, cron] of crons)
+  Bun.cron(schedule, async () => {
+    try {
+      await cron.task(app)
+      console.log(
+        `[CRON] '${cron.name}' executed at ${new Date().toISOString()}`
+      )
+    } catch (error) {
+      console.error(
+        `[CRON] Error executing '${cron.name}' at ${new Date().toISOString()}:`,
+        error
+      )
+    }
+  })
 
 console.log(`Server running at ${server.url}`)

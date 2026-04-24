@@ -39,6 +39,8 @@ export const api = await Worker('api', {
 
     CORS_ORIGIN: alchemy.secret(process.env.CORS_ORIGIN ?? '*'),
 
+    CRON_TOKEN: alchemy.secret(process.env.CRON_TOKEN ?? 'supersecrettoken'),
+
     DB: db,
     SSE,
   },

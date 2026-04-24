@@ -3,7 +3,7 @@ import type { ElysiaConfig } from 'elysia'
 import { cors } from '@elysia/cors'
 import { openapi } from '@elysia/openapi'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
-import { Elysia } from 'elysia'
+import { Elysia, t } from 'elysia'
 import { toJSONSchema } from 'zod'
 
 import type { Database } from '@/shared/infrastructure/drizzle/types'
@@ -14,6 +14,7 @@ import { createPostModule } from '@/modules/post/post.module'
 import config from '@/shared/config'
 import { errorHandlerPlugin } from '@/shared/plugins/error-handler.plugin'
 import { timmingPlugin } from '@/shared/plugins/timming.plugin'
+import { Response } from '@/shared/response'
 import { createRouter } from '@/shared/trpc'
 
 export function createApp(
@@ -40,7 +41,18 @@ export function createApp(
     .use(postModule.http.controller)
 
     // Register schedulers
-    .use(postModule.scheduler)
+    .guard(
+      {
+        beforeHandle: ({ headers }) => {
+          const token = headers['authorization'].replace('Bearer ', '')
+          if (token !== config.cronToken)
+            return new Response('Unauthorized', 'Cron token is invalid')
+        },
+        headers: t.Object({ authorization: t.String() }),
+        detail: { hide: true },
+      },
+      (_app) => _app.use(postModule.scheduler)
+    )
 
   // Initialize tRPC routers
   app.all(
@@ -78,21 +90,29 @@ export function createApp(
   return app.compile()
 }
 
-export const crons = new Map<
-  string,
-  {
-    name: string
-    task: (app: ReturnType<typeof createApp>) => Promise<unknown>
-  }
->([
-  [
-    '0 21 * * *',
-    {
-      name: 'Post Scheduler',
-      task: (app) =>
-        app.handle(
-          new Request('http://cron/scheduler/post', { method: 'POST' })
-        ),
+export const createCrons = () => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${config.cronToken}`,
     },
-  ],
-])
+  }
+
+  return new Map<
+    string,
+    {
+      name: string
+      task: (app: ReturnType<typeof createApp>) => Promise<unknown>
+    }
+  >([
+    [
+      '0 21 * * *',
+      {
+        name: 'Post Scheduler',
+        task: (app) =>
+          app.handle(new Request('http://cron/scheduler/post', options)),
+      },
+    ],
+  ])
+}

@@ -37,6 +37,7 @@ jobs:
 
           APP_VERSION: ${{ env.APP_VERSION }}
           CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
+          CRON_TOKEN: ${{ secrets.CRON_TOKEN }}
 
   publish-apk:
     runs-on: ubuntu-latest

@@ -10,6 +10,8 @@ export default {
     ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim())
     : ['*'],
 
+  cronToken: process.env.CRON_TOKEN ?? 'supersecrettoken',
+
   databaseUrl:
     process.env.DATABASE_URL ??
     'postgresql://postgres:postgres@127.0.0.1:5432/postgres?schema=public',
