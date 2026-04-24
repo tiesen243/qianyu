@@ -9,7 +9,7 @@ export class CreatePostUseCase extends AbstractUseCase<
   CreatePostDTO.Input,
   CreatePostDTO.Output
 > {
-  constructor(private readonly postRepository: IPostRepository) {
+  public constructor(private readonly postRepository: IPostRepository) {
     super()
   }
 

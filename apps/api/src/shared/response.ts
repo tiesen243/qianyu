@@ -7,7 +7,7 @@ export class Response<T> {
     data: T
   } = {} as never
 
-  constructor(
+  public constructor(
     protected statusCode: keyof StatusMap,
     public message: string,
     public data: T | null = null
@@ -20,23 +20,23 @@ export class Response<T> {
     }) as unknown as Response<T>
   }
 
-  static Ok<T>(message: string, data?: T): Response<T> {
+  public static Ok<T>(message: string, data?: T): Response<T> {
     return new Response('OK', message, data)
   }
 
-  static Created<T>(message: string, data?: T): Response<T> {
+  public static Created<T>(message: string, data?: T): Response<T> {
     return new Response('Created', message, data)
   }
 
-  static BadRequest<T>(message: string): Response<T> {
+  public static BadRequest<T>(message: string): Response<T> {
     return new Response('Bad Request', message)
   }
 
-  static NotFound<T>(message: string): Response<T> {
+  public static NotFound<T>(message: string): Response<T> {
     return new Response('Not Found', message)
   }
 
-  static Error<T>(message: string, data?: T): Response<T> {
+  public static Error<T>(message: string, data?: T): Response<T> {
     return new Response('Internal Server Error', message, data)
   }
 }

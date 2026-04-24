@@ -37,7 +37,7 @@ export abstract class DrizzleRepository<
     columns: { id: SQLiteColumn }
   }>,
 > extends AbstractRepository<TEntity> {
-  constructor(
+  public constructor(
     protected readonly _db: Database,
     protected readonly _table: TTable
   ) {

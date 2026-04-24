@@ -10,7 +10,7 @@ export class PostEntity extends AbstractEntity<Post> {
   public createdAt: Date
   public updatedAt: Date
 
-  constructor(props: Partial<Post>) {
+  public constructor(props: Partial<Post>) {
     super()
 
     this.id = props.id ?? createId()

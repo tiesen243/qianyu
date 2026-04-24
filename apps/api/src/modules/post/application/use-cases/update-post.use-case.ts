@@ -8,7 +8,7 @@ export class UpdatePostUseCase extends AbstractUseCase<
   UpdatePostDTO.Input,
   UpdatePostDTO.Output
 > {
-  constructor(private readonly postRepository: IPostRepository) {
+  public constructor(private readonly postRepository: IPostRepository) {
     super()
   }
 

@@ -1,4 +1,5 @@
 import type { AbstractEntity } from '@/shared/abstracts/entity'
+
 import { AbstractRepository } from '@/shared/abstracts/repository'
 
 export abstract class MockRepository<

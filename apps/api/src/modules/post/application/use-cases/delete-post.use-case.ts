@@ -8,7 +8,7 @@ export class DeletePostUseCase extends AbstractUseCase<
   DeletePostDTO.Input,
   DeletePostDTO.Output
 > {
-  constructor(private readonly postRepository: IPostRepository) {
+  public constructor(private readonly postRepository: IPostRepository) {
     super()
   }
 

@@ -9,7 +9,7 @@ export class PostRepository
   extends DrizzleRepository<PostEntity, typeof posts>
   implements IPostRepository
 {
-  constructor(db: Database) {
+  public constructor(db: Database) {
     super(db, posts)
   }
 
