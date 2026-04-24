@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 
 import type { SendMessagesUseCase } from '@/modules/chat/application/use-cases/send-message.use-case'
-import type { SSE } from '@/sse'
+import type { SSE } from '@/worker'
 
 import config from '@/shared/config'
 import { SendMessageDTO } from '@/types/dtos/chat'

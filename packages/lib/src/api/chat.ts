@@ -1,7 +1,7 @@
 import type { App } from '@qianyu/api'
 import type { SendMessageDTO } from '@qianyu/api/chat'
 
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import { mutationOptions } from '@tanstack/react-query'
 
 const keys = {

@@ -1,6 +1,6 @@
 import type { App } from '@qianyu/api'
 
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import {
   CreatePostDTO,
   DeletePostDTO,

@@ -1,5 +1,5 @@
 import type { SendMessageDTO } from '@/modules/chat/application/dtos/send-message.dto'
-import type { SSE } from '@/sse'
+import type { SSE } from '@/worker'
 
 import { AbstractUseCase } from '@/shared/abstracts/use-case'
 import { Response } from '@/shared/response'

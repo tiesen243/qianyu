@@ -15,6 +15,8 @@ import { PostRepository } from '@/modules/post/infrastructure/repositories/post.
 import { postController } from '@/modules/post/interfaces/http/post.controller'
 // RPC
 import { postRouter } from '@/modules/post/interfaces/rpc/post.router'
+// Scheduler
+import { postScheduler } from '@/modules/post/interfaces/schedulers/post.scheduler'
 
 export const createPostModule = (db: Database) => {
   const postRepository = new PostRepository(db)
@@ -34,6 +36,6 @@ export const createPostModule = (db: Database) => {
     rpc: {
       router: postRouter(usecases),
     },
-    // scheduler: postScheduler(usecases),
+    scheduler: postScheduler(usecases),
   }
 }

@@ -1,32 +1,7 @@
-import { cors } from '@elysiajs/cors'
-import { openapi } from '@elysiajs/openapi'
-import { toJSONSchema } from 'zod'
-
 import { createApp } from '@/app'
-import config from '@/shared/config'
-import { db } from '@/shared/infrastructure/drizzle'
+import { db } from '@/shared/infrastructure/drizzle/bun-sqlite'
 
 const app = createApp(db)
-
-app.use(
-  cors({
-    origin: config.corsOrigin,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  })
-)
-
-app.use(
-  openapi({
-    documentation: {
-      info: { title: config.appName, version: config.appVersion },
-    },
-    mapJsonSchema: { zod: toJSONSchema },
-  })
-)
-
-app.compile()
 
 export default {
   fetch: app.fetch,

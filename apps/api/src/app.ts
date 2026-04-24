@@ -1,6 +1,10 @@
+import type { ElysiaConfig } from 'elysia'
+
+import { cors } from '@elysia/cors'
+import { openapi } from '@elysia/openapi'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { Elysia } from 'elysia'
-import { CloudflareAdapter } from 'elysia/adapter/cloudflare-worker'
+import { toJSONSchema } from 'zod'
 
 import type { Database } from '@/shared/infrastructure/drizzle/types'
 
@@ -12,7 +16,10 @@ import { errorHandlerPlugin } from '@/shared/plugins/error-handler.plugin'
 import { timmingPlugin } from '@/shared/plugins/timming.plugin'
 import { createRouter } from '@/shared/trpc'
 
-export function createApp(db: Database) {
+export function createApp<TPrefix extends string>(
+  db: Database,
+  options: ElysiaConfig<TPrefix> = {}
+) {
   // Initialize modules
   const homeModule = createHomeModule()
   const chatModule = createChatModule()
@@ -21,8 +28,8 @@ export function createApp(db: Database) {
   // Initialize Elysia app
   const app = new Elysia({
     name: config.appName,
-    adapter: CloudflareAdapter,
     aot: true,
+    ...options,
   })
     // Register global plugins
     .use(timmingPlugin)
@@ -50,5 +57,24 @@ export function createApp(db: Database) {
     { detail: { hide: true } }
   )
 
-  return app
+  // Plugins
+  app
+    .use(
+      cors({
+        origin: config.corsOrigin,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true,
+      })
+    )
+    .use(
+      openapi({
+        documentation: {
+          info: { title: config.appName, version: config.appVersion },
+        },
+        mapJsonSchema: { zod: toJSONSchema },
+      })
+    )
+
+  return app.compile()
 }

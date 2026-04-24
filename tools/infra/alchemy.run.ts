@@ -28,6 +28,9 @@ export const api = await Worker('api', {
   cwd: path.resolve(__dirname, '../../apps/api'),
   entrypoint: 'src/worker.ts',
   compatibilityFlags: ['nodejs_compat'],
+  crons: [
+    '*/1 * * * *', // create-post-every-minute
+  ],
   bindings: {
     NODE_ENV: 'production',
 
