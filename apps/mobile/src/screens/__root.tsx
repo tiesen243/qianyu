@@ -2,46 +2,18 @@ import type { StaticParamList } from '@react-navigation/native'
 
 import { createStaticNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { lazy } from 'react'
 
-import Labs from '@/screens/(labs)/__root'
-import Tabs from '@/screens/(tabs)/__root'
-import { PostDetailsHeaderRight } from '@/screens/post-details'
+import Test from '@/screens/(test)/__root'
 
 const RootStack = createNativeStackNavigator({
+  initialRouteName: 'test',
+
   screens: {
-    labs: {
-      screen: Labs,
-      options: { headerShown: false },
-    },
-
-    tabs: {
-      screen: Tabs,
-      linking: { initialRouteName: 'index' },
-      options: { headerShown: false },
-    },
-
-    'post-create': {
-      screen: lazy(() => import('@/screens/post-create')),
-      linking: { path: 'posts/create' },
-      options: { title: 'Create Post' },
-    },
-
-    'post-details': {
-      screen: lazy(() => import('@/screens/post-details')),
-      linking: { path: 'posts/:id' },
-      options: ({ route }) => ({
-        title: 'Post Details',
-        headerRight: () => (
-          <PostDetailsHeaderRight id={(route.params as { id: number }).id} />
-        ),
-      }),
-    },
-
-    settings: {
-      screen: lazy(() => import('@/screens/settings/screen')),
-      linking: { path: 'settings' },
-      options: { title: 'Settings' },
+    test: {
+      screen: Test,
+      options: {
+        headerShown: false,
+      },
     },
   },
 })

@@ -15,7 +15,7 @@ export function Container({
       {...props}
       data-slot='container'
       style={[{ paddingTop: inTab ? insets.top : 16 }, style]}
-      className={cn('flex-1 gap-6 bg-background', inTab && 'pb-28', className)}
+      className={cn('flex-1 gap-6 bg-background', inTab && 'pb-24', className)}
     />
   )
 }

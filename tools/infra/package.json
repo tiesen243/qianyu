@@ -14,7 +14,7 @@
     "dev": "alchemy dev"
   },
   "devDependencies": {
-    "alchemy": "^0.91.2",
+    "alchemy": "^0.92.1",
     "typescript": "catalog:dev"
   }
 }

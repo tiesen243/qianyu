@@ -5,8 +5,10 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { HeroUINativeProvider } from 'heroui-native/provider'
 import { ToastProvider } from 'heroui-native/toast'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Provider as ReduxProvider } from 'react-redux'
 
 import { AuthProvider } from '@/components/auth-provider'
+import { store } from '@/redux/store'
 
 let clientQueryClientSingleton: QueryClient | undefined
 const getQueryClient = () => {
@@ -30,7 +32,9 @@ export function Providers({
       >
         <ToastProvider>
           <QueryClientProvider client={queryClient}>
-            <AuthProvider>{children}</AuthProvider>
+            <ReduxProvider store={store}>
+              <AuthProvider>{children}</AuthProvider>
+            </ReduxProvider>
           </QueryClientProvider>
         </ToastProvider>
       </HeroUINativeProvider>
