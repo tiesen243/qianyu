@@ -78,3 +78,22 @@ export function createApp<TPrefix extends string>(
 
   return app.compile()
 }
+
+export const crons = new Map<
+  string,
+  {
+    name: string
+    task: (app: ReturnType<typeof createApp>) => Promise<unknown>
+  }
+>([
+  [
+    '0 21 * * *',
+    {
+      name: 'Post Scheduler',
+      task: (app) =>
+        app.handle(
+          new Request('http://cron/scheduler/post', { method: 'POST' })
+        ),
+    },
+  ],
+])

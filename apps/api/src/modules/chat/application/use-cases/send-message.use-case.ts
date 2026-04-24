@@ -17,7 +17,7 @@ export class SendMessagesUseCase extends AbstractUseCase<
     const stub = (env.SSE as DurableObjectNamespace<SSE>).get(id)
 
     await stub.fetch(
-      new Request(`https://dummy`, {
+      new Request('http://durable-object', {
         method: 'POST',
         body: JSON.stringify(input),
       })

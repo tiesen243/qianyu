@@ -1,7 +1,7 @@
 import { DurableObject } from 'cloudflare:workers'
 import { CloudflareAdapter } from 'elysia/adapter/cloudflare-worker'
 
-import { createApp } from '@/app'
+import { createApp, crons } from '@/app'
 import { db } from '@/shared/infrastructure/drizzle/d1'
 
 const app = createApp(db, {
@@ -11,25 +11,11 @@ const app = createApp(db, {
 export default {
   fetch: app.fetch,
   scheduled: async (event) => {
-    const { cron } = event
+    const cron = crons.get(event.cron)
+    if (!cron) return console.warn(`No cron found for schedule: ${event.cron}`)
 
-    switch (cron) {
-      case '*/1 * * * *': {
-        await app.handle(
-          new Request('http://dummy-url/scheduler/post', { method: 'POST' })
-        )
-        console.log(
-          `CRON '${cron}' executed successfully at ${new Date().toISOString()}`
-        )
-
-        break
-      }
-      default: {
-        console.warn(
-          `No handler defined for CRON '${cron}' at ${new Date().toISOString()}`
-        )
-      }
-    }
+    await cron.task(app)
+    console.log(`[CRON] '${cron.name}' executed at ${new Date().toISOString()}`)
   },
 } satisfies ExportedHandler<Env, unknown, unknown>
 

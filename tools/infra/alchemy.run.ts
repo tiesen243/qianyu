@@ -29,7 +29,7 @@ export const api = await Worker('api', {
   entrypoint: 'src/worker.ts',
   compatibilityFlags: ['nodejs_compat'],
   crons: [
-    '*/1 * * * *', // create-post-every-minute
+    '0 21 * * *', // Create post every day at 4:00 (UTC+7)
   ],
   bindings: {
     NODE_ENV: 'production',

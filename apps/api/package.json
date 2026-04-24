@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@elysia/cors": "^1.4.1",
-    "@elysia/cron": "^1.4.1",
     "@elysia/openapi": "^1.4.14",
     "@trpc/server": "^11.16.0",
     "drizzle-orm": "^0.45.2",
