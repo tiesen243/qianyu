@@ -1,5 +1,11 @@
 # @qianyu/mobile
 
+## 0.2.5
+
+### Patch Changes
+
+- @qianyu/lib@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes

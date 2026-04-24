@@ -1,5 +1,12 @@
 # @qianyu/infra
 
+## 0.2.2
+
+### Patch Changes
+
+- dc1a9b8: set up cron
+- 712b7a0: add CRON_TOKEN
+
 ## 0.2.1
 
 ### Patch Changes
