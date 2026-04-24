@@ -4,6 +4,7 @@ import { createApp, crons } from '@/app'
 import { db } from '@/shared/infrastructure/drizzle/bun-sqlite'
 
 const app = createApp(db, {
+  aot: true,
   adapter: BunAdapter,
 })
 

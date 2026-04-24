@@ -16,7 +16,10 @@ import { errorHandlerPlugin } from '@/shared/plugins/error-handler.plugin'
 import { timmingPlugin } from '@/shared/plugins/timming.plugin'
 import { createRouter } from '@/shared/trpc'
 
-export function createApp(db: Database, options?: ElysiaConfig<''>) {
+export function createApp(
+  db: Database,
+  options?: Omit<ElysiaConfig<''>, 'prefix'>
+) {
   // Initialize modules
   const homeModule = createHomeModule()
   const chatModule = createChatModule()
@@ -25,7 +28,6 @@ export function createApp(db: Database, options?: ElysiaConfig<''>) {
   // Initialize Elysia app
   const app = new Elysia({
     name: config.appName,
-    aot: true,
     ...options,
   })
     // Register global plugins
