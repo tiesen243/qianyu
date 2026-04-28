@@ -2,7 +2,7 @@ import type { DeletePostDTO } from '@/modules/post/application/dtos/delete-post.
 import type { IPostRepository } from '@/modules/post/domain/repositories/post.repository'
 
 import { AbstractUseCase } from '@/shared/abstracts/use-case'
-import { Response } from '@/shared/response'
+import { Resp } from '@/shared/response'
 
 export class DeletePostUseCase extends AbstractUseCase<
   DeletePostDTO.Input,
@@ -14,11 +14,11 @@ export class DeletePostUseCase extends AbstractUseCase<
 
   public async execute(
     input: DeletePostDTO.Input
-  ): Promise<Response<DeletePostDTO.Output>> {
+  ): Promise<Resp<DeletePostDTO.Output>> {
     const post = await this.postRepository.find(input)
-    if (!post) return Response.NotFound(`Post with id ${input.id} not found`)
+    if (!post) return Resp.NotFound(`Post with id ${input.id} not found`)
 
     await this.postRepository.delete(input)
-    return Response.Ok('Post deleted successfully')
+    return Resp.Ok('Post deleted successfully')
   }
 }

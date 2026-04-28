@@ -14,7 +14,7 @@ import { createPostModule } from '@/modules/post/post.module'
 import config from '@/shared/config'
 import { errorHandlerPlugin } from '@/shared/plugins/error-handler.plugin'
 import { timmingPlugin } from '@/shared/plugins/timming.plugin'
-import { Response } from '@/shared/response'
+import { Resp } from '@/shared/response'
 import { createRouter } from '@/shared/trpc'
 
 export function createApp(
@@ -46,7 +46,7 @@ export function createApp(
         beforeHandle: ({ headers }) => {
           const token = headers['authorization'].replace('Bearer ', '')
           if (token !== config.cronToken)
-            return new Response('Unauthorized', 'Cron token is invalid')
+            return new Resp('UNAUTHORIZED', 'Cron token is invalid')
         },
         headers: t.Object({ authorization: t.String() }),
         detail: { hide: true },

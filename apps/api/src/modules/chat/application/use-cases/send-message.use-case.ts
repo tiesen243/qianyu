@@ -2,7 +2,7 @@ import type { SendMessageDTO } from '@/modules/chat/application/dtos/send-messag
 import type { SSE } from '@/worker'
 
 import { AbstractUseCase } from '@/shared/abstracts/use-case'
-import { Response } from '@/shared/response'
+import { Resp } from '@/shared/response'
 
 export class SendMessagesUseCase extends AbstractUseCase<
   SendMessageDTO.Input,
@@ -10,7 +10,7 @@ export class SendMessagesUseCase extends AbstractUseCase<
 > {
   public async execute(
     input: SendMessageDTO.Input
-  ): Promise<Response<SendMessageDTO.Output>> {
+  ): Promise<Resp<SendMessageDTO.Output>> {
     const { env } = await import('cloudflare:workers')
 
     const id = env.SSE.idFromName('global-sse')
@@ -23,6 +23,6 @@ export class SendMessagesUseCase extends AbstractUseCase<
       })
     )
 
-    return Response.Created('Message sent successfully')
+    return Resp.Created('Message sent successfully')
   }
 }

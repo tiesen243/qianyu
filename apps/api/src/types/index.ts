@@ -4,7 +4,6 @@ import type {
   TRPCBuiltRouter,
   TRPCDecorateCreateRouterOptions,
 } from '@trpc/server'
-import type { AnyRootTypes } from '@trpc/server/unstable-core-do-not-import'
 
 import type { createApp } from '@/app'
 import type { PostRouter } from '@/modules/post/interfaces/rpc/post.router'
@@ -12,7 +11,12 @@ import type { PostRouter } from '@/modules/post/interfaces/rpc/post.router'
 type App = Awaited<ReturnType<typeof createApp>>
 
 type AppRouter = TRPCBuiltRouter<
-  AnyRootTypes,
+  {
+    errorShape: unknown
+    meta: unknown
+    ctx: unknown
+    transformer: true
+  },
   TRPCDecorateCreateRouterOptions<{
     post: PostRouter
   }>

@@ -1,11 +1,15 @@
 import { initTRPC } from '@trpc/server'
 
-const t = initTRPC.create({})
+import { transformer } from '@/shared/trpc.transformer'
+
+const t = initTRPC.create({
+  transformer,
+})
 
 const createRouter = t.router
 
 const createMiddleware = t.middleware
 
-const procedure = t.procedure.use(createMiddleware(({ next }) => next({})))
+const procedure = t.procedure.use(createMiddleware(({ next }) => next()))
 
 export { createRouter, createMiddleware, procedure }

@@ -15,7 +15,7 @@ export const postRouter = (usecases: PostUseCases) =>
       .input(GetPostsDTO.input)
       .output(GetPostsDTO.output)
       .query(({ input }) =>
-        usecases.getPosts.execute(input).then((r) => r.response.data)
+        usecases.getPosts.execute(input).then((r) => r.toTRPC())
       ),
 
     one: procedure
@@ -23,7 +23,7 @@ export const postRouter = (usecases: PostUseCases) =>
       .input(GetPostDTO.input)
       .output(GetPostDTO.output)
       .query(({ input }) =>
-        usecases.getPost.execute(input).then((r) => r.response.data)
+        usecases.getPost.execute(input).then((r) => r.toTRPC())
       ),
 
     create: procedure
@@ -31,7 +31,7 @@ export const postRouter = (usecases: PostUseCases) =>
       .input(CreatePostDTO.input)
       .output(CreatePostDTO.output)
       .mutation(({ input }) =>
-        usecases.createPost.execute(input).then((r) => r.response.data)
+        usecases.createPost.execute(input).then((r) => r.toTRPC())
       ),
 
     update: procedure
@@ -39,7 +39,7 @@ export const postRouter = (usecases: PostUseCases) =>
       .input(UpdatePostDTO.input)
       .output(UpdatePostDTO.output)
       .mutation(({ input }) =>
-        usecases.updatePost.execute(input).then((r) => r.response.data)
+        usecases.updatePost.execute(input).then((r) => r.toTRPC())
       ),
 
     delete: procedure
@@ -47,7 +47,7 @@ export const postRouter = (usecases: PostUseCases) =>
       .input(DeletePostDTO.input)
       .output(DeletePostDTO.output)
       .mutation(({ input }) =>
-        usecases.deletePost.execute(input).then((r) => r.response.data)
+        usecases.deletePost.execute(input).then((r) => r.toTRPC())
       ),
   })
 
